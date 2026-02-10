@@ -1,4 +1,7 @@
-# Vercel
+# Netlify
+.netlify
+
+# Vercel (legacy)
 .vercel
 
 # MacOS
