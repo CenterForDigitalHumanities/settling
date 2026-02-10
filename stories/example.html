@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Story - Settling</title>
+    <meta name="description" content="An example story template for the archive">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .story-meta {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Settling: Women Who Sued the News</h1>
+            <p class="subtitle">An archive of stories from women who took legal action against news organizations</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <a href="../index.html" class="back-link">← Back to Archive</a>
+            
+            <article class="story-content">
+                <h2>Example Story Title</h2>
+                <p class="story-meta">This is a template for adding new stories to the archive</p>
+                
+                <h3>Background</h3>
+                <p>This section would contain background information about the case and the circumstances that led to the lawsuit.</p>
+                
+                <h3>The Case</h3>
+                <p>Details about the legal proceedings, key arguments, and important developments in the case would be documented here.</p>
+                
+                <h3>Outcome</h3>
+                <p>Information about the settlement, verdict, or ongoing status of the case would be included in this section.</p>
+                
+                <h3>Significance</h3>
+                <p>This section would discuss the broader implications of the case for media accountability, women's rights, or journalism practices.</p>
+                
+                <h3>Resources</h3>
+                <ul>
+                    <li><span style="color: #999;">(Court documents will be linked here)</span></li>
+                    <li><span style="color: #999;">(News coverage will be linked here)</span></li>
+                    <li><span style="color: #999;">(Related materials will be linked here)</span></li>
+                </ul>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Center for Digital Humanities. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
