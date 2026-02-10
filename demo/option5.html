@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 5: Courtroom — Settling</title>
+    <style>
+        /* =====================================================
+           OPTION 5 — COURTROOM
+           Clean, authoritative, legal/institutional.
+           Navy and silver, geometric, structured.
+           ===================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Libre Franklin', 'Segoe UI', sans-serif;
+            background: #f2f4f7;
+            color: #1c2536;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* ---------- Navigation ---------- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 28px;
+            background: #0d1b2a;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .nav-brand {
+            font-family: 'Libre Franklin', sans-serif;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #a0c4e8;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: #7a9bb8;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #a0c4e8; }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            background: #0d1b2a;
+            color: #e0e8f0;
+            padding: 80px 28px 60px;
+        }
+        .hero-inner {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: end;
+        }
+        .hero h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.8rem;
+            line-height: 1.15;
+            color: #fff;
+        }
+        .hero .subtitle {
+            font-size: 1rem;
+            color: #7a9bb8;
+            line-height: 1.6;
+        }
+        .hero-sidebar {
+            border-left: 3px solid #a0c4e8;
+            padding-left: 20px;
+        }
+        .hero-sidebar p {
+            font-size: 0.9rem;
+            color: #8aa8c4;
+            margin-bottom: 6px;
+        }
+        .hero-sidebar strong { color: #a0c4e8; }
+
+        /* ---------- Container ---------- */
+        .container { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+        /* ---------- Stat Bar ---------- */
+        .stat-bar {
+            background: #fff;
+            border-bottom: 2px solid #0d1b2a;
+            padding: 20px 0;
+        }
+        .stat-bar .container {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .stat-item .stat-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0d1b2a;
+        }
+        .stat-item .stat-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #5a6a7a;
+            margin-top: 4px;
+        }
+
+        /* ---------- Intro ---------- */
+        .intro {
+            padding: 50px 0;
+        }
+        .intro p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            margin-bottom: 1em;
+            max-width: 72ch;
+        }
+
+        /* ---------- Feature Cards ---------- */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border: 2px solid #0d1b2a;
+            margin-bottom: 50px;
+        }
+        .feat-card {
+            padding: 30px;
+            border-right: 1px solid #d0d8e0;
+            background: #fff;
+        }
+        .feat-card:last-child { border-right: none; }
+        .feat-card h3 {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+        }
+        .feat-card h3 a { color: #0d1b2a; text-decoration: none; }
+        .feat-card h3 a:hover { color: #2a5f8f; }
+        .feat-card p { font-size: 0.95rem; color: #4a5a6a; }
+        .feat-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #fff;
+            background: #0d1b2a;
+            padding: 3px 10px;
+            margin-bottom: 12px;
+        }
+
+        /* ---------- Context ---------- */
+        .context {
+            padding: 40px 0 50px;
+            border-top: 1px solid #d0d8e0;
+        }
+        .context h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.8rem;
+            color: #0d1b2a;
+            margin-bottom: 14px;
+        }
+        .context p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            margin-bottom: 1em;
+            max-width: 72ch;
+        }
+
+        /* ---------- Timeline Snippet ---------- */
+        .timeline-snippet {
+            background: #fff;
+            border: 2px solid #0d1b2a;
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+        .timeline-snippet h3 {
+            font-family: 'Libre Franklin', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+            color: #0d1b2a;
+        }
+        .tl-items { display: flex; gap: 32px; flex-wrap: wrap; }
+        .tl-item { flex: 1; min-width: 140px; }
+        .tl-year {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0d1b2a;
+        }
+        .tl-desc { font-size: 0.88rem; color: #4a5a6a; margin-top: 4px; }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background: #0d1b2a;
+            color: #7a9bb8;
+            text-align: center;
+            padding: 28px 20px;
+            font-size: 0.85rem;
+            margin-top: 40px;
+        }
+        footer a { color: #a0c4e8; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* ---------- Rationale ---------- */
+        .rationale {
+            background: #0d1b2a;
+            color: #d0dae6;
+            padding: 40px 28px;
+            max-width: 1040px;
+            margin: 0 auto 40px;
+        }
+        .rationale h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.6rem;
+            margin-bottom: 14px;
+            color: #a0c4e8;
+        }
+        .rationale p {
+            margin-bottom: 1em;
+            line-height: 1.75;
+            max-width: 72ch;
+        }
+        .rationale a { color: #a0c4e8; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 700px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .hero-sidebar { border-left: none; border-top: 2px solid #a0c4e8; padding-left: 0; padding-top: 16px; }
+            .stat-bar .container { flex-wrap: wrap; gap: 20px; }
+            .features { grid-template-columns: 1fr; }
+            .feat-card { border-right: none; border-bottom: 1px solid #d0d8e0; }
+            .feat-card:last-child { border-bottom: none; }
+            .tl-items { flex-direction: column; gap: 16px; }
+            .nav-links { gap: 0.8rem; font-size: 0.72rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Settling</a>
+        <ul class="nav-links">
+            <li><a href="../archive/index.html">Archive</a></li>
+            <li><a href="../cases/index.html">Cases</a></li>
+            <li><a href="../oral-histories/index.html">Oral Histories</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-inner">
+            <div>
+                <h1>Settling: Women Who Sued the News</h1>
+                <p class="subtitle">The EEOC Lawsuit Explosion Against News Organizations in the 1970s and Its Impact on Women in Media and Public Life</p>
+            </div>
+            <div class="hero-sidebar">
+                <p><strong>Project Lead</strong></p>
+                <p>Dr. Ashley Walter, PhD</p>
+                <p><strong>Institution</strong></p>
+                <p>Center for Digital Humanities</p>
+                <p><strong>Period Covered</strong></p>
+                <p>1970 – 1983</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-bar">
+        <div class="container">
+            <div class="stat-item">
+                <div class="stat-number">5+</div>
+                <div class="stat-label">Major Lawsuits</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1970</div>
+                <div class="stat-label">First Filing</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100s</div>
+                <div class="stat-label">Women Involved</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">13+</div>
+                <div class="stat-label">Years of Litigation</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro">
+            <p>The 1970s marked a transformative era in the American workplace, particularly for women in the media. Spurred by the Civil Rights Act of 1964 and the subsequent rise of the Equal Employment Opportunity Commission (EEOC), women across the United States began to challenge entrenched patterns of sex discrimination in employment.</p>
+            <p>This digital archive explores the explosion of lawsuits filed under the EEOC against news organizations during the 1970s, focusing on the legal and social impact these cases had on the status of women in the workplace, media, and public life.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="features">
+            <article class="feat-card">
+                <span class="feat-label">Section I</span>
+                <h3><a href="../cases/index.html">Landmark Cases</a></h3>
+                <p>Explore the major class-action lawsuits filed against news organizations including Newsweek, The New York Times, Reader's Digest, The Washington Post, and Associated Press.</p>
+            </article>
+            <article class="feat-card">
+                <span class="feat-label">Section II</span>
+                <h3><a href="../oral-histories/index.html">Oral Histories</a></h3>
+                <p>First-person accounts from the women who challenged discrimination, including interviews, transcripts, and personal narratives.</p>
+            </article>
+            <article class="feat-card">
+                <span class="feat-label">Section III</span>
+                <h3><a href="../archive/index.html">Document Archive</a></h3>
+                <p>Access court documents, photographs, press clippings, and personal papers documenting this pivotal moment in media history.</p>
+            </article>
+        </div>
+
+        <div class="timeline-snippet">
+            <h3>Key Dates</h3>
+            <div class="tl-items">
+                <div class="tl-item">
+                    <div class="tl-year">1970</div>
+                    <div class="tl-desc">Newsweek complaint filed — the first major action</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1972</div>
+                    <div class="tl-desc">Reader's Digest and Washington Post cases begin</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1973</div>
+                    <div class="tl-desc">Associated Press lawsuit filed</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1974</div>
+                    <div class="tl-desc">New York Times complaint filed</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="context">
+            <h2>Historical Context</h2>
+            <p>Between 1970 and the early 1980s, women at nearly every major print news organization in the United States filed class-action sex discrimination lawsuits. These cases exposed systemic patterns of gender discrimination, challenged rigid job hierarchies, and forced industry-wide reforms in hiring, promotion, and pay practices.</p>
+            <p>The lawsuits were driven by courageous women who risked their careers and visionary attorneys who established legal precedents that extended far beyond the media industry.</p>
+        </div>
+    </div>
+
+    <div class="rationale container">
+        <h2>Why Choose "Courtroom"?</h2>
+        <p>This design borrows from the visual language of the law — structured grids, numbered sections, a dark navy palette, and clean sans-serif typography that echoes federal court documents and institutional reports. A statistics bar immediately communicates scope and seriousness, while the timeline element provides at-a-glance orientation.</p>
+        <p><strong>Personality:</strong> Authoritative, precise, and institutional. The design says "this is a matter of public record" and invites the visitor to examine the evidence. It conveys credibility without coldness, using subtle touches of lighter blue to soften the formality.</p>
+        <p><strong>Reminds people of:</strong> Federal court system websites (redesigned), <em>Brennan Center for Justice</em>, the <em>Equal Justice Initiative</em> memorial site, or government data dashboards.</p>
+        <p><strong>Best for audiences who</strong> prioritise data, structure, and institutional authority — researchers, legal scholars, journalists, and policy professionals. The design makes a strong case that this project is rigorous, well-organised, and built to be a definitive resource.</p>
+        <p><a href="index.html">&larr; Back to all options</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Center for Digital Humanities. All rights reserved.</p>
+        <p>Forthcoming book by Dr. Ashley Walter, PhD</p>
+    </footer>
+
+    <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+</body>
+</html>

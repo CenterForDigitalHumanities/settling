@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Options — Settling: Women Who Sued the News</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+            line-height: 1.6;
+        }
+        .hero {
+            background: #1a1a2e;
+            color: #fff;
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 12px; }
+        .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 640px; margin: 0 auto; }
+        .options {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        .card-swatch {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+        .card-body { padding: 20px; flex: 1; }
+        .card-body h2 { font-size: 1.25rem; margin-bottom: 8px; }
+        .card-body p { font-size: 0.95rem; color: #555; }
+        .card-body .tag {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: #eee;
+            color: #444;
+        }
+        /* Swatch colours per option */
+        .swatch-1 { background: #111; color: #e8e0d0; font-family: 'Georgia', serif; }
+        .swatch-2 { background: #b71c1c; color: #fff; font-family: 'Helvetica Neue', sans-serif; }
+        .swatch-3 { background: #f5f0e1; color: #5c4a2a; font-family: 'Palatino Linotype', 'Book Antiqua', serif; border-bottom: 4px solid #c9a84c; }
+        .swatch-4 { background: linear-gradient(135deg, #3a3a5c, #6b5b7b); color: #f0e6d3; font-family: 'Georgia', serif; }
+        .swatch-5 { background: #0d1b2a; color: #a0c4e8; font-family: 'Franklin Gothic Medium', 'Arial Narrow', sans-serif; }
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        footer a { color: #009688; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Style Options</h1>
+        <p>Five distinct visual directions for <em>Settling: Women Who Sued the News</em>. Click any option to preview it, then scroll to the bottom of each page for the rationale behind that design.</p>
+    </div>
+
+    <div class="options">
+        <a href="option1.html" class="card">
+            <div class="card-swatch swatch-1">The Broadsheet</div>
+            <div class="card-body">
+                <h2>Option 1 — The Broadsheet</h2>
+                <p>A newspaper-inspired editorial layout with serif type and columnar design, evoking the 1970s newsroom.</p>
+                <span class="tag">Historical Period</span>
+            </div>
+        </a>
+
+        <a href="option2.html" class="card">
+            <div class="card-swatch swatch-2">Bold Justice</div>
+            <div class="card-body">
+                <h2>Option 2 — Bold Justice</h2>
+                <p>High-contrast, activist energy with powerful typography and strong colour. Confrontation front and centre.</p>
+                <span class="tag">Strength &amp; Confrontation</span>
+            </div>
+        </a>
+
+        <a href="option3.html" class="card">
+            <div class="card-swatch swatch-3">Archive Gold</div>
+            <div class="card-body">
+                <h2>Option 3 — Archive Gold</h2>
+                <p>Warm parchment tones and gold accents convey scholarly authority and archival prestige.</p>
+                <span class="tag">Scholarship</span>
+            </div>
+        </a>
+
+        <a href="option4.html" class="card">
+            <div class="card-swatch swatch-4">Voices</div>
+            <div class="card-body">
+                <h2>Option 4 — Voices</h2>
+                <p>A humanistic, portrait-focused design that foregrounds the women and their stories.</p>
+                <span class="tag">Femininity &amp; Personal Narrative</span>
+            </div>
+        </a>
+
+        <a href="option5.html" class="card">
+            <div class="card-swatch swatch-5">Courtroom</div>
+            <div class="card-body">
+                <h2>Option 5 — Courtroom</h2>
+                <p>Structured, authoritative, and clean — drawing from legal document aesthetics and institutional design.</p>
+                <span class="tag">Legal &amp; Institutional</span>
+            </div>
+        </a>
+    </div>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to main site</a></p>
+    </footer>
+</body>
+</html>
