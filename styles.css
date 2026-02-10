@@ -1,0 +1,159 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.95;
+}
+
+/* Main Content */
+main {
+    padding: 40px 20px;
+}
+
+section {
+    background: white;
+    padding: 40px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+h3 {
+    color: #764ba2;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* Intro Section */
+.intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Stories Grid */
+.story-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.story-card {
+    padding: 25px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.story-card h3 {
+    margin-top: 0;
+}
+
+.story-card p {
+    color: #666;
+}
+
+/* Resources Section */
+.resource-list {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.resource-list li {
+    margin-bottom: 15px;
+}
+
+.resource-link {
+    display: inline-block;
+    color: #667eea;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 10px 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.resource-link:hover {
+    border-bottom-color: #667eea;
+}
+
+/* Footer */
+footer {
+    background: #2d3748;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 60px;
+}
+
+footer p {
+    opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    section {
+        padding: 25px;
+    }
+    
+    .story-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
