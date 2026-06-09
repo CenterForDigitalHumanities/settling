@@ -325,6 +325,78 @@ li {
     margin-top: 0;
 }
 
+/* Book section */
+
+.book-section {
+    border-left-color: var(--cover-title-red);
+}
+
+.book-inner {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.book-cover {
+    flex: 0 0 260px;
+}
+
+.book-cover img {
+    width: 260px;
+    height: auto;
+    display: block;
+    border-radius: 2px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book-title {
+    font-family: 'Heading Compressed Bold', 'Oswald', Impact, sans-serif;
+    font-size: 1.3rem;
+    color: var(--cover-subtitle-black);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+}
+
+.book-author {
+    font-family: 'Minion Pro Bold', 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.1rem;
+    color: var(--cover-author-green);
+    margin-bottom: 1rem;
+}
+
+.store-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+}
+
+.store-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    background: var(--ink-deep);
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.store-btn:hover {
+    background: var(--cover-title-red);
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
 @keyframes rise-in {
     from {
         opacity: 0;
@@ -368,6 +440,19 @@ li {
 
     h2 {
         font-size: 1.55rem;
+    }
+
+        .book-inner {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book-cover {
+        flex: 0 0 auto;
+    }
+
+    .book-cover img {
+        width: 200px;
     }
 
     .feature-grid {
