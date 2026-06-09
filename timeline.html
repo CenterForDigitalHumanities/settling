@@ -234,6 +234,97 @@
             border-radius: 50%;
         }
 
+        /* View toggle */
+        .view-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 16px;
+        }
+
+        .view-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--line-muted);
+            color: var(--line-muted);
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 5px 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .view-toggle-btn:hover {
+            background: var(--ink-deep);
+            border-color: var(--ink-deep);
+            color: #fff;
+        }
+
+        .view-toggle-btn[aria-pressed="true"] {
+            background: var(--ink-deep);
+            border-color: var(--ink-deep);
+            color: #fff;
+        }
+
+        /* Table view */
+        .timeline-table-wrapper {
+            display: none;
+        }
+
+        .timeline-table-wrapper.active {
+            display: block;
+        }
+
+        .timeline-container.hidden {
+            display: none;
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .timeline-table thead th {
+            position: sticky;
+            top: 0;
+        }
+
+        .timeline-table td {
+            vertical-align: top;
+            padding: 12px 14px;
+        }
+
+        .timeline-table .event-date {
+            white-space: nowrap;
+            font-weight: 600;
+            color: var(--cover-title-red);
+            font-size: 0.92rem;
+            width: 140px;
+        }
+
+        .timeline-table .event-category {
+            width: 120px;
+        }
+
+        .timeline-table .table-cat-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 3px 8px;
+            border-radius: 2px;
+            color: #fff;
+        }
+
+        .table-cat-badge.cat-legislation { background: var(--cover-title-red); }
+        .table-cat-badge.cat-lawsuit { background: var(--cover-author-green); }
+        .table-cat-badge.cat-settlement { background: #c49a3c; }
+        .table-cat-badge.cat-milestone { background: #5b6b8a; }
+        .table-cat-badge.cat-movement { background: #8b4a6b; }
+
         /* Responsive */
         @media (max-width: 768px) {
             .timeline-container::before {
@@ -270,20 +361,6 @@
     </style>
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="container">
-            <a href="index.html" class="nav-brand">Settling</a>
-            <ul class="nav-links">
-                <li><a href="archive/index.html">Archive</a></li>
-                <li><a href="cases/index.html">Cases</a></li>
-                <li><a href="oral-histories/index.html">Oral Histories</a></li>
-                <li><a href="timeline.html">Timeline</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <header>
         <div class="container">
             <h1>Timeline</h1>
@@ -325,6 +402,10 @@
                 <button class="filter-btn" data-filter="settlement">Settlements</button>
                 <button class="filter-btn" data-filter="milestone">Milestones</button>
                 <button class="filter-btn" data-filter="movement">Movement</button>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-toggle-btn" id="viewToggle" aria-pressed="false" aria-controls="timelineTable">View as Table</button>
             </div>
 
             <div class="timeline-container" id="timeline">
@@ -551,18 +632,71 @@
                     </div>
                 </div>
             </div>
+
+            <div class="timeline-table-wrapper" id="timelineTable" role="region" aria-label="Timeline events as a data table">
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Event</th>
+                            <th scope="col">Category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timelineTableBody">
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="year"></span> Center for Digital Humanities. All rights reserved.</p>
-            <p class="footer-note">Forthcoming book by Dr. Ashley Walter, PhD</p>
-        </div>
-    </footer>
-
+    <script src="assets/js/Components.js"></script>
     <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // Build table from timeline items
+        (function() {
+            var items = document.querySelectorAll('.timeline-item');
+            var tbody = document.getElementById('timelineTableBody');
+            var rows = [];
+
+            items.forEach(function(item) {
+                var date = item.querySelector('.timeline-date').textContent.trim();
+                var text = item.querySelector('.timeline-text').textContent.trim();
+                var cat = item.dataset.category;
+                var catLabel = item.querySelector('.timeline-category').textContent.trim();
+
+                var tr = document.createElement('tr');
+                tr.dataset.category = cat;
+                tr.innerHTML =
+                    '<td class="event-date">' + date + '</td>' +
+                    '<td>' + text + '</td>' +
+                    '<td class="event-category"><span class="table-cat-badge cat-' + cat + '">' + catLabel + '</span></td>';
+                tbody.appendChild(tr);
+                rows.push(tr);
+            });
+        })();
+
+        // View toggle
+        var viewToggle = document.getElementById('viewToggle');
+        var timelineContainer = document.getElementById('timeline');
+        var tableWrapper = document.getElementById('timelineTable');
+        var filterButtons = document.querySelectorAll('.filter-btn');
+
+        viewToggle.addEventListener('click', function() {
+            var isTable = viewToggle.getAttribute('aria-pressed') === 'true';
+
+            if (isTable) {
+                // Switch back to timeline view
+                viewToggle.setAttribute('aria-pressed', 'false');
+                viewToggle.textContent = 'View as Table';
+                timelineContainer.classList.remove('hidden');
+                tableWrapper.classList.remove('active');
+            } else {
+                // Switch to table view
+                viewToggle.setAttribute('aria-pressed', 'true');
+                viewToggle.textContent = 'View as Timeline';
+                timelineContainer.classList.add('hidden');
+                tableWrapper.classList.add('active');
+            }
+        });
 
         // Scroll reveal animation
         const observer = new IntersectionObserver((entries) => {
@@ -581,9 +715,6 @@
         });
 
         // Category filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const timelineItems = document.querySelectorAll('.timeline-item');
-
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Update active button
@@ -592,13 +723,23 @@
 
                 const filter = button.dataset.filter;
 
-                timelineItems.forEach(item => {
+                // Filter timeline items
+                document.querySelectorAll('.timeline-item').forEach(item => {
                     if (filter === 'all' || item.dataset.category === filter) {
                         item.style.display = 'block';
                         setTimeout(() => item.classList.add('visible'), 10);
                     } else {
                         item.classList.remove('visible');
                         setTimeout(() => item.style.display = 'none', 300);
+                    }
+                });
+
+                // Filter table rows
+                document.querySelectorAll('#timelineTableBody tr').forEach(row => {
+                    if (filter === 'all' || row.dataset.category === filter) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
                     }
                 });
             });

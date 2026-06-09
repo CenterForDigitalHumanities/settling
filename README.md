@@ -106,4 +106,4 @@ Affiliation: Saint Louis University / Bellisario College of Communications, Penn
 
 ## License
 
-Center for Digital Humanities
+Research Computing Group
