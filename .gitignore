@@ -23,3 +23,7 @@ npm-debug.log*
 *.tmp
 tmp/
 temp/
+
+# AI generated files
+.continue/
+.planning/
