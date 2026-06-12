@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timeline - Settling: Women Who Sued the News</title>
     <meta name="description" content="Timeline of EEOC lawsuits and key events in the fight against sex discrimination in news organizations">
+    <meta name="generated" content="true">
     <link rel="stylesheet" href="styles.css">
+    <script src="assets/js/Components.js" defer></script>
     <style>
         /* Timeline-specific styles */
         .timeline-controls {
@@ -361,6 +363,9 @@
     </style>
 </head>
 <body>
+    <settling-release-banner></settling-release-banner>
+    <settling-nav></settling-nav>
+
     <header>
         <div class="container">
             <h1>Timeline</h1>
@@ -649,7 +654,6 @@
         </section>
     </main>
 
-    <script src="assets/js/Components.js"></script>
     <script>
         // Build table from timeline items
         (function() {
@@ -745,5 +749,7 @@
             });
         });
     </script>
+
+    <settling-footer></settling-footer>
 </body>
 </html>
