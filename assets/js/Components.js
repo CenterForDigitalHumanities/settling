@@ -2,8 +2,8 @@ const SiteComponents = (() => {
   const RELEASE_DATE = new Date("2026-10-28T00:00:00").getTime()
 
   const prefixFor = () => {
-    const depth = window.location.pathname.split("/").filter(Boolean).length
-    return depth === 0 ? "" : "../".repeat(depth)
+    // All relative URLs are resolved from /settling/ by <base href="/settling/">
+    return ""
   }
 
   class SettlingNav extends HTMLElement {
