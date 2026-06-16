@@ -3,7 +3,7 @@
   command = ""
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "24"
 
 # Clean URLs - serve about.html as /about
 [[redirects]]
@@ -51,10 +51,10 @@
   status = 200
 
 [context.production]
-  environment = { NODE_VERSION = "18" }
+  environment = { NODE_VERSION = "24" }
 
 [context.deploy-preview]
-  environment = { NODE_VERSION = "18" }
+  environment = { NODE_VERSION = "24" }
 
 [context.branch-deploy]
-  environment = { NODE_VERSION = "18" }
+  environment = { NODE_VERSION = "24" }
