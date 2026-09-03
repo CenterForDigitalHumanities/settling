@@ -24,11 +24,16 @@ const SiteComponents = (() => {
         links.unshift({ label: "Interviews", path: prefix + "oral-histories/interviews.html" })
       }
 
+      const isActive = (path) => currentPath.endsWith(path) || currentPath.endsWith(path.replace(/index\.html$/, "/"))
+
       this.innerHTML = `
         <nav class="main-nav"><div class="container">
-          <a href="${prefix}index.html" class="nav-brand">Settling</a>
+          <a href="${prefix}index.html" class="nav-brand">
+            <span class="nav-brand-title">Settling:</span>
+            <span class="nav-brand-sub">Women Who Sued the News</span>
+          </a>
           <ul class="nav-links">
-            ${links.map(l => `<li><a href="${l.path}">${l.label}</a></li>`).join("")}
+            ${links.map(l => `<li><a href="${l.path}"${isActive(l.path) ? ' class="active"' : ""}>${l.label}</a></li>`).join("")}
           </ul>
         </div></nav>`
     }

@@ -1,16 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap');
 
 :root {
-    --cover-title-red: #b82526;
-    --cover-subtitle-black: #000000;
-    --cover-author-green: #102b20;
-    --paper-base: #e7dcc0;
-    --paper-shadow: #c4b898;
-    --ink-deep: #0f1116;
-    --ink-soft: #272a31;
-    --line-muted: #6a6459;
-    --surface-light: rgba(255, 253, 247, 0.9);
-    --surface-card: rgba(255, 253, 247, 0.96);
+    --accent-red: #a5342f;
+    --accent-red-dark: #8a2a26;
+    --ink: #1f1d1a;
+    --ink-soft: #3a3733;
+    --ink-muted: #6b6660;
+    --paper: #f7f3ea;
+    --paper-soft: #fbf8f1;
+    --rule: #ddd6c8;
+    --rule-strong: #b8b0a0;
+    --surface: #ffffff;
+    --serif-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --serif-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
 }
 
 * {
@@ -20,80 +23,99 @@
 }
 
 body {
-    font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
-    line-height: 1.65;
+    font-family: var(--serif-body);
+    line-height: 1.7;
     color: var(--ink-soft);
-    background:
-        linear-gradient(180deg, rgba(239, 230, 205, 0.72) 0%, rgba(231, 220, 192, 0.62) 52%, rgba(223, 210, 177, 0.7) 100%),
-        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.42) 0, rgba(255, 255, 255, 0) 32%),
-        radial-gradient(circle at 80% 0, rgba(196, 184, 152, 0.36) 0, rgba(196, 184, 152, 0) 42%),
-        url('assets/paper.jpg') center/cover fixed no-repeat;
-    font-size: 17px;
+    background: var(--paper);
+    font-size: 18px;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
+/* ── Navigation ── */
 .main-nav {
-    background: var(--ink-deep);
-    color: #fff;
+    background: var(--paper-soft);
+    color: var(--ink);
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 3px solid var(--cover-title-red);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--rule);
 }
 
 .main-nav .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 14px;
+    padding-bottom: 14px;
 }
 
 .nav-brand {
-    color: #fff;
+    color: var(--ink);
     text-decoration: none;
-    font-family: 'Heading Compressed Pro Heavy', 'Oswald', Impact, sans-serif;
-    font-size: 1.7rem;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.nav-brand-title {
+    font-family: var(--serif-display);
+    font-size: 1.55rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.01em;
+}
+
+.nav-brand-sub {
+    font-family: var(--serif-display);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-muted);
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 1.6rem;
+    gap: 1.5rem;
 }
 
 .nav-links a {
-    color: #dadde3;
+    color: var(--ink-soft);
     text-decoration: none;
+    font-family: var(--sans);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.88rem;
-    font-weight: 600;
-    transition: color 0.2s ease;
+    letter-spacing: 0.06em;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .nav-links a:hover {
-    color: #ffffff;
+    color: var(--accent-red);
+}
+
+.nav-links a.active {
+    color: var(--accent-red);
+    border-bottom-color: var(--accent-red);
 }
 
 /* ── Release Banner ── */
 .release-banner {
-    background: linear-gradient(90deg, var(--cover-title-red) 0%, #d4342f 100%);
+    background: linear-gradient(90deg, var(--accent-red) 0%, #b8433d 100%);
     color: #fff;
     text-align: center;
     padding: 6px 20px 0;
+    font-family: var(--sans);
     font-size: 0.88rem;
     font-weight: 500;
     line-height: 1.4;
     position: relative;
-    box-shadow: 0 2px 8px rgba(184, 37, 38, 0.3);
+    box-shadow: 0 2px 8px rgba(165, 52, 47, 0.25);
     overflow: hidden;
 }
 
@@ -181,22 +203,12 @@ body {
     }
 }
 
+/* ── Page Header ── */
 header {
-    padding: 40px 0 24px;
+    padding: 56px 0 34px;
     position: relative;
     overflow: hidden;
-}
-
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-        linear-gradient(160deg, rgba(15, 17, 22, 0.96) 0%, rgba(15, 17, 22, 0.88) 48%, rgba(184, 37, 38, 0.82) 100%),
-        linear-gradient(25deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 8px);
+    border-bottom: 1px solid var(--rule);
 }
 
 header .container {
@@ -205,60 +217,94 @@ header .container {
 }
 
 header h1 {
-    font-family: 'Heading Compressed Pro Heavy', 'Oswald', Impact, sans-serif;
-    color: var(--cover-title-red);
-    font-size: clamp(3rem, 8vw, 6.6rem);
-    line-height: 0.96;
-    letter-spacing: 0.025em;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.28);
+    font-family: var(--serif-display);
+    color: var(--ink);
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    margin-bottom: 0;
+    position: relative;
+    padding-bottom: 24px;
+}
+
+/* Short rule beneath the title, as in the editorial reference */
+header h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 130px;
+    height: 1px;
+    background: var(--rule-strong);
+}
+
+/* Two-tone title: "Settling:" bold, "Women Who Sued the News" italic */
+header h1 em {
+    display: block;
+    font-style: italic;
+    font-weight: 500;
 }
 
 .subtitle {
-    max-width: 850px;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--cover-subtitle-black);
-    display: inline-block;
-    font-family: 'Heading Compressed Bold', 'Oswald', Impact, sans-serif;
-    font-size: clamp(1.05rem, 2.2vw, 1.5rem);
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    line-height: 1.2;
-    padding: 16px 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    font-family: var(--sans);
+    color: var(--ink-soft);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-weight: 400;
+    line-height: 1.55;
+    max-width: 720px;
+    margin-top: 26px;
+    text-transform: none;
+    letter-spacing: 0;
 }
 
+/* ── Optional newsprint texture ─────────────────────────────
+   Off by default. To enable, add class="newsprint" to <body>
+   in each page (or uncomment the body rule to apply site-wide).
+   Swap the url() for a dedicated newsprint image if available. */
+body.newsprint header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('assets/paper.jpg') center/cover;
+    opacity: 0.06;
+    pointer-events: none;
+}
+
+/* ── Main Content ── */
 main {
-    padding: 46px 20px;
+    padding: 46px 0 20px;
 }
 
 section {
-    background: var(--surface-card);
-    padding: 36px;
+    background: var(--surface);
+    padding: 40px;
     margin-bottom: 28px;
-    border-radius: 3px;
-    border-left: 3px solid rgba(16, 43, 32, 0.8);
-    box-shadow: 0 10px 28px rgba(32, 26, 16, 0.12);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     animation: rise-in 480ms ease both;
 }
 
 h2 {
-    color: var(--cover-subtitle-black);
-    margin-bottom: 16px;
-    font-family: 'Heading Compressed Pro Heavy', 'Oswald', Impact, sans-serif;
-    font-size: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    font-family: var(--serif-display);
+    color: var(--ink);
+    font-size: 2.1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    margin-bottom: 18px;
 }
 
 h3 {
-    color: var(--ink-deep);
-    margin-bottom: 12px;
-    font-family: 'Heading Compressed Bold', 'Oswald', Impact, sans-serif;
+    font-family: var(--serif-display);
+    color: var(--ink);
     font-size: 1.45rem;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    margin-bottom: 12px;
 }
 
 .intro p,
@@ -279,34 +325,34 @@ section p {
 
 .feature-card {
     padding: 28px;
-    background: linear-gradient(180deg, rgba(15, 17, 22, 0.96) 0%, rgba(15, 17, 22, 0.9) 100%);
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent-red);
     border-radius: 2px;
-    border-top: 5px solid var(--cover-title-red);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .feature-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 26px rgba(15, 17, 22, 0.38);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .feature-card h3 {
     margin-top: 0;
-    color: #fff;
+    color: var(--ink);
 }
 
 .feature-card h3 a {
-    color: #fff;
+    color: var(--ink);
     text-decoration: none;
 }
 
 .feature-card h3 a:hover {
-    color: #f1b5ad;
+    color: var(--accent-red);
 }
 
 .feature-card p {
-    color: #d0d5db;
+    color: var(--ink-soft);
     font-size: 1rem;
     line-height: 1.7;
 }
@@ -315,47 +361,49 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background: var(--surface-light);
+    background: var(--surface);
 }
 
 th,
 td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid rgba(106, 100, 89, 0.26);
+    border-bottom: 1px solid var(--rule);
 }
 
 th {
-    background: var(--ink-deep);
-    color: #fff;
+    background: var(--paper-soft);
+    color: var(--ink);
+    font-family: var(--sans);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
-    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    font-size: 0.8rem;
+    border-bottom: 2px solid var(--rule-strong);
 }
 
 tr:hover {
-    background: rgba(16, 43, 32, 0.07);
+    background: rgba(165, 52, 47, 0.04);
 }
 
 a {
-    color: var(--cover-author-green);
+    color: var(--accent-red);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 a:hover {
-    color: #205a43;
+    color: var(--accent-red-dark);
     text-decoration: underline;
 }
 
 footer {
-    background: var(--ink-deep);
-    color: #fff;
+    background: var(--paper-soft);
+    color: var(--ink-soft);
     text-align: center;
     padding: 34px 0;
     margin-top: 54px;
-    border-top: 3px solid var(--cover-title-red);
+    border-top: 1px solid var(--rule);
 }
 
 footer p {
@@ -364,35 +412,37 @@ footer p {
 }
 
 .footer-note {
-    font-family: 'Minion Pro Bold', 'Cormorant Garamond', Georgia, serif;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #d4dcc9;
-    font-size: 1.03rem;
+    font-family: var(--serif-display);
+    font-style: italic;
+    letter-spacing: 0.02em;
+    color: var(--ink-muted);
+    font-size: 1.05rem;
 }
 
 .back-link {
     display: inline-block;
     margin-bottom: 20px;
-    color: var(--cover-author-green);
+    color: var(--accent-red);
     text-decoration: none;
-    font-weight: 700;
+    font-family: var(--sans);
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
 }
 
 .back-link:hover {
-    color: #205a43;
+    color: var(--accent-red-dark);
 }
 
 .case-header {
-    border-left: 5px solid var(--cover-title-red);
+    border-left: 3px solid var(--accent-red);
     padding-left: 20px;
     margin-bottom: 30px;
 }
 
 .case-meta {
-    color: #4e4a42;
+    color: var(--ink-muted);
     font-style: italic;
     margin: 10px 0;
 }
@@ -412,10 +462,11 @@ li {
 }
 
 .contact-card {
-    background: var(--surface-light);
+    background: var(--paper-soft);
     padding: 30px;
-    border-radius: 3px;
-    border-left: 4px solid var(--cover-title-red);
+    border-radius: 2px;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-red);
     margin: 30px 0;
 }
 
@@ -426,7 +477,7 @@ li {
 /* Book section */
 
 .book-section {
-    border-left-color: var(--cover-title-red);
+    border-left-color: var(--accent-red);
 }
 
 .book-inner {
@@ -444,7 +495,7 @@ li {
     height: auto;
     display: block;
     border-radius: 2px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
 
 .book-cover.author-photo img {
@@ -459,18 +510,20 @@ li {
 }
 
 .book-title {
-    font-family: 'Heading Compressed Bold', 'Oswald', Impact, sans-serif;
-    font-size: 1.3rem;
-    color: var(--cover-subtitle-black);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    font-family: var(--serif-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: 0.01em;
     margin-bottom: 4px;
 }
 
 .book-author {
-    font-family: 'Minion Pro Bold', 'Cormorant Garamond', Georgia, serif;
+    font-family: var(--serif-display);
+    font-style: italic;
     font-size: 1.1rem;
-    color: var(--cover-author-green);
+    color: var(--ink-muted);
     margin-bottom: 1rem;
 }
 
@@ -484,19 +537,22 @@ li {
 .store-btn {
     display: inline-block;
     padding: 10px 22px;
-    background: var(--ink-deep);
-    color: #fff;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
     text-decoration: none;
+    font-family: var(--sans);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 600;
     border-radius: 2px;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
 
 .store-btn:hover {
-    background: var(--cover-title-red);
+    background: var(--accent-red);
+    border-color: var(--accent-red);
     color: #fff;
     text-decoration: none;
     transform: translateY(-2px);
@@ -575,21 +631,16 @@ li {
 }
 
 @media (max-width: 480px) {
-    .nav-brand {
-        font-size: 1.35rem;
+    .nav-brand-title {
+        font-size: 1.3rem;
     }
 
     .nav-links {
         gap: 0.6rem;
-        font-size: 0.8rem;
+        font-size: 0.78rem;
     }
 
     header h1 {
-        font-size: 2.4rem;
-    }
-
-    .subtitle {
-        width: 100%;
-        padding: 12px 14px;
+        font-size: 2.3rem;
     }
 }
