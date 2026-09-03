@@ -101,8 +101,8 @@ To add content:
 ## Contact
 
 **Dr. Ashley Walter**  
-Email: aaw222@psu.edu  
-Affiliation: Saint Louis University / Bellisario College of Communications, Penn State
+Email: ashley.walter@slu.edu  
+Affiliation: Saint Louis University, Department of Communication
 
 ## License
 

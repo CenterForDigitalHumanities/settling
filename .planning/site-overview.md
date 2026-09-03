@@ -61,4 +61,5 @@ archive/
 
 ### Contact
 Dr. Ashley Walter  
-aaw222@psu.edu
+ashley.walter@slu.edu  
+Saint Louis University, Department of Communication

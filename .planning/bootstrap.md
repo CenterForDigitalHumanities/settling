@@ -377,8 +377,8 @@ Implement the recommended folder structure:
   For access to deeper research materials, permissions, or to contribute to the archive, please contact:
 
   Dr. Ashley Walter  
-  Email: aaw222@psu.edu  
-  (Current affiliation: Saint Louis University / Bellisario College of Communications, Penn State)
+  Email: ashley.walter@slu.edu  
+  Affiliation: Saint Louis University, Department of Communication
   ```
 
 ### 9. Ongoing Maintenance
@@ -394,8 +394,8 @@ Implement the recommended folder structure:
 For access to deeper research materials, permissions to republish oral histories or archival documents, or to contribute to the digital archive, please contact:
 
 **Dr. Ashley Walter**  
-Email: aaw222@psu.edu  
-(Current affiliation: Saint Louis University / Bellisario College of Communications, Penn State)
+Email: ashley.walter@slu.edu  
+Affiliation: Saint Louis University, Department of Communication
 
 ---
 
