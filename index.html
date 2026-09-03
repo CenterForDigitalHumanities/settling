@@ -22,10 +22,23 @@
     <header>
         <div class="container">
             <h1>Settling:<em>Women Who Sued the News</em></h1>
-            <p class="subtitle">The EEOC Lawsuit Explosion Against News Organizations in the 1970s and Its Impact on
-                Women in Media and Public Life</p>
+            <p class="subtitle">The Lawsuit Explosion Between Women and the News Media in the 1970s and Its Impact on
+                Journalism and Democracy</p>
         </div>
     </header>
+
+    <section class="reading-announcement" id="reading-announcement">
+        <img class="announcement-image"
+            src="https://left-bank.com/sites/default/files/styles/medium/public/2025-09/storefront_0.jpg"
+            alt="Left Bank Books storefront">
+        <div class="container">
+            <h2>Book Reading at Left Bank Books</h2>
+            <p>Join Dr. Ashley Walter for a reading of <em>Settling: Women Who Sued the News</em> at Left Bank Books.
+                <a href="https://left-bank.com/event/2026-11-19/ashley-walter-settling"
+                    target="_blank" rel="noopener">Details &amp; RSVP &rarr;</a></p>
+            <button class="dismiss" aria-label="Dismiss announcement">&times;</button>
+        </div>
+    </section>
 
     <main class="container">
         <section class="intro">
@@ -55,12 +68,12 @@
                         discrimination in America's most powerful news organizations — and changed the industry forever.
                     </p>
                     <div class="store-links">
+                        <a href="https://www.umasspress.com/9781625349859/settling/" class="store-btn"
+                            target="_blank" rel="noopener">UMass Press</a>
                         <a href="https://www.amazon.com/Settling-Women-Who-Sued-News-ebook/dp/B0GMKBVKBZ"
                             class="store-btn" target="_blank" rel="noopener">Amazon</a>
-                        <a href="https://www.indigo.ca/products/settling-women-who-sued-the-news" class="store-btn"
-                            target="_blank" rel="noopener">Indigo</a>
-                        <a href="https://cdcshoppingcart.uchicago.edu/Cart2/ChicagoBook?ISBN=9781625349859&press=UMASS&AspxAutoDetectCookieSupport=1"
-                            class="store-btn" target="_blank" rel="noopener">UMass Press</a>
+                        <a href="https://www.barnesandnoble.com/w/settling-ashley-walter/1149425434?ean=9781625349859"
+                            class="store-btn" target="_blank" rel="noopener">Barnes &amp; Noble</a>
                     </div>
                 </div>
             </div>
@@ -80,23 +93,38 @@
                         transcripts, and personal narratives.</p>
                 </article>
                 <article class="feature-card">
-                    <h3><a href="archive/index.html">Document Archive</a></h3>
-                    <p>Access court documents, photographs, press clippings, and personal papers documenting this
-                        pivotal moment in media history.</p>
+                    <h3><a href="timeline.html">Timeline</a></h3>
+                    <p>Follow the key events in the fight against workplace discrimination, from the first EEOC
+                        complaints to the consent decrees that reshaped the newsroom.</p>
                 </article>
             </div>
         </section>
 
         <section class="highlights">
-            <h2>Historical Context</h2>
-            <p>Between 1970 and the early 1980s, women at nearly every major print news organization in the United
-                States filed class-action sex discrimination lawsuits. These cases exposed systemic patterns of gender
-                discrimination, challenged rigid job hierarchies, and forced industry-wide reforms in hiring, promotion,
-                and pay practices.</p>
-            <p>The lawsuits were driven by courageous women who risked their careers and visionary attorneys who
-                established legal precedents that extended far beyond the media industry.</p>
+            <h2>About the Author</h2>
+            <p><strong>Ashley Walter, Ph.D.</strong> is an assistant professor of journalism and media at Saint Louis
+                University, where she teaches courses on media ethics, feature writing, and contemporary issues in
+                media. She is an expert in women's media history and is the co-author of <em>How America Gets the News:
+                    A History of U.S. Journalism</em> (2024). Her work has been published in <em>American
+                    Journalism</em>, <em>Journalism History</em>, <em>Media Report to Women</em>, and the Women's Media
+                Center. A native of Williamsport, Pennsylvania, Walter received her B.A. and M.S. from Duquesne
+                University and her Ph.D. from Pennsylvania State University. Prior to her academic career, she worked
+                in Pittsburgh media. <a href="about.html">More</a></p>
         </section>
     </main>
+
+    <script>
+        const announcement = document.getElementById("reading-announcement")
+        if (announcement) {
+            if (localStorage.getItem("readingAnnouncementDismissed") === "true") {
+                announcement.style.display = "none"
+            }
+            announcement.querySelector(".dismiss").addEventListener("click", () => {
+                announcement.style.display = "none"
+                localStorage.setItem("readingAnnouncementDismissed", "true")
+            })
+        }
+    </script>
 
     <settling-footer></settling-footer>
 </body>

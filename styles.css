@@ -3,6 +3,7 @@
 :root {
     --accent-red: #a5342f;
     --accent-red-dark: #8a2a26;
+    --accent-rose: #bb695f;
     --ink: #1f1d1a;
     --ink-soft: #3a3733;
     --ink-muted: #6b6660;
@@ -11,6 +12,13 @@
     --rule: #ddd6c8;
     --rule-strong: #b8b0a0;
     --surface: #ffffff;
+    /* Timeline aliases — map legacy variable names onto the current palette */
+    --ink-deep: var(--ink);
+    --cover-title-red: var(--accent-red);
+    --cover-author-green: #6b7a4f;
+    --surface-card: var(--surface);
+    --surface-light: var(--paper-soft);
+    --line-muted: var(--rule-strong);
     --serif-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     --serif-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
     --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
@@ -208,6 +216,81 @@ body {
     }
 }
 
+/* Reading event announcement — accented section under the header */
+.reading-announcement {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    min-height: 180px;
+    padding: 0;
+    border-bottom: none;
+    background: var(--accent-rose);
+    color: var(--paper);
+}
+
+.reading-announcement .announcement-image {
+    flex: 0 0 240px;
+    width: 240px;
+    align-self: stretch;
+    min-height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.reading-announcement .container {
+    flex: 1 1 auto;
+    padding: 24px 44px 24px 24px;
+}
+
+.reading-announcement h2 {
+    font-family: var(--serif-display);
+    font-size: 1.5rem;
+    margin: 0 0 8px;
+    color: var(--paper);
+}
+
+.reading-announcement p {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.reading-announcement a {
+    color: var(--paper);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.reading-announcement .dismiss {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--paper);
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .reading-announcement {
+        flex-direction: column;
+    }
+
+    .reading-announcement .announcement-image {
+        flex: none;
+        width: 100%;
+        height: 160px;
+    }
+
+    .reading-announcement .container {
+        padding: 16px 44px 16px 16px;
+    }
+}
+
 /* ── Page Header ── */
 header {
     padding: 56px 0 34px;
@@ -337,7 +420,7 @@ section p {
     padding: 28px;
     background: var(--paper-soft);
     border: 1px solid var(--rule);
-    border-top: 3px solid var(--accent-red);
+    border-top: 3px solid var(--accent-rose);
     border-radius: 2px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

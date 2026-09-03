@@ -36,9 +36,25 @@
 
         .filter-btn:hover,
         .filter-btn.active {
-            background: var(--ink-deep);
+            background: var(--ink-muted);
             color: #fff;
         }
+        .filter-btn.active {
+            background: var(--ink-deep);
+        }
+
+        /* Category color accents on filter buttons */
+        .filter-btn[data-filter="legislation"] { border-color: var(--cover-title-red); }
+        .filter-btn[data-filter="lawsuit"] { border-color: var(--cover-author-green); }
+        .filter-btn[data-filter="settlement"] { border-color: #c49a3c; }
+        .filter-btn[data-filter="milestone"] { border-color: #5b6b8a; }
+        .filter-btn[data-filter="movement"] { border-color: #8b4a6b; }
+
+        .filter-btn[data-filter="legislation"].active { background: var(--cover-title-red); border-color: var(--cover-title-red); }
+        .filter-btn[data-filter="lawsuit"].active { background: var(--cover-author-green); border-color: var(--cover-author-green); }
+        .filter-btn[data-filter="settlement"].active { background: #c49a3c; border-color: #c49a3c; }
+        .filter-btn[data-filter="milestone"].active { background: #5b6b8a; border-color: #5b6b8a; }
+        .filter-btn[data-filter="movement"].active { background: #8b4a6b; border-color: #8b4a6b; }
 
         .timeline-container {
             position: relative;
@@ -379,29 +395,6 @@
     <main class="container">
         <section>
             <h2>Historical Timeline</h2>
-            
-            <div class="timeline-legend">
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: var(--cover-title-red)"></div>
-                    <span>Legislation</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: var(--cover-author-green)"></div>
-                    <span>Lawsuits Filed</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: #c49a3c"></div>
-                    <span>Settlements</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: #5b6b8a"></div>
-                    <span>Milestones</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: #8b4a6b"></div>
-                    <span>Movement</span>
-                </div>
-            </div>
 
             <div class="timeline-controls">
                 <button class="filter-btn active" data-filter="all">All Events</button>
