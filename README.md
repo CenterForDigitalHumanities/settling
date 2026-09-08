@@ -12,15 +12,12 @@ This project serves as a digital archive exploring the lawsuits filed under the 
 ├── index.html              # Homepage with project overview
 ├── about.html              # About the project and book
 ├── contact.html            # Contact information
+├── timeline.html           # Chronology of key events
 ├── cases/                  # Landmark legal cases
-│   ├── index.html         # Cases overview with table
-│   ├── newsweek.html      # Newsweek case (1970)
-│   ├── readers-digest.html # Reader's Digest case (1972)
-│   ├── new-york-times.html # NY Times case (1974)
-│   ├── washington-post.html # Washington Post case (1972)
-│   └── associated-press.html # AP case (1973)
+│   └── index.html         # Cases overview with table
 ├── oral-histories/         # Oral history collections
-│   └── index.html         # Oral histories overview
+│   ├── index.html         # Oral histories overview
+│   └── interviews.html    # Interviewees directory
 ├── archive/                # Document archive
 │   ├── index.html         # Archive overview
 │   ├── oral-histories/    # Transcripts, audio, metadata

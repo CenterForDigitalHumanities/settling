@@ -21,7 +21,7 @@ const SiteComponents = (() => {
       ]
 
       if (currentPath.includes("/oral-histories/")) {
-        links.unshift({ label: "Interviews", path: prefix + "oral-histories/interviews.html" })
+        links.unshift({ label: "Interviewees", path: prefix + "oral-histories/interviews.html" })
       }
 
       const isActive = (path) => currentPath.endsWith(path) || currentPath.endsWith(path.replace(/index\.html$/, "/"))
