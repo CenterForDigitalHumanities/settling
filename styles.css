@@ -66,8 +66,11 @@ body {
     color: var(--ink);
     text-decoration: none;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.4em;
     line-height: 1.1;
+    white-space: nowrap;
 }
 
 .nav-brand-title {
@@ -307,7 +310,7 @@ header .container {
 header h1 {
     font-family: var(--serif-display);
     color: var(--ink);
-    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    font-size: clamp(2.1rem, 4.6vw, 3.5rem);
     line-height: 1.05;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -328,9 +331,9 @@ header h1::after {
     background: var(--rule-strong);
 }
 
-/* Two-tone title: "Settling:" bold, "Women Who Sued the News" italic */
+/* Two-tone title: "Settling:" bold, "Women Who Sued the News" italic, on one line */
 header h1 em {
-    display: block;
+    display: inline;
     font-style: italic;
     font-weight: 500;
 }
@@ -345,6 +348,17 @@ header h1 em {
     margin-top: 26px;
     text-transform: none;
     letter-spacing: 0;
+}
+
+/* Reflective note that sits under a page subtitle */
+.subtext {
+    font-family: var(--serif-body);
+    font-style: italic;
+    color: var(--ink-muted);
+    font-size: clamp(1rem, 1.5vw, 1.12rem);
+    line-height: 1.7;
+    max-width: 720px;
+    margin-top: 16px;
 }
 
 /* ── Main Content ── */
