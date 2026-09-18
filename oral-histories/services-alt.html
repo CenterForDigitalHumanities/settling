@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/settling/">
+    <title>Oral History Consulting – Dr. Ashley Walter</title>
+    <meta name="description" content="Professional consulting services provided by Dr. Ashley Walter, historian and oral‑history specialist.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+    <script src="assets/js/Components.js" defer></script>
+    <style>
+        /* Light animation for the portrait */
+        .portrait-img {
+            animation: fadeZoom 2s ease-in-out infinite alternate;
+        }
+        @keyframes fadeZoom {
+            from { opacity: 0.8; transform: scale(0.98); }
+            to   { opacity: 1;   transform: scale(1.02); }
+        }
+        /* Highlighted call‑out sections */
+        .callout {
+            background: var(--paper-soft);
+            border-left: 2px solid var(--accent-red);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .callout h2 { margin-top: 0; }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Oral History Consulting</h1>
+            <p class="subtitle">Professional consulting services from Dr. Ashley Walter</p>
+        </div>
+    </header>
+
+    <!-- Portrait with subtle animation -->
+    <section class="book-section">
+        <div class="book-inner">
+            <div class="book-cover author-photo">
+                <img src="assets/author.png" alt="Dr. Ashley Walter" class="portrait-img">
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <section class="callout">
+            <h2>Why work with Dr. Walter?</h2>
+            <p>Combining rigorous academic training (Ph.D., Pennsylvania State University) with years of hands‑on oral‑history practice, Dr. Walter delivers consulting that is both scholarly and highly practical.</p>
+        </section>
+
+        <section>
+            <h2>Consulting Services</h2>
+            <ul>
+                <li>Custom interview design and question development</li>
+                <li>Full‑service interview scheduling and execution (audio/video)</li>
+                <li>Transcription management and quality assurance</li>
+                <li>Long‑term preservation planning and delivery of assets</li>
+                <li>Strategic storytelling and narrative shaping</li>
+            </ul>
+        </section>
+
+        <section class="callout">
+            <h2>Pricing</h2>
+            <p>Professional consulting rate: <strong>$200 per hour</strong>.</p>
+            <p>Typical project (≈15 hours) cost: <strong>$3,750</strong> per interview subject.</p>
+            <p>Custom quotes are available for multi‑subject projects, nonprofit budgets, and extended engagements.</p>
+        </section>
+
+        <section class="callout">
+            <h2>Contact</h2>
+            <p>Ready to preserve your organization’s stories? Reach out for a personalized proposal.</p>
+            <p>Email: <a href="mailto:ashley.walter@slu.edu">ashley.walter@slu.edu</a></p>
+        </section>
+    </main>
+
+    <settling-footer></settling-footer>
+</body>
+
+</html>
