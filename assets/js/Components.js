@@ -1,5 +1,6 @@
 const SiteComponents = (() => {
   const RELEASE_DATE = new Date("2026-10-28T00:00:00").getTime()
+  const RELEASE_END_DATE = new Date("2026-11-28T00:00:00").getTime()
 
   const prefixFor = () => {
     // All relative URLs are resolved from /settling/ by <base href="/settling/">
@@ -47,20 +48,30 @@ const SiteComponents = (() => {
 
     connectedCallback() {
       const prefix = prefixFor()
+      const now = Date.now()
+
+      // Banner expires one month after launch
+      if (now >= RELEASE_END_DATE) {
+        this.style.display = "none"
+        return
+      }
+
+      const launched = now >= RELEASE_DATE
 
       this.innerHTML = `
         <div class="release-banner"><div class="container">
           <div class="release-banner-book"><img src="${prefix}assets/settling-book.png" alt="Settling book cover"></div>
           <span class="release-banner-text">
-            <strong>Coming October 28, 2026</strong> — <em>Settling: Women Who Sued the News</em> by Dr. Ashley Walter
-            <span id="release-countdown"></span>
+            ${launched
+              ? `<strong>Available now!</strong> — <em>Settling: Women Who Sued the News</em> by Dr. Ashley Walter <a href="${prefix}index.html#book">Get the book &rarr;</a>`
+              : `<strong>Coming October 28, 2026</strong> — <em>Settling: Women Who Sued the News</em> by Dr. Ashley Walter <span id="release-countdown"></span>`}
           </span>
           <button class="release-banner-close" aria-label="Dismiss banner">&times;</button>
         </div></div>`
 
       this._setupDismiss()
       this._restoreDismissed()
-      this._startCountdown()
+      if (!launched) this._startCountdown()
     }
 
     disconnectedCallback() {

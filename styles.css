@@ -180,6 +180,17 @@ body {
     font-weight: 700;
 }
 
+.release-banner-text a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.release-banner-text a:hover {
+    color: #ffe9e7;
+}
+
 .release-banner-close {
     background: transparent;
     border: none;
@@ -339,7 +350,7 @@ header h1 em {
 }
 
 .subtitle {
-    font-family: var(--sans);
+    font-family: var(--serif-body);
     color: var(--ink-soft);
     font-size: clamp(1.05rem, 2vw, 1.3rem);
     font-weight: 400;
