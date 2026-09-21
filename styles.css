@@ -180,6 +180,17 @@ body {
     font-weight: 700;
 }
 
+.release-banner-text a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.release-banner-text a:hover {
+    color: #ffe9e7;
+}
+
 .release-banner-close {
     background: transparent;
     border: none;

@@ -124,7 +124,8 @@
     <script>
         const announcement = document.getElementById("reading-announcement")
         if (announcement) {
-            if (localStorage.getItem("readingAnnouncementDismissed") === "true") {
+            const eventEnd = new Date("2026-11-11T23:59:59")
+            if (Date.now() > eventEnd.getTime() || localStorage.getItem("readingAnnouncementDismissed") === "true") {
                 announcement.style.display = "none"
             }
             announcement.querySelector(".dismiss").addEventListener("click", () => {
