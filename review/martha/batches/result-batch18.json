@@ -1,0 +1,112 @@
+{
+  "documents": [
+    {
+      "id": "DOC-001",
+      "title": "1996 Full Time Newsroom Staff Demographic Summary",
+      "documentType": "arbitration-exhibit",
+      "subject": "Washington Post newsroom staff counts by job class, gender, and race/ethnicity, 1996",
+      "date": "1996",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Single typed/printout page photographed rotated 90 degrees counter-clockwise (text runs vertically; reader must rotate image). Summary statistics table, consistent with salary-discrimination arbitration background material. No separating table-photos visible.",
+      "pages": [
+        {
+          "imageFile": "86353EBE-99FA-45D3-82C6-AB1EAD10DF6F_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "1996 FULL TIME NEWSROOM STAFF\n\nTOTAL NEWSROOM =            667\nProfessionals =             564     85%\nAdmin. Support =            103     15%\nMinorities =                141     20%\nWhites =                    397     59%\nMales =                     270     41%\nFemales =                   [value not printed on visible line]\n\nAsians =                    25      3%\nBlacks =                    97      14%\nHispanics =                 17      2%\nNative Americans =          2       1%\nWhites =                    526     80%\n\nAsian Females               9\nAsian Males                 16\nBlack Females               45\nBlack Males                 52\nHispanic Females            5\nHispanic Males              13\nNat. Amer. Females          0\nWhite Females               211\nWhite Males                 316\n\n(Professional Staff only)\n(Includes Managing Editors, Assignment Editors, Copy Editors, Reporters, Directors of Recruiting, Training & Research, Photographers, and Artists)\n\nMales =                     344     61%\nFemales =                   220     39%\nWhites =                    456     82%\nMinorities =                108     18%\n\nAsian =                     16      2.8%\nBlack =                     76      13.4%\nHispanic =                  14      2.4%\nNat. Amer. =                2       0.36%"
+        }
+      ]
+    },
+    {
+      "id": "DOC-002",
+      "title": "Newsroom Salary Wage Lists by Category with Cartoon",
+      "documentType": "arbitration-exhibit",
+      "subject": "Dot-matrix printout of weekly/annual salary figures organized by newsroom category (Reporters; Asst. Editors; Assgn. Editors; Administrative & Editorial Aides; Copy Editors; News Aides; Artists, Copy Writers), with counts and average wages, plus a four-panel cartoon about salaries at the bottom",
+      "date": "unknown (undated printout; likely early-1990s based on surrounding arbitration material)",
+      "pageCount": 1,
+      "confidence": "medium",
+      "notes": "Single landscape-oriented dot-matrix printout sheet. Hundreds of tabulated dollar figures in parallel columns; individual digits degrade in places (print-through/bleed from verso is visible in some rows), so specific figures are transcribed best-effort and may contain digit errors; totals and headers are the most reliable elements. A four-panel salary-related cartoon is pasted/printed along the bottom edge.",
+      "pages": [
+        {
+          "imageFile": "8703632A-7187-4170-A374-5A841F237424_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "Headers across the top: REPORTERS | ASST. EDITORS, ASSGN. EDITORS\n\nThe sheet consists of eight columns of dollar figures. REPORTERS spans roughly four columns (figures descending from about $1,758.83, $1,753.84, $1,733.18 ... down to about $1,057.31 and columns continuing into the $9XX range), ASST. EDITORS one column (from about $898.98 descending to $396.26), and ASSGN. EDITORS one column ($2911.31 [likely $1,291.31 or similar — leading digits degraded], descending through $1,162.15, $925.80 ... $587.60). Many rows show repeated values (e.g. $1,245.45 x5, $1,341.60 x3, $732.11 x11). Several lower figures are blurred by print bleed-through and marked below where uncertain.\n\nRepresentative REPORTERS column values (col 1, top to bottom): $1,758.83, $1,725.84, $1,733.18, $1,685.90, $1,662.68, $1,636.89, $1,630.05, $1,583.48, $1,582.24, $1,572.86, $1,566.49, $1,561.29, $1,533.90, $1,485.83, $1,455.11, $1,449.75, $1,438.19, $1,399.28, $1,394.33, $1,385.18, $1,381.65, $1,379.03, $1,377.04, $1,374.19, $1,374.19, $1,371.68, $1,363.24, $1,360.88, $1,348.01, $1,341.60, $1,341.60, $1,341.60, $1,340.63, $1,337.89, $1,326.19, $1,310.59, $1,293.53, $1,286.94, $1,285.46, $1,283.93, $1,282.35, $1,278.04, $1,278.04, $1,245.45, $1,245.45, $1,245.45, $1,245.45, $1,245.45, $1,234.73, $1,220.25, $1,218.94\n\nRepresentative REPORTERS column values (col 2): $1,216.50, $1,213.28, $1,212.79, $1,209.76, $1,197.38, $1,189.84, $1,180.64, $1,178.55, $1,161.24, $1,161.30 [appears twice], $1,149.30, $1,149.49, $1,149.30, $1,148.00, $1,146.04, $1,146.00, $1,139.40, $1,138.24, $1,131.60, $1,121.66, $1,115.35, $1,114.13, $1,110.92, $1,109.81, $1,103.78, $1,101.23, $1,099.46, $1,097.39, $1,096.95, $1,095.71, $1,094.29, $1,090.80 [twice], $1,086.79, $1,085.06, $1,080.04, $1,079.24, $1,078.64, $1,077.56, $1,074.04, $1,073.61, $1,073.59 [three times], $1,061.55, $1,057.63, $1,057.31\n\nRepresentative REPORTERS column values (col 3): $1,053.15, $1,032.15, $1,033.15, $1,030.49, $1,030.24, $1,044.24, $1,047.16, $1,044.75, $1,041.91, $1,042.50, $1,042.09, $1,031.40, $1,029.04, $1,027.91, $1,024.91, $1,023.75, $1,022.25, $1,021.76, $1,020.68, $1,018.61, $1,017.60, $1,018.61, $1,012.39, $1,008.15, $1,003.95, $1,000.65, $994.91, $988.24, $988.50, $980.85, $980.44, $972.69, $972.45, $969.99, $967.95, $964.84, $963.19, then values degraded by bleed-through ($656.96/ $566.96?, $566.85?, $566.65?, $561.40?, $949.14?, $948.04?, $947.44?, $946.61?, $932.50, $933.59, $932.59, $933.59, $933.59, $910.30?, $916.38?, $902.89 [several uncertain])\n\nASST. EDITORS column: $898.98, $904.44, $883.31, $881.03, $876.30, $875.15, $874.84, $874.80, $866.39, $862.91, $848.06, $841.91, $840.49, $839.96, $839.70, $839.51, $832.55, $825.90 [twice], $822.86, $821.85, $816.41, $804.41, $804.38, $788.81, $781.81, $779.96, $774.79 [twice], $773.25, $770.29, $763.80, $750.00, then $732.11 repeated eleven times, $677.29, $552.49 [repeated ~4x, one $525.00], $467.66, $661.86?, $396.26 [lower rows uncertain due to bleed-through]\n\nASSGN. EDITORS column (top to bottom): $2,9??.?? [leading digits degraded], $1,162.06?, $925.80, $923.80, $925.80, $907.80, $916.68, $907.80, $906.38, $896.94, $887.14 [twice], $874.15, $874.15, $872.21, $864.91, $859.32, $859.20, $846.19, $834.60, $822.05, $821.20, $804.41, $781.99, $770.14, $768.04 [twice], $754.14, $628.81, $587.60\n\nSUMMARY LINE (reporters/editors block): 'COUNT: 264   AVG. ?E: $1,071.37' (i.e. COUNT: 264, AVG WAGE: $1,071.37)\nSeparate boxed summary to the right: 'COUNT: 35   AVG WAGE: $4,448.29' [last digit uncertain]\n\nAdministrative & Editorial Aides (three columns):\n$820.73  $451.16  $374.81\n$697.51  $445.89  $374.81   [second value uncertain]\n$682.50  $437.50  $277.41   [header row of this block unclear]\n$563.96  $438.11  $365.81\n$527.63  $435.11  $359.14   [$435.11 uncertain]\n$514.78  $438.11  $338.14   [uncertain]\n$498.19  $412.24  $349.65\n$464.81  $412.11? $349.65   [uncertain]\n$452.53  $408.90  $349.65\n$489.79? $329.34? $340.16   [uncertain]\n$396.38  $277.31  $220.64\n$476.51  $397.91  [blank]\n[blank]  $397.91  [blank]\n\nCOPY EDITORS (three columns; page label 'COPY EDITORS'):\n$1,173.40  $957.15  $779.88\n$1,112.81  $957.15  $770.21\n$1,091.59  $947.51  $770.21\n$1,082.74  $926.14  $770.14\n$1,070.51  $926.14  $770.14\n$1,043.51  $923.29  $769.99   [$923.29 uncertain]\n$1,042.31  $906.78  $769.71\n$1,031.14  $904.61  $768.79\n$1,012.91  $884.44  $768.08\n$1,012.39  $875.14  $768.08   [$875.14 uncertain]\n$1,006.71  $869.50  $768.04   [$869.50 uncertain]\n$1,002.45  $852.69  $768.04\n$999.79   $817.20  $768.04\n$999.79   $814.84  $768.04   [$769.?? uncertain]\n$996.51   $911.20  $720.64   [$767/720 uncertain]\n$985.31   $863.61  $673.09   [uncertain block]\n$977.74   $804.41  $669.19\n$977.74   $795.45  $491.85   [$86? uncertain]\n$972.64   $817.59  $491.85\n$967.76   $779.03  $491.85\nSummary: \"CC'NT: 61   AVG AGE: $562.98\" (i.e. COUNT: 61, AVG WAGE: $562.98)\n\nNEWS AIDES (two columns):\n$540.30  $358.16\n$350.16  [paired values continue]\n$504.64  $344.89\n$469.91  $344.89\n$465.60  $344.89\n$545.66  $334.65   [$545/945 uncertain]\n$465.41  $334.65\n$622.64  $327.15\n$451.69  $327.15   [$451 uncertain]\n$07.36?  $311.66   [value degraded]\n$402.41  $311.66\n$375.00  $311.66\n$373.65  $311.66\n$367.39? $311.66\n$358.16  [blank]\nSummary: 'COUNT: 29   AVG WAGE: $388.13'\n\nARTISTS, COPY WRITERS (three columns):\n$1,112.36  $923.59  $740.81\n$1,055.68  $923.59  $740.81\n$1,024.39  $923.59  $732.11\n$1,021.24  $923.59  $732.11\n$858.89    $899.66  $732.11   [uncertain]\n$939.14    $875.36  $732.11\n$971.21    $864.75  $732.11   [$864/894 uncertain]\n$968.81    $854.51  $732.11\n$968.81    $817.91  $732.11   [uncertain]\n$964.91    $817.91  $667.34\n$474.81    $812.96  $640.24\n$947.55    $807.68  $552.45\n$920.56    $802.15\n$923.59    $795.45\n$923.59    $782.36\n$923.59    $774.79   [some values $774.59/774.7? uncertain]\n$923.59    $772.39\n$923.59    $753.36\nSummary: 'COUNT: 48   AVG WA?E?: $356.7?' — more likely '$856.7?' [final digits uncertain]\n\nFour-panel cartoon across the bottom (panel captions/credits under panels mostly illegible; a handwritten-looking tag 'opeiu2' or similar at lower left). Panel 1: 'I'M HAPPY TO DISCUSS YOUR RAISE, CATHY, KNOW WHY? YOU HAVE WHAT I CALL THE \"EXECUTIVE ATTITUDE.\"' Panel 2: 'YOU HAVE A REAL KNOWLEDGE OF THE FINANCIAL STRAIN THIS COMPANY'S BEEN UNDER. YOU HAVE THE VISION TO SEE PAST A QUICK CASH FIX TO THE LONG-TERM REWARDS....' Panel 3: 'AND YOU HAVE SOMETHING EVEN MORE IMPORTANT....' Panel 4: 'AAAACK!!' with a list beside the boss: '$42,000..., $34,000..., $55,000..., $70,600..., $47,000...' and speech: 'A LIST OF THE SA[U]R[A]ES OF ALL THE OTHER EMPLO[Y]E[S].' [cartoon spelling as printed; several panel credits illegible]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "title": "Confidential Arbitration Settlement Narrative — Daniel Southerland / Paul Taylor (continuation page)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Comparison of Daniel Southerland's salary and history at The Post to claimants Hamilton and Mayer; note that Paul Taylor is not in the salary snapshots",
+      "date": "after September 1, 2002 (references 'As of September 1, 2002'); undated otherwise",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Clean typeset page with running header 'CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES / PREPARED FOR SETTLEMENT PURPOSES'. This is a continuation page of the same document whose first page appears later in this batch (image 8A487FB7, DOC-006) — scans are out of order but the header and content (male-reporter salary comparisons for Hamilton/Mayer/Skrzycki/Walsh) match.",
+      "pages": [
+        {
+          "imageFile": "87165334-17F0-4DE9-8A48-8B5A1039E49C_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES\nPREPARED FOR SETTLEMENT PURPOSES\n\nDaniel Southerland was paid substantially more than Hamilton on the 1992 to 1995 salary snapshots.\n\nSoutherland was paid substantially more than Mayer on the 1995 salary snapshot.\n\nExperience and Education\nSoutherland came to The Post in the mid-1980s as a foreign correspondent in Hong Kong. He became a reporter in Financial News in 1992. He left The Post in 1996. Prior to starting at The Post, Southerland worked for approximately 14 and-a-half years as a Diplomatic and Foreign Correspondent for The Christian Science Publishing Society and for approximately six years as a Foreign Correspondent for UPI. Southerland is a graduate of the University of North Carolina and has a Masters in Journalism from Columbia University and a Masters in East Asian Studies from Harvard University.\n\nStarting Salary\nUpon starting at The Post, Southerland received approximately a 12 percent increase over his prior salary at the Christian Science Publishing Society. His starting salary was more than the salaries of Hamilton and Mayer at that time.\n\nSalary History\nAs of September 1, 2002, Southerland had received five merit increases - none of which he received as a reporter in Financial News.\n\nExplanation:\nSoutherland was paid a high salary by his previous employer - slightly more than the salary paid Hamilton and more than the salary paid to Mayer at The Post at that time. Therefore, his starting salary when he came to The Post was also more than the salaries of Hamilton and Mayer at that time.\n\nSoutherland was a diplomatic and foreign correspondent for approximately 21 years before coming to The Post.\n\nAt The Post, Southerland was previously a foreign correspondent in Asia, where he received five merit raises. He retained his correspondent's salary when he became a reporter in Financial News. He did not receive a merit increase while in Financial News.\n\nPaul Taylor\n\nPaul Taylor does not appear on any of the relevant salary snapshots and was never a reporter in Financial News."
+        }
+      ]
+    },
+    {
+      "id": "DOC-004",
+      "title": "Demographic Wage Printout Fragment — '...'TICE EC. WRITERS' Male Counts and Pay",
+      "documentType": "arbitration-exhibit",
+      "subject": "Partial dot-matrix printout table of male headcounts and pay by race (White/Black/Hispanic/Oriental) for a category ending in 'EC. WRITERS'",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "low",
+      "notes": "Extreme close-up photograph; the lower portion of a dot-matrix wage page with the sheet corner being lifted by a hand. The category header is cut off and only reads '_?_TICE EC. WRITERS' [possibly 'OFFICE EC. WRITERS' or 'NOVICE EC. WRITERS' — cannot determine]. Right edge of the paper and any FEMALE columns are out of frame. Separate physical page from DOC-002 (different layout: race-category tabulation with counts and pay).",
+      "pages": [
+        {
+          "imageFile": "885E3AB1-6C43-4BA4-B39A-0A64E2D9772C_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "partial",
+          "transcript": "[illegible header fragment] ...TICE  EC. WRITERS\n\n                MALE            MALE\n                                   PAY\nWHITE            12          $16,115.44   [digits partially stylized; likely 12 and $16,115.44]\n  AVG.                        $895.52    [likely $1,342.95? value rendered with stylized font: '$8?5.52']\nBLACK             0               $0.00\n  AVG.                        $0.00\nHISPANIC          0               $0.00\n  AVG.                        $0.00\nORIENTAL          0               $0.00\n[value under AVG for WHITE most uncertain owing to stylized dot-matrix font and lifted page corner obscuring upper text; a faint '10' shadow appears between the WHITE and BLACK rows]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-005",
+      "title": "Arbitration Claims Procedure and Task Force Announcement (typewritten page)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Instructions for filing discrimination claims under the Post-Guild arbitration procedures (deadline December 2, 1997), anti-retaliation assurances, and establishment of a Personnel Practices Task Force for commercial departments in January 1998",
+      "date": "1997 (claims deadline December 2, 1997; Task Force to be formed January 1998)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Typewritten page, visually distinct from the typeset confidential narratives; likely a page from the arbitration procedures/settlement communication to employees. Page ends mid-sentence ('...encourage to volunteer their'), so it is part of a longer document whose other pages are not in this batch.",
+      "pages": [
+        {
+          "imageFile": "895DDE75-2A37-45EE-85A3-D2EF04D561CD_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "Claims must be filed by December 2, 1997. Claim forms\nand a copy of the arbitration procedures are available from the\nPersonnel Department (202-334-7174) or the Guild (202-393-0808).\nAnyone considering filing a claim should examine the claim form\nand the arbitration procedures carefully. They contain important\ninformation concerning such matters as: the kinds of claims that\nwill be considered, the information that should be provided to\npursue a claim, the steps that the arbitrator will follow in\nresolving a claim, the party's options with respect to\nrepresentation, and the payment of the costs and fees of the\narbitrator. The Guild will provide representation to anyone who\nrequests it, in which case the Guild will pay the claimant's\nshare (50%) of the arbitrator's fee and costs.\n\nConsistent with its general policy and with the\nrequirements of law, the Post will not retaliate against any\nemployee who participates in an arbitration proceeding.\n\n• The agreement calls for the establishment of a\nTask Force to examine personnel practices for Guild-covered\npositions in the commercial departments. The Task Force, to be\nformed in January 1998, will look at such issues as hiring,\npromotion, training, communications, diversity, career\ndevelopment and performance evaluation. It will be chaired and\nappointed by the Director of Personnel, Carl Williams, and will\ninclude at least 15 employees from the commercial departments, no\nmore than half of whom will be supervisors or managers. All\ncommercial department employees are encouraged to volunteer their"
+        }
+      ]
+    },
+    {
+      "id": "DOC-006",
+      "title": "Confidential Arbitration Settlement Narrative — Male Reporter Salary Comparisons, Introduction and Keith Alexander (first page)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Introduction to The Post's comparison of male reporters' salaries to those of Martha Hamilton, Caroline Mayer, Cynthia Skrzycki and Sharon Walsh; defines similarity keywords; first profile: Keith Alexander",
+      "date": "after September 1, 2002; handwritten notation '11/16/03' [or 16/11/03] at top left",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "First page of the confidential narrative document whose continuation appears earlier in this batch (image 87165334, DOC-003). Same running header; content flows from Keith Alexander (this page) through other reporters to Daniel Southerland and Paul Taylor (DOC-003). Handwritten date/pagination mark in upper-left corner ('11/16/03'). Page ends mid-sentence ('...desire to hire him away').",
+      "pages": [
+        {
+          "imageFile": "8A487FB7-98F0-437B-B25D-E3E591A42215_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "[handwritten top left: 11/16/03]\n\nCONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES\nPREPARED FOR SETTLEMENT PURPOSES\n\nListed below is a comparison of the salaries of certain male reporters to the salaries of Martha Hamilton, Caroline Mayer, Cynthia Skrzycki and Sharon Walsh. Relevant background information for each male reporter is also included. Lastly, explanations are given - where appropriate - noting the factors that have influenced that reporter's salary. Where subjective assessments are given, they reflect the views expressed by the relevant Assistant Managing Editors.\n\nIn comparing individual salaries, The Post has not stated the exact salary differential, but rather noted the degree to which an individual is paid more or less than the respective claimant. The following key is instructive.\n\nIf a reporter was paid similarly, his salary was within $1,000, more or less, of the claimant. If a reporter was paid slightly more, his salary was between $1,001 and $5,000 greater than the salary of the claimant. If a reporter was paid more, his salary was between $5,001 and $15,000 greater than the salary of the claimant. If a reporter was paid substantially more, his salary was over $15,000 greater than the salary of the claimant. The same wording is used to describe a male reporter whose salary was less than the claimant.\n\nKeith Alexander\n\nKeith Alexander was paid slightly more than Hamilton on the 2001 and 2002 salary snapshots.\n\nExperience and Education\nAlexander came to The Post recently as a reporter in Financial News. Prior to starting at The Post, Alexander worked as a reporter at USA Today for approximately five and-a-half years. He also spent approximately two years as a reporter at Business Week and approximately two years as a reporter at the Dayton Daily News. Alexander is a graduate of Howard University.\n\nStarting Salary\nThe Post cannot locate information about Alexander's salary at the USA Today. His starting salary was slightly more than the salary of Hamilton at that time.\n\nSalary History\nAs of September 1, 2002, Alexander has not received any merit increases.\n\nExplanation\nThe differential between the salary of Alexander and the salary of Hamilton is due to Alexander's starting salary, which reflects The Post's desire to hire him away"
+        }
+      ]
+    }
+  ]
+}

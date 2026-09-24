@@ -1,0 +1,100 @@
+{
+  "documents": [
+    {
+      "id": "DOC-001",
+      "title": "Newsroom Professional Staff — demographic table (Jan 3, 1994)",
+      "documentType": "report",
+      "subject": "Washington Post newsroom professional staff by race/ethnicity, sex, and job category; activity Oct 1 - Dec 31, 1993",
+      "date": "1994-01-03",
+      "pageCount": 1,
+      "confidence": "low",
+      "notes": "Dot-matrix printout photographed rotated 90 degrees (reads sideways). Totals are internally consistent (Total 522 = male 329 + female 193; job-category rows sum to 329 and 193), but several individual race-breakdown cells are hard to resolve through the rotated print, so confidence is low and uncertain figures are marked.",
+      "pages": [
+        {
+          "imageFile": "EDB55A73-D720-4CDE-8082-07C8D015999A_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "(Page is photographed sideways — rotate 90° to read.)\n\nNEWSROOM PROFESSIONAL STAFF          03-Jan-94          Total - 522\n\n                              MALE              FEMALE\n                              ___   %           ___   %\nAsian American                7     1.3%        0     0.0% [illegible]\nBlack                         41    7.9%        19?   [illegible]%  [illegible]\nWhite                         27?   51.7%       1??   [illegible]%  [illegible]\nHispanic                      9?    1.7%        4?    0.8% [illegible]\n                              ___   ____        ___   ____\n                              329   63.0%       193   37.0%\n\n                              ASIAN NAT AMER    BLACK  HISPANIC  WHITE [columns]\nSupervisors                   3     14          [illegible]   [illegible]\nCopydesk                      8     41          [illegible]   56 [illegible]\nPhoto/Art                     1     15          [illegible]   2?? [illegible]\n                              __    __          __      ____\n(MALE totals)                 14    71          [illegible] 4?? \n                              2.7%  13.6%       [illegible] [illegible]\n\n(FEMALE section, corresponding):\n                              [values partially illegible]  totals 2?  15? 1?? \n                                                            2.3%   [illegible] 80.8% [illegible — figures uncertain]\n\n                              MALE              FEMALE\n                              ___   %           ___   %\nSupervisors                   74    14.2%       56    10.7%\nCopydesk                      46    8.8%        26    5.0%\nReporters                     186   35.6%       96    18.4%\nPhoto/Art                     23    4.4%        15    2.9%\n                              ___   ____        ___   ____\n                              329   63.0%       193   37.0%\n\nACTIVITY FROM OCTOBER 1, 1993 — DECEMBER 31, 1993\n\nINCLUDED                          EXCLUDES\nMbavlar [illegible]   Weetoffsky [illegible]    Barket [illegible]    Shahey [illegible]\nStanton               Baskin                    Babson                Stanton\nSteele                Willamlson [illegible]    Robinson              York\n                                              Johnson\n                                              Potts"
+        }
+      ]
+    },
+    {
+      "id": "DOC-002",
+      "title": "Memo page 3 — education coverage pitch, signed Martha Hamilton",
+      "documentType": "memo",
+      "subject": "Martha Hamilton proposing a shift from D.C. schools general-assignment coverage to a broader education beat",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Final page ('memo/3') of a multi-page internal memo; only this page is in the batch. Typed page with manual strikethroughs, heavy photocopy show-through bands, and Martha Hamilton's handwritten signature over the typed name.",
+      "pages": [
+        {
+          "imageFile": "EDB712D1-FAE5-4441-9639-EE6CF1B66050_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "memo/3\n\n* There's probably research that demonstrates the opposite, too. It's an intriguing question. (Maybe we could do a sidebar on the common middle class dream about failure -- the one where you walk into class on the day of the big test and realize you haven't been to class all year. School must breed a fine fear of failure into people.)\n\nAny of these stories could be written well from a metropolitan [word struck through] perspective.\n\nBefore, I was a general assignments reporter covering the D.C. schools. We had the Education Bureau sitting off in a corner, and I was circumscribed by jurisdictional problems.[strikethrough] I liked what * I did, as far as it went, but it left me interested in doing more -- in covering education as we cover medicine and have sometimes covered housing and other issues.\n\nIf you're interested, let's talk about ways I might move in this direction.\n\n[handwritten signature] Martha Hamilton"
+        }
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "title": "Post Unit News No. 99 — 'Discrimination at The Post: Pay Gaps Widen'",
+      "documentType": "newspaper-clipping",
+      "subject": "Washington/Baltimore Newspaper Guild bulletin comparing reporter, salesperson, and T-5 Data Programmer pay by race and sex, 1986 vs 1987",
+      "date": "1987-10-22",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Single printed page of the Guild's 'Post Unit News' newsletter, No. 99, dated October 22, 1987, headlined 'Discrimination at The Post — PAY GAPS WIDEN'. Page ends '-over-'; continuation not in this batch.",
+      "pages": [
+        {
+          "imageFile": "F2E17762-5896-4B27-8C44-8A6CAACFCCD1_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "Post Unit News\n[Newspaper Guild logo]\nWashington/Baltimore Newspaper Guild\nNo. 99        Date October 22, 1987\n\nDiscrimination at The Post\n                        PAY GAPS WIDEN\n\nThe patterns of pay discrimination that have contributed over the years to low morale and wide gaps in the amount Washington Post managers are willing to pay their employees not only persist, but have widened significantly since management imposed its version of the contract in August.\n\nIf you needed a reason to understand why this contract is inadequate, here it is.\n\nLast we looked, white males topped the salary scales in the best-paying jobs in many of the largest job categories at the Post. The news is this: despite the company's stated commitments to the hiring and nurturing of women and minorities, the practice of paying inequitably based on race and sex has not only continued--it's gotten worse.\n\nFor reporters--the largest single job category covered by the contract--the average salary for white males was $988.68 at the beginning of 1986. By September of 1987, that figure had jumped to $1,140.52.\n\nSuch a salary improvement is not the source of our complaints, however. The problem is that while white males were continuing to improve, females and blacks continued the slide away from parity.\n\nThe numbers compiled after the so-called impasse was declared in mid-August tell the story.\n\nAcross all classifications, white males average $332 more a week than black females, $204.39 more than white females and $230.66 more than black males.\n\nAmong reporters, the figures are reversed slightly, but the discrepancies remain just as stark. White male reporters, on the average, make $240.59 more a week than black females, a gap that is $43.24 wider than in January of 1986.\n\nThe gap has also grown by about $2 a week between white male and white female reporters and by about $15 a week between white male and black male reporters.\n\nAmong outside advertising salespersons, the gap also increased significantly. White males, on average, earned about $25 more a week than black males and black females in 1986, a disparity which has now increased to $96 weekly. White females in this classification earn on average $61.51 less than their male counterparts, up from a $43.03 average weekly difference in 1986.\n\nAnd the gap among white men and white women who work as T-5 Data Programmers has opened dramatically, moving from an $8.33 average weekly difference in 1986 to an $86.07 average difference now.\n\nThere have been some improvements. Black females who are classified as managers, assistant managers, editors, deputy and associate editors have closed a more than $200 gap between their average salaries and salaries for white males.\n\nBut overall, the Post's record on equal pay for equal work sends a clear message to the rank and file at the Washington Post about which employees are valued at this company, and which are not.\n\nThese comparisons tell the story:\n\nReporters                          1/86        9/87\n\nWhite males                       $988.68     $1,140.52\nBlack males                        920.46      1,057.39\nWhite females                      859.37      1,008.56\nBlack females                      791.33     $  899.33\n\n-over-\n\nAffiliated with American Federation of Labor—Congress of [Industrial Organizations — footer cut off]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-004",
+      "title": "Confidential settlement analysis — comparator profiles (Brown, Warren Brown, Mills, John Mintz)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Side-by-side salary comparisons of Hamilton and Mayer against comparator reporters (a Brown who left in 1985, Warren Brown, Mills, John Mintz), with experience, starting salary, salary history, and explanation sections",
+      "date": "approx 2002 (references salary snapshots through 2002)",
+      "pageCount": 2,
+      "confidence": "high",
+      "notes": "Two pages bearing the header 'CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES — PREPARED FOR SETTLEMENT PURPOSES'; clearly part of the same comparative-salary exhibit. They are not consecutive in this filename-sorted batch (batch order is GUID-alphabetical, not physical page order). Page order here is a best guess (Brown sections likely precede Mills/Mintz); both pages are mid-document continuations.",
+      "pages": [
+        {
+          "imageFile": "F3D7FF05-333E-42B7-9153-EC1121851576_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES\nPREPARED FOR SETTLEMENT PURPOSES\n\nExperience and Education\nBrown started at the Post in the late 1970s as a reporter in Financial News. The Post is unable to provide information about his prior experience and education. Brown left The Post in 1985.\n\nStarting Salary\nThe Post could not locate information about Brown's prior salary. Brown's starting salary was less than the salary of Hamilton at that time.\n\nSalary History\nBrown received five merit increases during his time at The Post -- all of which he received as a reporter in Financial News. He received merit increases in the following years: 1981, 1982, 1983 and 1984.\n\nWarren Brown\n\nWarren Brown was paid slightly less than Hamilton on the 1992 to 1995 salary snapshots. Brown and Hamilton were paid similarly on the 1996 to 1999 salary snapshots. Brown was paid more than Hamilton on the 2000 salary snapshot and substantially more than Hamilton on the 2001 and 2002 salary snapshots.\n\nBrown was paid similarly to Mayer on the 1995 and 1997 salary snapshots. Brown was paid slightly more than Mayer on the 1996 salary snapshot. Brown was paid slightly less than Mayer on the 1998 and 1999 salary snapshots. Brown was paid slightly more than Mayer on the 2000 salary snapshot. On the 2001 and 2002 salary snapshots, Brown was paid substantially more than Mayer.\n\nBrown was paid less than Skrzycki on the 1992 to 1999 salary snapshots. On the 2000 salary snapshot, they were compensated similarly. On the 2001 and 2002 salary snapshots, Brown was paid substantially more.\n\nExperience and Education\nBrown came to The Post in the mid-1970s as a reporter in National News. Brown became a reporter in Financial News in 1982 where he remains today. Prior to starting at The Post, Brown worked as a reporter for the Philadelphia Inquirer for three years. He had also previously worked as a reporter for the New Orleans States-Item for approximately a year and served as the Associate Editor for JET Magazine. Brown is a graduate of Xavier University and has a Masters in Journalism from Columbia University. He also obtained a New York Times fellowship for post-graduate study in journalism.\n\nStarting Salary"
+        },
+        {
+          "imageFile": "EF2EEF16-E080-49A1-B0DA-CFC895EB743C_1_105_c.jpeg",
+          "pageNumber": 2,
+          "pageKind": "content",
+          "transcript": "CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES\nPREPARED FOR SETTLEMENT PURPOSES\n\nMills was paid less than Mayer on the 1995 snapshot, slightly less than Mayer on the 1996 snapshot and more than Mayer on the 1997 and 1998 snapshots.\n\nExperience and Education\nMills came to The Post in the mid-1990s as a reporter in Financial News. Prior to starting at The Post, Mills worked as a reporter for The Congressional Quarterly for approximately six and-a-half years. He also served as a reporter and Associate Editor for Photo Marketing Magazine for two and-a-half years and worked as an intern reporter for The Los Angeles Times for six months. Mills is a graduate of Michigan State University and has a Masters in Public Affairs from American University.\n\nStarting Salary\nUpon starting at The Post, Mills received approximately a 36 percent increase over his prior salary at the Congressional Quarterly. His starting salary was less than the salaries of Hamilton and Mayer at that time.\n\nSalary History\nMills received eight merit increases during his time at The Post -- all of which he received as a reporter in Financial News. He received these merit increases in the following years: 1995, 1996, 1997 and 1998. He also received an approximate 10 percent salary increase from The Post in 1997 in response to an offer from a competing newspaper.\n\nExplanation:\nMills covered telecommunications -- considered a highly valued and challenging position by The Post.\n\nMills was a highly valued reporter in the marketplace, receiving interest from other papers and publications -- evidenced by his later acceptance of a competing job offer in 1999. As a result, Mills was put on the fast-track, which increased his salary. Mills also received an approximate 10 percent salary increase from The Post in 1997 in response to an offer from a competing newspaper.\n\nJohn Mintz\n\nJohn Mintz was paid similarly to Hamilton on the 1992 to 1996 salary snapshots, except he was paid slightly more on the 1994 salary snapshot.\n\nMintz was paid similarly to Mayer on the 1995 salary snapshot and slightly more than Mayer on the 1996 salary snapshot (Mayer did not appear on the 1992 to 1994 salary snapshots)."
+        }
+      ]
+    },
+    {
+      "id": "DOC-005",
+      "title": "Exhibit III.(3) — Merit pay by year, 1989–1990, by race and sex",
+      "documentType": "arbitration-exhibit",
+      "subject": "Statistics printout of average merit pay and average number of merit increases by race and sex categories for 1989 and 1990",
+      "date": "1999-09-14",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Computer printout (header 'dhr07 17:33 Tuesday, September 14, 1999') with handwritten tab label 'III.(3) merit pay by year' at top — formatted like a numbered arbitration exhibit section. Corner of paper is dog-eared. Two tables, Year=1989 and Year=1990; each appears to have a summary block (race only) followed by race-and-sex breakdowns.",
+      "pages": [
+        {
+          "imageFile": "F5CFB9BC-37C6-479E-8BBA-8A6833F8F52F_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "[handwritten at top] III.(3) merit pay by year\n\n                        dhr07     17:33 Tuesday, September 14, 1999\n\n            Average merit pay and average number of merit increases\n                     by race and sex categories\n\n--------------------------- Year=1989 ---------------------------\n\n                Number of      Average      Total            Average\nRace  Sex     employees       merit pay   number of      number of\n                                      merit increases  merit increases\n\n B                 24          $70.26         15              0.6\n W                173          $45.52        105              0.6\n       F           77          $43.86         43              0.6\n       M          120          $51.27         77              0.6\n B     F           11          $66.08          5              0.5\n B     M           13          $72.35         10              0.8\n W     F           66          $40.94         38              0.6\n W     M          107          $48.12         67              0.6\n\n--------------------------- Year=1990 ---------------------------\n\n                Number of      Average      Total            Average\nRace  Sex     employees       merit pay   number of      number of\n                                      merit increases  merit increases\n\n B                  5          $69.47         21              4.2\n W                  8          $81.37        113               14\n       F            5          $58.37         46              9.2\n       M            8          $90.55         88               11\n B     F            1          $57.44          8              8.0\n B     M            4          $76.87         13              3.2\n W     F            4          $58.56         38              9.5\n W     M            4          $92.92         75               19"
+        }
+      ]
+    }
+  ]
+}
