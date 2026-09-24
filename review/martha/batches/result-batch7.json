@@ -1,0 +1,112 @@
+{
+  "documents": [
+    {
+      "id": "DOC-001",
+      "title": "Left-edge fragment of typescript page on Post pay comparisons ('...got from the Post / and sex and job title / th a computer / up of newsroom employees')",
+      "documentType": "arbitration-exhibit",
+      "subject": "Only the binder-hole left margin of a typewritten page survives in frame; visible text concerns getting data from the Post by sex and job title, running it through a computer, and a group of newsroom employees — consistent with the pay-equity narrative/analysis in this case file",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "low",
+      "notes": "Photo taken across a scratched wooden table; the paper occupies only the upper-left corner of the frame and most of each line is cut off, so the transcript records only the visible word-ends. Cannot be matched to any other page in this batch, and the fragment's owning document is unknown. Notably it does NOT visually continue the letter on page 32386A42 (different paper/format), though thematically both touch on Post pay/sex data.",
+      "pages": [
+        {
+          "imageFile": "2E5C18E8-834C-4611-BDC3-5FA8C2D91705_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "partial",
+          "transcript": "[only the left margin of the sheet is in frame; five punched binder holes visible at right edge of the fragment; each line truncated:]\n[e]ptions of\n[t] got from the Post\n[a]nd sex and job title,\n[w]th a computer.\n[u]p of newsroom employees[.]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-002",
+      "title": "Table photograph (separator), no legible content",
+      "documentType": "other",
+      "subject": "Close-up of a varnished wooden table surface with a corner edge and floor beyond; no document visible",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Near-empty photo of the table surface used between scans, per schema; contains no legible content. Placed as its own document because the surrounding images (DOC-001 fragment and DOC-003 contract page) are unrelated items.",
+      "pages": [
+        {
+          "imageFile": "317C80E9-6972-4131-8B3A-A40C083F1E70_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "table-photo",
+          "transcript": "[no legible content — photograph of a scratched, varnished wooden table surface]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "title": "Post–Washington-Baltimore Newspaper Guild collective bargaining agreement, p. 34 (maternity/paternity leave, union-business leaves, sabbatical leaves)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Copy of page 34 of the labor contract between The Washington Post and the Washington-Baltimore Newspaper Guild, governing leaves of absence: paid maternity leave (clause 4(a)), commencement of leave (4(b)), paternity leave (4(c)), continuity of service (5), Guild/labor-council officers' meeting time (6), and beginning of seven-year sabbatical-leave provision (7)",
+      "date": "unknown (contract period; undated page)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Photocopied sheet with blackened photocopy artifact bars along top and bottom and a band of toner speckle down the left binder-margin area; the page sits on a document with a ruled/card grid visible behind it at left. Contract text is directly relevant to the leave/grievance history described in the affidavit at DOC-004 (maternity leave, sick leave after childbirth), so it likely enters the file as a legal/contract exhibit. No second page of this contract is in the batch; kept separate from the affidavit.",
+      "pages": [
+        {
+          "imageFile": "31969D00-7026-463D-BC22-B1A085F4B117_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "(4)(a) Maternity leave of at least six (6) months shall be granted with pay for the first four (4) weeks if an employee has been continuously in the employ of The Post for one (1) year or more. Work which may be performed at home may be offered to the employee and compensated at the daily straight-time rate, and any days worked at home shall not reduce or extend the period of leave.\n\n(4)(b) The decision as to when such leave shall commence, shall reside solely with the employee with the concurrence of her own physician. Prior to the commencement of maternity leave, the employee may avail herself of any sick leave benefit to which she is entitled under the provisions of Article X. Any unused sick leave is available to her upon her return to work.\n\n(4)(c) Paternity leave of up to ten (10) days shall be granted without pay upon request. Such leave shall be requested in writing by the employee.\n\n(5) Leaves of absence under this Article or under Article XVII shall not constitute breaks in continuity of service but except as otherwise provided in Article XVII, the time spent on such leaves shall not be considered service time.\n\n(6) When an employee is elected to an office of the Washington-Baltimore Newspaper Guild, or as a member of the Washington-Baltimore Newspaper Guild Executive Board, or as a delegate to the Greater Washington Central Labor Council, he may request that his regular time off under Article VI of this Agreement, coincide with the regular meetings of those organizations. The Post will grant such request where it is not in conflict with the operating requirements of the Company.\n\n(7) During the term of this agreement, four (4) employees with seven (7) or more years of service shall be granted sabbatical leaves of nine (9) months, for which period the employee will be paid at one-half the applicable contract\n\n34"
+        }
+      ]
+    },
+    {
+      "id": "DOC-004",
+      "title": "Typescript draft 'Letter To the Editor' / 'Taking Exception' piece on the Juan Williams sexual-harassment affair (annotated, 'Oct 2 1991')",
+      "documentType": "letter",
+      "subject": "First-person draft letter, written as one of the female staff members of The Washington Post, rebutting Ombudsman Richard Harwood's column 'Dirty Talk' in defense of colleague Juan Williams; discusses the Clarence Thomas op-ed, Anita Hill, and Williams's investigative status during the Thomas confirmation process",
+      "date": "1991-10-02 (handwritten date annotation)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Upper-left corner is dog-eared/torn and the sheet is numbered '5' in pencil at top right with 'Oct 2 1991' written in red pen; a brace and a line with the initials/mark 'MW' (or similar) annotate the right margin by the fifth and sixth paragraphs, and 'supervisors', 'Juan Williams' and 'Williams' carry strike-through editing marks. The page starts mid-argument ('This is submitted as either...') but reads as the substance of the letter; no companion pages are in this batch. Thematically adjacent to the DOC-002 statement defending accusers in the same Williams affair. Transcript is faithful, including struck words shown with strikethrough notation.",
+      "pages": [
+        {
+          "imageFile": "3208105C-C6AF-4BD4-AF34-6C3C45DB856A_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "[pencil annotation, top right: 5]   [red pen annotation: Oct 2 1991]\n\nThis is submitted as either a \"Taking Exception\" piece or as a Letter To the Editor.\n\nAs female staff members of The Washington Post we were both surprised and angered by Richard Harwood's Ombudsman column last Sunday, \"Dirty Talk.\" In trying to defend the behavior of our colleague Juan Williams, Harwood reveals himself to be ignorant of both the actual circumstances surrounding \"the Juan Williams affair,\" as he calls it, and sexual harassment in general.\n\nHarwood correctly notes that the Washington Post newsroom is a sexually diverse one. He misses the point, however, when he implies that its diversity should protect male staff from complaints of sexual harassment, and that the complaints against Williams arose because of some irrational and sudden intolerance on the part of some female staff members.\n\nSexual harassment is not simply sexually explicit language. It is verbal abuse that happens to be sexually oriented, comments that are meant to hurt, belittle, humiliate, threaten or embarrass another person, thereby making the newsroom a hostile environment in which to work.\n\nThe complaints against Mr. Williams were not the first sexual harassment case in The Post's newsroom, as Harwood should know, nor were they the first complaints about Mr. Williams' behavior, as Harwood should have discovered before he wrote his article. Female staff ~~members~~ have complained to their ~~supervisors~~ about Williams' harassing behavior for at least four years. Nor did only one woman in the newsroom complain on this occasion. More than a dozen women complained about ~~Juan Williams~~ and a number of men expressed outrage at his behavior too.\n\nThe fact that Williams is, as Harwood states, \"a family man...whose professional career...is on the ascent\" is beside the point. \"Family men\" do engage in offensive behavior. Furthermore, many of the women who were harassed by Williams are family women.\n\nHarwood seems to believe that many of the complaints against Williams stemmed from outrage over his piece on the Post op-ed page defending Clarence Thomas and that the women bringing the complaints were victims of some sort of mass hysteria perpetrated by an identification with Anita Hill. This notion simply flies in the face of the facts.\n\nNot only was Williams aware that problems with his behavior were longstanding, but the most recent series of complaints against him occurred before the world had ever heard the name \"Anita Hill.\" Williams was made aware of the investigation into those recent complaints one day before his piece defending Thomas ran. In fact, Williams was given the option to withdraw the piece. He did not.\n\nWhat Williams actually wrote about Thomas in that article is not the issue here. More significant to us is that Williams, knowing he was under investigation for making sexually harassing comments, spoke about the issue on television during the Thomas confirmation process, when, ethically, he should have recused himself from such discussions. At the very least, we believe he had an obligation to disclose his personal involvement with the subject to the readers of his op-ed piece and to his viewers, who might have regarded his opinions differently had they understood the context in which his comments on Judge Thomas were made.\n\nWilliams himself has contributed to the media hysteria around this case, first, by not recusing himself from the issue and withdrawing his editorial page piece, then, by granting myriad press interviews in which he denied all charges\n\n[margin annotations at right of paragraphs 5-6: a brace and a diagonal line with initials, possibly \"MW\"]\n[struck words above shown with strikethroughs as visible on the page]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-005",
+      "title": "Signed personal statement / affidavit by reporter (page 3): police beat, 1975 strike, maternity leave and sick-leave grievance, reassignment to the Weekly",
+      "documentType": "arbitration-exhibit",
+      "subject": "Numbered paragraphs 7-10 (continuing from an earlier page) of a first-person employment narrative: assignment history on the police and D.C. schools beats, refusal to cross the October 1975 press operators' strike picket line, maternity leave beginning May 27, 1976, denial of two weeks sick leave after the birth and a grievance settled by Post payment, subsequent contract clarification allowing sick leave after childbirth, and being moved to the Weekly staff against her wishes after five months' maternity leave",
+      "date": "1976 events referenced; statement unknown (likely 1980s-90s)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Clean typed page bearing a signature across the top margin (illegible as transcribed), page numbered '- 3 -' at bottom, so a first page with paragraphs 1-6 and the heading is missing from this batch (see the partial page at DOC-001, which may or may not be related). Content matches the kind of personal-statement exhibit filed with an arbitration/grievance (cf. DOC-003 contract clauses on maternity leave that this narrative relies on). Transcript preserves paragraph numbering 7-10.",
+      "pages": [
+        {
+          "imageFile": "32386A42-EEB5-4A2D-996E-EEFE0151BF4D_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "[handwritten signature across the top margin; not legible as a name transcription]\n\npolice (generally viewed as the least desirable beat on the city staff), reporting to City Editor Kevin Klose. I told Kevin that Herb and Len were wrong about my abilities and that I would prove it, if he gave me a chance. For many months, I worked night police and worked during the day as well. In time, I was getting on the front page consistently. Klose told me he was very pleased with my work. He took me off of night police and gave me the D.C. schools beat during a period of enormous controversy. I was on the front page very frequently.\n\n7. Then, in October, 1975, the Post strike by its press operators occurred. I did not cross the picket line to go to work for several months until the strike was over. After the strike, I came back to work and was consistently on the front page.\n\n8. In May 1976, on the day my daughter was born, I left for maternity leave, finishing a front page story a few days after my daughter was born on May 27, 1976.\n\n9. I had one month's paid leave as per the collective bargaining agreement and four months leave without pay. I also asked for two weeks sick leave following the birth of my daughter. I was denied that, though my doctor said I would be physically unable to work for two weeks after giving birth. I filed a grievance which subsequently was settled by the Post making a payment to me. Later, as a member of the bargaining committee I succeeded in clarifying in the contract that sick leave could be used after the birth of a child which is now standard practice with many women being paid 8 to 10 weeks sick leave.\n\n10. When I was preparing to return to work after five months maternity leave, I came in to talk to Len Downie with a three-page memo about story and beat ideas. But Downie short-circuited my pitch, telling me that he had decided to put me on the Weekly staff so I could spend more time with my baby. This occurred even though I had been writing major front-page stories in the months before I gave birth (and a few days after I gave birth). I told Len that I didn't want to go to the Weekly and asked him to reconsider, but he didn't.\n\n- 3 -"
+        }
+      ]
+    },
+    {
+      "id": "DOC-006",
+      "title": "Pay-equity analysis page with bar chart 'Deviation from Average Reporter Salary by Race and Sex'",
+      "documentType": "report",
+      "subject": "Illustrated page (italic body text around a vertical bar chart) showing that at The Washington Post black women reporters were paid $240/week less than white men on average, $170/week less even after adjusting for years at the paper and age; chart deviations: White Male +$69.15, Black Male -$13.98, White Female -$62.81, Black Female -$171.44 from the average reporter salary; Guild-wide averages put white males $204 ahead of white females, $230 ahead of black males, $332 ahead of black females; closing paragraph notes the gap for black women reporters doubled in five years",
+      "date": "unknown (back-printing appears to reference 1988-1990 salary medians, likely bleed-through from the reverse side)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Design-style layout (screenshot aesthetic with serif/italic text and an axis-flipped descending bar chart), suggesting a case document or presentation exhibit rather than typescript. Ghost text visible behind the lower half through the paper shows fragments of 'SALARY MEDIAN', '1988', '1989', '1990' and dollar figures such as $46,757.23, $61,684.75, $148,420.45 — these are show-through from the other side of the sheet and are deliberately NOT transcribed into the body. No second page of this analysis is in the batch; kept separate from DOC-005's affidavit and DOC-004's letter.",
+      "pages": [
+        {
+          "imageFile": "32765112-83F5-4434-99F4-C7D7FFDCCE7C_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "Black women reporters at The Washington Post are paid $240 a week less, on average, than reporters who are white men. Even when salaries are adjusted to reflect the impact of years at the paper and age (a good indicator of previous experience), there is still a $170 a week disparity for black women reporters. White women reporters earn average paychecks that are $120 a week less than those of their white male colleagues of similar age and tenure at The Post.\n\nDEVIATION\nFROM AVERAGE REPORTER SALARY\nBY RACE AND SEX\n\n[vertical bar chart; center line labeled 'AVERAGE REPORTER SALARY'; bars extending upward shown as positive deviation, downward as negative]\nWhite Male    +$69.15\nBlack Male    -$13.98\nWhite Female  -$62.81\nBlack Female  -$171.44\n[vertical axis tick labels as printed: $100 / $50 above the average line; $50 / $100 / $150 / $200 below it]\n\nAnd the gaps are not just among reporters. For all employees represented by the Guild at The Post the average salary for white males is $204 a week ahead of the average salary for white females, $230 ahead of the average salary for black males, and a shocking $332 a week ahead of the average salary for black females.\n\nNor is the situation improving with time. It is getting worse. For black women reporters, the pay gap has actually doubled in five years.\n\n[show-through from reverse side, not part of this page's text: fragments including 'SALARY MEDIAN', years '1988' '1989' '1990', and dollar amounts such as $46,757.23, $61,684.75, $148,420.45]"
+        }
+      ]
+    }
+  ]
+}

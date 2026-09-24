@@ -11,6 +11,22 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="stylesheet" href="styles.css">
     <script src="assets/js/Components.js" defer></script>
+    <style>
+        .audit-cta {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: var(--accent-red);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: var(--sans);
+            font-weight: 600;
+        }
+        .audit-cta:hover {
+            background: var(--accent-red-dark);
+        }
+    </style>
 </head>
 <body>
     <settling-release-banner></settling-release-banner>
@@ -32,6 +48,7 @@
                 This page lists the pages that are still flagged <strong>generated</strong> and therefore need review.</p>
             <p>After reviewing a page, replace its <code>generated</code> meta tag with the <code>reviewed</code> tag and
                 remove it from the table below.</p>
+            <p><a class="audit-cta" href="martha-audit.html">Review the Martha M. Hamilton document archive →</a></p>
         </section>
 
         <section>
@@ -46,6 +63,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td><a href="martha-audit.html">Martha M. Hamilton Documents</a></td>
+                            <td><code>review/martha.html</code> · <code>review/martha-audit.html</code></td>
+                            <td>148 documents / 167 pages read by vision (no OCR); verify tables, quotes, and any
+                                low-confidence &amp; rotated pages; mark off-the-record items</td>
+                        </tr>
                         <tr>
                             <td><a href="contact.html">Contact</a></td>
                             <td><code>contact.html</code></td>

@@ -1,0 +1,112 @@
+{
+  "documents": [
+    {
+      "id": "DOC-001",
+      "title": "Salary tabulation sheet: General Clerks, Junior Clerks, Secretaries",
+      "documentType": "arbitration-exhibit",
+      "subject": "Payroll statistics by job class broken down by race and sex (male/female counts, pay totals and averages)",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "medium",
+      "notes": "Carbon/typewritten summary table, faded columns. Job classes: GENERAL CLERKS, JUNIOR CLERKS, SECRETARIES; race rows WHITE, BLACK, HISPANIC, ORIENTAL, B?, A? (likely Spanish/Native American abbreviations). Likely one page of a multi-page salary-tabulation document; a visually identical continuation sheet appears separately at the end of this batch (non-consecutive).",
+      "pages": [
+        {
+          "imageFile": "7D515688-1323-4DFC-89B1-F63E3C47730A_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "GENERAL CLERKS | [cols: MALE | MALE PAY | FEMALE | FEMALE PAY | TOTAL RACE | TOTAL RACE PAY]\nWHITE: MALE 13; MALE PAY $4,753.50 / AVG $365.75; FEMALE 23; FEMALE PAY $7,175.05 / $313.04; TOTAL RACE 36; TOTAL RACE PAY $11,970.75 / $332.51\nBLACK: MALE 12; $4,418.75 / $368.23; FEMALE 24; $8,082.15 / $335.75(?); TOTAL 36; $12,500.90 / $347.25\nAVG.\nHISPANIC: MALE 1; $383.95 / $383.95; FEMALE 1; $383.95 / $383.95; TOTAL 2; $767.90 / $383.95\nAVG.\nORIENTAL: MALE 1; $258.95 / $258.95; FEMALE 3; $773.75 / $257.92; TOTAL 4; $1,042.70 / $260.68\nAVG.\nB?: MALE 0; $0.00; FEMALE 0; $0.00; TOTAL 0; $0.00   AVG. $0.00\nA?: MALE 0; $0.00; FEMALE 0; $0.00; TOTAL 0; $0.00   AVG. $0.00\nTOTAL: MALE 27; $9,825.15 / $325.38(?); FEMALE 51; $16,415.70(?) / $321.50(?); TOTAL 78; $26,201.85 / $335.95(?)\n[several digits faded/uncertain]\n\nJUNIOR CLERKS\nWHITE: MALE 2; $187.05 / $343.52(?); FEMALE 3; $1,044.75 / $348.25; TOTAL 5; $1,731.50 / $346.35(?)\nBLACK: MALE 2; $407.80 / $304.90(?); FEMALE 5; $1,728.15 / $345.63; TOTAL 7; $2,337.95 / $333.99\nHISPANIC: all 0 / $0.00\nORIENTAL: all 0 / $0.00\nB?: all 0 / $0.00\nA?: all 0 / $0.00\nTOTAL: MALE 4; $1,274.85 / $324.21(?); FEMALE 8; $2,772.90(?) / $346.61; TOTAL 12; $4,069.75(?) / $339.15\n\nSECRETARIES\nWHITE: MALE 0; $0.00; FEMALE 4; $1,511.90 / $377.98; TOTAL 4; $1,511.90 / $377.98\nBLACK: all 0 / $0.00\nHISPANIC: all 0 / $0.00\nORIENTAL: MALE 0; $0.00; FEMALE 1; $404.40 / $404.40; TOTAL 1; $404.40 / $404.40\nB?: all 0 / $0.00\nA?: all 0 / $0.00\nTOTAL: MALE 0; $0.00; FEMALE 5; $1,915.90(?) / $383.18; TOTAL 5; $1,915.90(?) / $383.18"
+        }
+      ]
+    },
+    {
+      "id": "DOC-002",
+      "title": "Closing page of letter from Black female employees on salary inequities (signed)",
+      "documentType": "letter",
+      "subject": "Final page of a letter to management demanding adjustment of salaries of black female employees; handwritten signatures with dollar figures; cc Donald Graham, Benjamin Bradlee",
+      "date": "unknown (post-1979/1980 contract era; context suggests early 1980s)",
+      "pageCount": 1,
+      "confidence": "medium",
+      "notes": "First page(s) of this letter are not in this batch. Handwritten signatures difficult; a numeric figure (probably salary) precedes each signature. Signatory 'Marlene Bagley' appears to match Martha M. Hamilton's circle; one line reads 'Martha L. Scallron(?)' — uncertain.",
+      "pages": [
+        {
+          "imageFile": "7D8E158D-5627-43FF-9857-D719C5339A4A_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "We strongly believe that something must be done to correct this situation. During at least one meeting with staff members, you indicated that you would be evaluating the salary situation and addressing past inequities. We support such an effort.\n\nIn addition, we have two requests:\n\n*That the salaries of black female employees be adjusted to levels that equal the salaries of white male employees who have the same amount of experience and are in comparable positions.\n\n*That newly hired black female employees who are fully experienced receive salaries equal to those of newly hired white males who are fully experienced.\n\nWe make these requests in a sincere effort to end the financial inequity for those of us who are black and female. We look forward to your response.\n\nSincerely,\n[handwritten signatures with figures, mostly hard to read:]\n$466.94 [signature — Rosalyn(?)] B. Gilliam\n?295.54 Martha L. Scallron(?), Arlene(?) [two names on one line]\n[signature — Yvonne Murfated(?) Frank(?) — illegible]\n739.39 Marlene Bagley\n[signature — Sandra E. Greegy(?)]\n662.25 Leah Latimore(?)\n381.40 Jeanine Seaberry(?)\n664.35 Patrice Paris-Carter\n961.50 Jill Nelson\n895.61 Jacqueline Prescott (wg?)\n944.66 Cheryl S. Earle(?)\n728.55 Eileen Spell(?)\n\ncc: Donald Graham\n    Benjamin Bradlee"
+        }
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "title": "Confidential arbitration settlement submission — O'Harrow and Steve Pearlstein salary narratives",
+      "documentType": "arbitration-exhibit",
+      "subject": "Employer/settlement narrative comparing salaries of Michael O'Harrow and Steve Pearlstein to Hamilton and Mayer; experience, education, and starting-salary sections",
+      "date": "2002 or later (references 'As of September 1, 2002')",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Header marks it confidential under agreed arbitration procedures prepared for settlement purposes. Named individuals: O'Harrow, Walsh, Hamilton, Mayer. Page continues (ends mid-section at 'Salary History' heading for Pearlstein).",
+      "pages": [
+        {
+          "imageFile": "8226C5EB-981E-43D1-A0F3-47583A57D7AC_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES\nPREPARED FOR SETTLEMENT PURPOSES\n\nSalary History\nAs of September 1, 2002, O'Harrow received three merit increases — two of which he received as a reporter in Financial News. He received these two merit increases in 2000 and 2001. When he returned from the Investigative Unit in 2000, O'Harrow received an approximately 70 percent salary increase, making his salary substantially more than the salaries of Hamilton and Mayer at that time.\n\nExplanation:\nO'Harrow is considered an expert in digital privacy and was a finalist for the Pulitzer Prize three years ago.\n\nBecause O'Harrow was highly valued because of his expertise, he was put on the fast-track. O'Harrow also received an approximately 70 percent salary increase when he returned from the Investigative Unit to Financial News.\n\nO'Harrow had a substantial number of high impact A1 stories.\n\nSteve Pearlstein\n\nSteve Pearlstein was paid more than Walsh on the 1992 to 1997 salary snapshots, except he was paid slightly more on the 1995 salary snapshot (Walsh does not appear on the 2000 to 2002 salary snapshots — Pearlstein does not appear on the 1999 and 2000 salary snapshots).\n\nExperience and Education\nPearlstein came to The Post in the late 1980s as the Deputy Editor in Financial News, a position he held for roughly three years before becoming a reporter in Financial News in 1991. He became a foreign correspondent in the Canada Bureau in 1998, returning to Financial News as a reporter in 2000, where he remains today. Prior to starting at The Post, Pearlstein worked as a Senior Editor at Inc. Magazine for approximately two and-a-half years. He also founded The Boston Observer where he served as its Editor and Publisher for approximately three years. He also worked at the Concord Monitor for two years and Foster's Daily Democrat for one year. Lastly, Pearlstein served as a writer, on-air reporter and Acting Managing Editor of WGBH-TV for approximately three years. Pearlstein is a graduate of Trinity College in Hartford, Connecticut.\n\nStarting Salary\nUpon starting at The Post, Pearlstein received approximately a 17 percent increase over his prior salary at Inc. Magazine. His starting salary was substantially more than the salary of Walsh at that time.\n\nSalary History"
+        }
+      ]
+    },
+    {
+      "id": "DOC-004",
+      "title": "The Post employment contract/ handbook — sick leave and Article XI Vacations (p. 30)",
+      "documentType": "other",
+      "subject": "Printed contractual provisions on accumulation/use of sick leave, physician certification, workers' compensation deductions, and definitions for vacations",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Printed page numbered 30 from an agreement with The Post (likely GP-GU or similar union contract). Photo taken on a speckled dark surface (textured border visible at left/bottom). Clearly a different document from the arbitration narrative.",
+      "pages": [
+        {
+          "imageFile": "845A7ECA-10AE-4F48-89A5-CF32D47A6080_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "may, in case of bona fide illness not arising from his own misconduct, be used during the next succeeding period of thirty-six (36) months (employees with at least five (5) but less than ten (10) years), fifteen (15) days per year carried over to the next succeeding forty-eight (48) months; employees with more than ten (10) years of service but less than twenty (20) years, fifteen (15) days per year carried over to the next succeeding sixty (60) months; employees with twenty (20) years of service or more, fifteen (15) days per year carried over to the next succeeding ninety-six (96) months). Additional sick leave may be granted at the discretion of The Post. No deductions shall be made on account of sick leave from overtime credited or to be credited to an employee or from annual vacations. An employee shall be entitled to four (4) days' sick leave during the first three (3) months of his employment.\n\n(2) The Post may in any case require an employee to submit a certificate of a reputable physician, or may have him examined by a physician of its own selection, in order to determine whether such employee is entitled to sick leave hereunder.\n\n(3) Any amounts received by an employee under any Workmen's Compensation law (except hospital and medical expenses) for the period covered by sick leave may be deducted by The Post.\n\nARTICLE XI - VACATIONS\n\n(1) For the purpose of this Article, \"vacation\" shall mean vacation with pay, \"employment\" shall mean regular, fulltime continuous employment at The Post, and \"working days\" shall mean days worked for straight-time pay and paid sick leave, holidays and vacations.\n\n(2) For the purpose of this Article, employees are divided into two groups:\n\n30"
+        }
+      ]
+    },
+    {
+      "id": "DOC-005",
+      "title": "Bargaining Committee newsletter page — 'Why does the Post discriminate?' with salary-comparison charts",
+      "documentType": "newspaper-clipping",
+      "subject": "Union bargaining committee flyer/newsletter comparing white female and all-black salaries to white male averages (1982 & 1986) for assistant editors/assignment editors & make-up and outside advertising sales; signed by Martha Hamilton",
+      "date": "between 1986 and 1999 (charts dated 1982 & 1986; references 1999 contract — likely a later retrospective reprint; treat as approx. 1986–1999, uncertain)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "One printed page with two bar-chart panels (top chart fully visible, bottom 'OUTSIDE ADVERTISING SALES' chart cut off at page edge) and two-column article text. Signed 'Martha Hamilton, for the Bargaining Committee'. The reference to 'the contract signed in 1979 and in the current contract' plus 'ratified in 1999' internal quote is odd; transcribed as seen. Note: body text says salaries 'resulted in discrimination... ratified in 1999' reading kept literal.",
+      "pages": [
+        {
+          "imageFile": "84E1D431-3BA5-4320-BA60-DFAA9E16FD4E_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "ASSISTANT EDITORS,\nASSIGNMENT EDITORS & MAKE-UP\nHOW OTHER SALARIES COMPARE TO WHITE MALE AVERAGE SALARIES, 1982 & 1986\n\n[Chart: y-axis 'WHAT WHITE MALES AVERAGE' from -2 to -10; panel WHITE FEMALES: bars -5.5% (1982), -8.6% (1986); panel ALL BLACKS: bars -4.9% (1982), -4.8% (1986)]\n\nWHY DOES THE POST DISCRIMINATE?\n\nWe don't think that the Post has a conscious policy of discrimination but it discriminates.\n\nWe don't think most managers and supervisors at the Post discriminate consciously on the basis of race and sex. But conscious or unconscious, the results are the same.\n\nThe salary system that the Post created and maintains allows discrimination to do its work.\n\nA major cause of the discrimination in pay is the multi-tier wage system. The system began in the late 1970s when there was no contract in effect. During that time and the Post unilaterally handed out pay increases. When the Post finally settled on a contract three years later, those pay increases were not incorporated in the contractual rates of pay. As a result, people who had been on the payroll before the contract was signed had higher salaries than those who were hired later. That pattern was extended — at the Post's insistence — in the contract signed in 1979 and in the current contract.\n\nIn the late 1960s and early 1970s, blacks and women faced another kind of discrimination. They could not get hired for the better paying jobs here. The Post has made progress since then in hiring more women and minorities. But it also set up a pay system that favors employees who worked at the Post before 1976. Among reporters and editors, outside advertising sales staff, top-ranked computer programmers and in other better paying jobs, that means white males. Since then the Post has hired an increasing number of blacks and women — but at lower salaries.\n\nBut that's not the only way in which The Post discriminates. To try to determine whether the patterns in salaries were entirely the effect of differences in longevity which favor white males, we looked at the salaries of all fully experienced reporters hired in a single contract year within the past two years—all hired as \"journeymen\" reporters, all hired by the Post at approximately the same time.\n\nThe results? Fully experienced white males hired that year now are paid an average of $1046.68. Black males hired that year and rated as fully experienced now average $950.89. White female reporters hired that year as fully experienced average $817.47. There were no black women hired that year who were rated as \"fully experienced\" under the contract. But then, there are only eight black female reporters out of a total reporting staff of 191, according to the Post's statistics.\n\nIf minimum salaries set by the contract were higher, it would result in more pay equity and in less freedom for the Post to set salaries arbitrarily — a freedom that has resulted in discrimination. At the New York Times, the key minimum is $929. At Newsday, it is $1,000. At the Washington Post it is a low $664.35, and if you are a black or a woman in a commercial or editorial job that earns the key minimum, your salary is likely to be much closer to that minimum than if you are a white male.\n\nIF THE WASHINGTON POST IS SERIOUS ABOUT ELIMINATING DISCRIMINATION AT THE POST, IT WILL MOVE AWAY FROM THE MULTI-TIER SALARY SYSTEM.\n\n— Martha Hamilton, for the Bargaining Committee\n\nOUTSIDE ADVERTISING SALES\nHOW OTHER SALARIES COMPARE TO WHITE MALE AVERAGE SALARIES, 1982 & 1986\n\n[Chart, partially cut off at bottom edge: y-axis 'WHAT WHITE MALES AVERAGE' -10, -20; WHITE FEMALES: -5.3% (1982), -18% (1986?); ALL BLACKS: -4.3% (1982), -3.1% (1986?)]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-006",
+      "title": "Salary tabulation sheet: Technician Analysts T-5, Key Punch Operators T-2/T-3, Punch Operators T-1",
+      "documentType": "arbitration-exhibit",
+      "subject": "Payroll statistics by technical job class broken down by race and sex (male/female counts, pay totals and averages)",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "low",
+      "notes": "Same tabular format as DOC-001; headings partly cut off at the left edge of the photo (read as 'TECHNIKER ANALYSTS T-5' = likely TECHNICIAN ANALYSTS T-5; 'KEY PUNCH OPERATORS T-2/T-3'; 'PUNCH OPERATORS T-1'). Many digits faded; the BLACK/AVG row of the Punch Operators section is largely illegible. Non-consecutive with DOC-001 in this batch but likely from the same source document set.",
+      "pages": [
+        {
+          "imageFile": "85E272CF-1EED-425E-9A12-0F694C1DF484_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "TECHNICIAN(?) ANALYSTS T-5 | [cols: MALE | MALE PAY | FEMALE | FEMALE PAY | TOTAL RACE | TOTAL RACE PAY]\nWHITE: MALE 9(?); $5,583.10 / $620.34; FEMALE 5; $3,008.45(?) / $601.73(?); TOTAL 14; $8,591.75(?) / $613.70(?)\nBLACK: MALE 0; $0.00; FEMALE 0; $0.00; TOTAL 0; $0.00\nHISPANIC: MALE 1; $441.80 / $441.80; FEMALE 0; $0.00; TOTAL 1; $441.80 / $441.80\nORIENTAL: MALE 0; $0.00; FEMALE 0; $0.00; TOTAL 0; $0.00\nB?: MALE 1; $827.10 / $827.10; FEMALE 3; $1,535.75 / $520.71(?); TOTAL 4; $2,522.85 / $630.71\nA?: MALE 1; $708.10 / $708.10; FEMALE 0; $0.00; TOTAL 1; $708.10 / $708.10\nTOTAL: MALE 12; $7,620.10 / $635.01; FEMALE 8(?); $4,944.40(?) / $605.55(?); TOTAL 20; $12,444.50(?) / $623.22(?)\n[faded digits marked (?)]\n\nKEY PUNCH OPERATORS T-2/T-3\nWHITE: MALE 3; $1,485.20 / $495.07; FEMALE 2; $924.15 / $462.07; TOTAL 5; $2,405.35(?) / $481.07(?)\nBLACK: MALE 2; $705.90 / $353.45(?); FEMALE 0; $0.00; TOTAL 2; $705.90 / $353.45(?); [then 0 / $0.00 columns partially read]\nHISPANIC: 0 / $0.00\nORIENTAL: 0 / $0.00\nB?: 0 / $0.00\nA?: 0 / $0.00\nTOTAL: MALE 5; $2,192.10 / $438.42; FEMALE 2; $924.15 / $462.07; TOTAL 7; $3,116.25 / $445.18\n\nPUNCH OPERATORS T-1\nWHITE: MALE 0; $0.00; FEMALE 3(?)($7?); $1,123.05 / $374.35; TOTAL 3(?); $1,123.05 / $374.35\nBLACK: [several lines smudged/illegible] $1,557.50(?) / $251.07(?) — [illegible]\nHISPANIC: 0 / $0.00\nORIENTAL: 0 / $0.00\nB?: 0 / $0.00\nA?: 0 / $0.00\nTOTAL: MALE 0; $0.00; FEMALE 10; $3,790.55 / $379.06; TOTAL 10; $3,790.55 / $379.06"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "documents": [
+    {
+      "id": "DOC-001",
+      "title": "Pay summary printout by job category, gender, and race (office editors/writers, photographers, cartoonists)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Machine printout of male/female pay totals and averages by race for Washington Post job categories; used as compensation-comparison data",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "medium",
+      "notes": "Greenbar-style dot-matrix printout photographed on a table. Column headers are cut off at the left edge; the first category header reads '[... ]FFICE EC. WRITERS' (uncertain, possibly 'OFFICE EDITORIAL WRITERS'), second is 'PHOTOGRAPHERS' (partially cut, reads 'HOTOGRAPHEBS'), third is 'CARTOONISTS' (cut, reads 'DARTOCHISTS'). Row labels per category: WHITE, BLACK, HISPANIC, ORIENTAL, plus two rows reading 'E7'/'EZ' and 'A7'/'A?' whose meaning is unclear (possibly other race codes). Numbers appear twice per cell: a total PAY line and an AVG line beneath. Values transcribed as legible; several digits on crumpled lines are uncertain.",
+      "pages": [
+        {
+          "imageFile": "17427AFB-9474-4DAD-8366-43E131DB9C92_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "[...TTICE EC.] WRITERS\n[cut off]      MALE      MALE PAY       FEMALE   FEMALE PAY    TOTAL    TOTAL RACE PAY\n                 AVG.                            RACE\nWHITE            18   $16,119.44      5     $4,654.62      23     $20,804.06\nAVG.                   $895.52               $736.92                        $904.52\n\nBLACK             0       $0.00       1       $223.10       1        $223.10\nAVG.                   $0.00                 $223.10                        $323.10 [uncertain]\n\nHISPANIC          0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nORIENTAL          0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nE7 [uncertain]    0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00\n\nA7 [uncertain]    0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nTOTAL            19   $16,119.44      6     $5,507.72      24     $21,627.16   +\nAVG.                   $895.52               $917.65                        $901.13\n\n[PHOTO]GRAPHERS\n                 MALE      MALE PAY       FEMALE   FEMALE PAY    TOTAL    TOTAL RACE PAY\n                                AVG.                            RACE\nWHITE            15   $10,576.40      2     $1,499.05      17     $12,077.45\nAVG.                   $705.23                 $749.52                       $710.44\n\nBLACK             2    $1,415.60      1       $397.55       3      $1,813.15\nAVG.                   $707.80                 $397.55                       $604.38.\n\nHISPANIC          0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nORIENTAL          0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nEZ [uncertain]    0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nA? [uncertain]    0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00\n\nTOTAL            17   $11,99[?].00     3    $1,8[96].60     20    $13,8[90].50  [all digits on this crumpled line uncertain]\nAVG.                   $705.5[?                $6[?].20                        $694.53\n\n[CARTOON]ISTS\n                 MALE      MALE PAY       FEMALE   FEMALE PAY    TOTAL    TOTAL RACE PAY\nWHITE             0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nBLAC[K]           0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nHISPANIC          0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00  $0.00\n\nORIENTAL          0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nE7/0              0       $0.00       0        $0.00        0          $0.00\nAVG.                   $0.00                  $0.00                         $0.00\n\nA7/0              0       $0.00       0        $0.00        0          $0.00\n   AVG.                  $0.00                  $0.00                         $0.00\n\nTOTAL             0       $0.00       0        $0.00                   $0.00   $0.00\nAVG.                                                                                             $0.00"
+        }
+      ]
+    },
+    {
+      "id": "DOC-002",
+      "title": "Gender/race wage discrimination claim questionnaire, page 1 (M. Martha Hamilton)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Filled-in claim form identifying Martha M. Hamilton, reporter in Financial News, alleging wage discrimination on the basis of gender starting in 1972",
+      "date": "unknown (claim period '1972 - TO DATE'; compensation figure suggests early 1990s-2000s)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Page 1 of a two-page typed questionnaire with handwritten answers; continuation appears in DOC-006. 'Female' is circled in question 2. Not grouped with DOC-006 because a different document (DOC-003) falls between them in the scan order.",
+      "pages": [
+        {
+          "imageFile": "1781CF24-D071-47FC-982A-6E929D649035_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "1.  Please provide:\n    a.  Your full name:  M. MARTHA HAMILTON [handwritten]\n    b.  Your home address:  3815 Kalamazoo St NW [handwritten: '3815 KALAMAZOO ST NW', partially legible]\n        WASH DC 20008 [handwritten]\n    c.  Your telephone number[s]:\n        Home:  202 362-4334 [handwritten]\n        Work:  202 334-6666 [handwritten]\n    d.  Your current position and department:  REPORTER / FINANCIAL NEWS [handwritten]\n    f.  Your current compensation:  $74,193 [handwritten; a crossed-out figure precedes it, possibly '$74,193' correction]\n\n2.  I believe that I was discriminated against in my wages or other compensation on the basis of my (please circle any that apply):\n        Gender: (Female [circled]), Male\n        Race: Black, White, Asian, Native American\n        Hispanic Origin\n\n3.  Please refer to the introductory paragraph of the attached Arbitration Procedures for a description of the type of claim you may bring.\n\n    a)  State the Guild-covered position(s) you hold or held at the time of the alleged discrimination.\n        REPORTER, ASSIGNMENT EDITOR [handwritten]\n\n    b)  State the period of time during which you believe you were the victim of discrimination.\n        1972 - TO DATE [handwritten]\n\n    c)  Please state the factual basis for your belief that discrimination on the basis of gender, race and/or Hispanic origin affected your compensation. Include, if possible, (i) the decision or conduct you believe was discriminatory, (ii) the person[s] who you believe was[were] responsible for the alleged discrimination, and (iii) other facts that bear upon your claim.\n        I AM UNDER PAID COMPARED TO MALE COLLEAGUES [handwritten]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "title": "Preliminary Analysis of 1995 Data (by hand) — reporter gender counts and pay thresholds",
+      "documentType": "arbitration-exhibit",
+      "subject": "Typed statistical summary of Washington Post reporter headcounts by gender and pay levels, plus part-time ratio changes 1989-1995",
+      "date": "1995 (analysis of 1995 data)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Typed page scanned sideways (text rotated 90 degrees counter-clockwise; a human should rotate it 90 degrees clockwise to read normally). Handwritten page number '4' in the corner. Statistics exhibit, likely part of the same arbitration materials as the claim forms.",
+      "pages": [
+        {
+          "imageFile": "17A709FB-9839-4458-96EF-766DCC0CBE49_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "[page rotated sideways in the photo]\n\nPRELIMINARY ANALYSIS OF 1995 DATA (BY HAND)\n\nAmong Reporters making over $50 per hour ($97,500):\n    23 M    2 F\n\nAmong Reporters making over $40 per hour ($78,000):\n    (Note: this includes those above)\n    84 M    31 F\n\nAmong Reporters making under $40 per hour:\n    64 M    57 W [printed as '57 W'; evidently 57 F]\n\nCHANGE IN GENDER COUNT OF REPORTERS 1991-1995:\n    1991 # of M: 141 (57%)\n    1991 # of F: 105 (43%)\n\n    1995 # of M: 171 (66%)\n    1995 # of F: 90 (34%)\n\nCHANGE IN PART-TIMER RATIO 1989-1995:\n    1989 # Full-Time Employees: 1135 (83%)\n    1989 # Part-Time Employees: 240 (17%)\n\n    1995 # Full-Time Employees: 1039 (71%)\n    1995 # Part-Time Employees: 433 (29%)\n\n[handwritten in corner: 4]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-004",
+      "title": "Memorandum: Natalie Panetti to Bob Derby re Martha Hamilton maternity/sick leave request",
+      "documentType": "memo",
+      "subject": "Internal memo about The Post's position on combining maternity leave with sick leave benefits under the Guild Contract, in relation to Martha Hamilton's request",
+      "date": "1976-05-04",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Clean typescript memo; handwritten '7' at top left and page number '16' at top right. Names mentioned: Bob Derby, Natalie Panetti, Martha Hamilton, Larry Wallace, Jack Pierce.",
+      "pages": [
+        {
+          "imageFile": "19ECFDC6-AB66-4D3E-857C-AEBEA200FC50_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "[handwritten: 7]  [top right, handwritten: 16]\n\nMEMORANDUM\n\n                                                            May 4, 1976\n\nFOR:  Bob Derby\n\nFROM:  Natalie Panetti\n\nRE:  Martha Hamilton - Maternity Leave/Sick Leave Request\n\n\nThis is evidently not a new issue. I've attached a copy\nof the Guild Contract (Page 34, 4a and 4b) language\nregarding Maternity Leave. Also attached is page 29 &\n30 regarding Sick Leave (Article X as referred to in 4b).\nThis is definitely confusing.\n\nLarry Wallace is out till Thursday, but I was able to\ntalk to Jack Pierce. According to Jack, The Post has\ntaken the position that:\n\n1)  If a person, prior to the birth of a child and while\n    still an active employee, becomes ill for any reason,\n    she may avail herself of any sick leave benefits due\n    her.\n\n2)  Once an employee goes on leave for maternity reasons\n    she is no longer eligible for sick leave--until she\n    again becomes an active employee.\n\n3)  In actuality, according to Jack, an employee is\n    eligible for six months leave of absence for maternity\n    reasons. The four weeks is strictly a guide to deter-\n    mine the dollar amount an eligible person might receive\n    as a maternity benefit.\n\n\nbh\n\nAttachments"
+        }
+      ]
+    },
+    {
+      "id": "DOC-005",
+      "title": "Confidential settlement document — salary/experience comparisons (Crenshaw, Faiola, Farhi)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Section of a confidential settlement-preparation narrative comparing the salary histories of colleagues (Crenshaw, Anthony Faiola, Paul Farhi) to Hamilton's and Mayer's at The Post/Financial News",
+      "date": "2002 or later (references 'As of September 1, 2002')",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Top and bottom of page cut off slightly ('Crenshaw' section begins mid-document, 'Paul Farhi' section continues past the page bottom). Header banner: 'CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES PREPARED FOR SETTLEMENT PURPOSES'.",
+      "pages": [
+        {
+          "imageFile": "1D1D985E-6ACA-4DBF-92D4-999A6DA504A9_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "partial",
+          "transcript": "CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES\nPREPARED FOR SETTLEMENT PURPOSES\n\nSalary History\nAs of September 1, 2002, Crenshaw received four merit increases - two of which he received as a reporter in Financial News. He received these two merit increases in 1994 and 1997.\n\nExplanation:\nCrenshaw (while having worked at The Post for almost an identical time period as Hamilton) had more journalism experience before coming to The Post (and also a higher prior salary). Therefore, Crenshaw was paid a higher starting salary than Hamilton. When Mayer started at The Post, Crenshaw was paid substantially more than Mayer at that time.\n\nCrenshaw held a number of different editorial positions in National, Financial News and Real Estate for some 15 years. He retained his editor's salary when he became a reporter in Financial News.\n\nHe is considered an expert in tax and insurance issues.\n\nAnthony Faiola\n\nAnthony Faiola was paid less than Mayer on the 1995 and 1996 salary snapshots.\n\nExperience and Education\nFaiola came to The Post in the mid-1990s as a reporter in Financial News. He left Financial News in 1997 to become a Foreign Correspondent in the South America Bureau. Prior to starting at The Post, Faiola worked for four years as a writer/reporter at The Miami Herald. Faiola is a graduate of Florida International University with a degree in Journalism.\n\nStarting Salary\nUpon starting at The Post, Faiola received approximately a 34 percent increase over his prior salary at The Miami Herald. His starting salary was less than the salary of Mayer at that time.\n\nSalary History\nAs of September 1, 2002, Faiola received 12 merit increases - three of which he received as a reporter in Financial News. He received these three merit increases in 1995 and 1996.\n\nPaul Farhi\n\nPaul Farhi was paid slightly more than Hamilton on the 1992 salary snapshot and more than Hamilton on the 1993 to 1998 salary snapshots. Farhi was paid more [page continues]"
+        }
+      ]
+    },
+    {
+      "id": "DOC-006",
+      "title": "Gender/race wage discrimination claim questionnaire, page 2 (M. Martha Hamilton)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Second page of Hamilton's claim questionnaire: additional allegations (union issues, pregnancy discrimination), requested remedy (retroactive raises/back pay), and comparators (Susan Green, Mary Jordan)",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Continuation of DOC-002 (same form style, same hand, same subject). Numbered items run 3.d through 7 with an 8/9 numbering inconsistency in the typed form itself.",
+      "pages": [
+        {
+          "imageFile": "1EFF2199-7090-476F-8778-6370A78D8DDD_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "    d.  Any other issues related to this claim:\n        UNION ISSUES, PREGNANCY\n\n4.  What is the desired remedy you wish to seek with respect to claims of wage discrimination on the basis of gender, race and/or Hispanic origin?\n    RAISES AND BACK PAY\n\n8 [typed '8', out of sequence].  Please provide the following additional information:\n\n    a.  The position[s] you held in the last five years:\n        REPORTER\n\n    b.  The salary you received in each of those position[s] if you believe it was discriminatory:\n        $[handwritten columns at right: ~65.000 / 36.000? / 30.000?] — the handwritten salary entries in the right margin are poorly placed and partially illegible; the answer line itself is left blank\n\n6.  Do you believe that you are currently being subjected to wage discrimination in violation of applicable law or the Guild Wage Agreement, i.e., are you performing work substantially equal to that of a(n) employee[s] of a different sex, race or Hispanic origin, but are paid less?\n\n    Yes___x___   NO______\n\n7.  If so, please provide the following information for each comparator.\n\n    a)  Comparator's full name:  SUSAN GREEN\n        Title:  REPORTER [handwritten over crossed-out word; reads 'REPORTER']\n\n    (Repeat block, no comparator filled in):\n        Comparator's full name:  [blank]\n        Title:  [blank]\n\n    Comparator's full name:  MARY JORDAN\n    Title:  REPORTER\n\n    8 b)  List the dates of your employment in the last two years (and job held):\n        [horizontal line, blank]"
+        }
+      ]
+    }
+  ]
+}

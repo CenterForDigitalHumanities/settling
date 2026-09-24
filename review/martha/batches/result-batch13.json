@@ -1,0 +1,112 @@
+{
+  "documents": [
+    {
+      "id": "DOC-001",
+      "title": "Pay Discrimination at the Washington Post - Findings and 5-Year Reporter Cohorts (continuation page)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Statistical findings on pay gaps by sex and race for reporters and outside sales reps at The Washington Post; reporter pay by hire-date cohort",
+      "date": "unknown (data stated elsewhere as year-end 1990; cohort table covers 1971-1985)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Single typewritten page, sections V, VI and VII of the same 'Preliminary Analysis and Findings' report whose title page appears later in this batch (DOC-004, image 5551063C...). Kept as its own document because the batch order is non-consecutive, but they are clearly two pages of one exhibit. Heavy show-through/bleed of the reverse side is visible; transcript uses only the front-page text.",
+      "pages": [
+        {
+          "imageFile": "5144DD97-FDF7-4FD0-ADC4-32E177DE686D_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "V -     FINDINGS HOLDING CONSTANT FOR AGE:\n\n        1) OUTSIDE SALES REPS:\n             o Females earn $4,142 less than Males\n             o Blacks  earn $3,123 less than Whites\n\n        2) REPORTERS:\n             o Females earn $7,257 less than Males\n             o Blacks  earn $5,345 less than Whites\n\nVI -    FINDINGS HOLDING CONSTANT FOR SERVICE:\n\n        1) OUTSIDE SALES REPS:\n             o Females earn $5,156 less than Males\n             o Blacks  earn $4,354 less than Whites\n\n        2) REPORTERS:\n             o Females earn $7,618 less than Males\n             o Blacks  earn $7,339 less than Whites\n\n\nVII -   REPORTER PAY IN 5-YEAR COHORTS (1971-1985):\n        (Rounded to nearest 00's)\n\nHire Date   WM       WF       BM       BF       ALL M    ALL F\n\n1971-75     80,900   71,200   *        62,200   81,000   70,000\n\n1976-80     71,800   56,800   *        *        72,000   57,000\n\n1981-85     69,400   62,400   63,000   50,600   67,000   60,000\n\n\n*sample too small for significant finding"
+        }
+      ]
+    },
+    {
+      "id": "DOC-002",
+      "title": "Clerk pay printout by race and sex (junior/administrative/senior clerks)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Dot-matrix computer printout tabulating male vs. female pay totals and averages by race (White, Black, Hispanic, Oriental, E?, A?) within clerk job classifications",
+      "date": "unknown",
+      "pageCount": 1,
+      "confidence": "low",
+      "notes": "Single continuous-feed dot-matrix printout page, held down at the top-left by a thumb; the top of the page is cut off, so the first job-classification heading is only partially visible (ends '...CAL CLERKS'). Columns are headcount, total male pay, male average, total female pay, female average, total race count, total race pay, race average. Faded/overstruck dot-matrix digits make many figures uncertain; those are marked [illegible] rather than guessed. Likely companion statistical material to DOC-001/DOC-004.",
+      "pages": [
+        {
+          "imageFile": "5285A12E-9B9F-468C-B519-7379FC9B3167_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "partial",
+          "transcript": "[top of page cut off] ...CAL CLERKS\n                                              MALE          FEMALE                     TOTAL        TOTAL\n                                    MALE      PAY           FEMALE   PAY              RACE         RACE PAY\n                        WHITE       2         $1,531.25     3        $1,557.95         5            $3,131.20\n                        AVG.                  $510.42                  $519.32                                       $521.87\n                        BLACK       [illegible]  $2,052.55   1        $518.75           [illegible]  $2,511.70\n                        AVG.                  $523.14                  $518.75                                       $522.26\n                        HISPANIC    0         $0.00         [illegible]  $519.35        1            $519.35\n                        AVG.                  $0.00                    $519.35                                       $519.35\n                        ORIENTAL    [illegible]  $0.00      [illegible]  $0.00          [illegible]  $0.00\n                        AVG.                  $0.00                    $0.00                                         $0.00\n                        E?          0         $0.00         0        $0.00             0            $0.00\n                        AVG.                  $0.00                    $0.00                                         $0.00\n                        A?          0         $0.00         0        $0.00             0            $0.00\n                        AVG.                  $0.00                    $0.00                                         $0.00\n\n                        TOTAL       7         $3,583.80     5        $2,578.05         12           $6,261.85\n                        AVG.                  $517.67                  $527.61                                       $521.82\n\n\nADMIN. CLERKS\n                                              MALE          FEMALE                     TOTAL        TOTAL\n                                    MALE      PAY           FEMALE   PAY              RACE         RACE PAY\n                        WHITE       13        $5,555.50     9        $4,257.50         22           $10,157.00 [illegible]\n                        AVG.                  $427.35                  $473.05                                       $461.68\n                        BLACK       10        $4,505.55     5        $2,?80.50         15           $7,285.05 [illegible]\n                        AVG.                  $450.55                  $455.48                                       $461.83\n                        HISPANIC    1         $435.35       0        $0.00             1            $435.35\n                        AVG.                  $433.35                  $0.00                                         $433.35\n                        ORIENTAL    2         $907.50       0        $0.00             2            $907.50\n                        AVG.                  $453.90                  $0.00                                         $453.90\n                        E?          0         $0.00         0        $0.00             0            $0.00\n                        AVG.                  $0.00                    $0.00                                         $0.00\n                        A?          0         $0.00         0        $0.00             0            $0.00\n                        AVG.                  $0.00                    $0.00                                         $0.00\n\n                        TOTAL       26        $11,8?5.00    15       $7,0?8.40         41           $12,8?3.40\n                        AVG.                  $454.42                  $471.89                                       $460.81\n\n\nSENIOR CLERKS\n                                              MALE          FEMALE                     TOTAL        TOTAL\n                                    MALE      PAY           FEMALE   PAY              RACE         RACE PAY\n                        WHITE       10        $8,052.40     17       $5,772.05         27           $13,824.45\n                        AVG.                  $405.24                  $339.56                                       $502.91\n                        BLACK       13        $5,158.40     14       $6,542.15         27           $10,831.05 [illegible]\n                        AVG.                  $403.30                  $425.50                                       $401.15\n                        HISPANIC    0         $0.00         1        $419.05           1            $419.05\n                        AVG.                  $0.00                    $419.05                                       $419.05\n                        ORIENTAL    3         $1,151.55     1        $347.60           4            $1,499.15\n                        AVG.                  $373.95                  $347.60                                       $357.15\n                        E?          0         $0.00         0        $0.00             0            $0.00\n                        AVG.                  $0.00                    $0.00                                         $0.00\n                        A?          0         $0.00         0        $0.00             0            $0.00\n                        AVG.                  $0.00                    $0.00                                         $0.00\n\n                        TOTAL       26        $10,453.35    33       $13,031.35        59           $23,4?3.70\n                        AVG.                  $334.40 [illegible]      $354.40                                       $355.05"
+        }
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "title": "Confidential arbitration settlement narrative - comparator employees (Grimaldi, Blaine Harden, David Hilzenrath)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Portion of a confidential settlement-purpose statement discussing male comparator reporters' salaries relative to Martha Hamilton's at The Washington Post",
+      "date": "2002 or later (text references salary snapshots through 2002 and 'As of September 1, 2002')",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "Clean typeset (printed) legal page with the standard confidentiality banner used in this arbitration file. Page carries no page number visible; content continues from an earlier page about Grimaldi and Mayer/Skrzycki. This page concerns Blaine Harden and David Hilzenrath.",
+      "pages": [
+        {
+          "imageFile": "52FB2ADD-C3CA-4A92-90A8-DF2ECC5F772D_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "CONFIDENTIAL INFORMATION UNDER THE AGREED ARBITRATION PROCEDURES\nPREPARED FOR SETTLEMENT PURPOSES\n\nGrimaldi received a high salary from the Seattle Times, his previous employer - more than the salary of Hamilton at The Post at that time. Therefore, Grimaldi's starting salary was substantially more than the salary of Hamilton at that time.\n\nThe differential between the salary of Grimaldi and the salaries of Mayer and Skrzycki is due in part to Grimaldi's high starting salary, which reflects The Post's desire to hire him away from the Seattle Times.\n\nBlaine Harden\n\nBlaine Harden does not appear on any of the relevant salary snapshots and was never a reporter in Financial News.\n\nDavid Hilzenrath\n\nDavid Hilzenrath was paid slightly less than Hamilton on the 1993, 1995 and 1996 salary snapshots and similarly to Hamilton on the 1994 and 1997 salary snapshots. Hilzenrath was paid slightly more than Hamilton on the 1998 and 1999 salary snapshots, more than Hamilton on the 2000 salary snapshot and substantially more than Hamilton on the 2001 and 2002 salary snapshots.\n\nHilzenrath was paid similarly to Mayer on the 1995 to 1998 salary snapshots, slightly less than Mayer on the 1999 salary snapshot and slightly more than Mayer on the 2000 to 2002 salary snapshots.\n\nExperience and Education\nHilzenrath came to The Post in the late 1980s as a summer intern in National News. In 1987, he became a reporter in Metro/City, moving to Real Estate in 1988, and to Financial News in 1992. Prior to starting at The Post, Hilzenrath worked as an intern reporter at the Providence Journal and as an intern at WBZ-TV News. Hilzenrath is a graduate of Harvard University.\n\nStarting Salary\nUpon becoming a reporter at The Post, Hilzenrath received approximately a 12 percent increase over his prior salary as a Washington Post intern. His starting salary was substantially less than the salaries of Hamilton and Mayer at that time.\n\nSalary History\nAs of September 1, 2002, Hilzenrath had received 13 merit increases - all of which he received as a reporter in Real Estate or Financial News. He received these merit increases in the following years: 1991, 1992, 1993, 1994, 1997, 1998, 2000, 2001 and 2002. In 2000, in response to a competing job offer, Hilzenrath was given a roughly 10 percent salary increase and was put on the fast-track."
+        }
+      ]
+    },
+    {
+      "id": "DOC-004",
+      "title": "Pay Discrimination at the Washington Post - Preliminary Analysis and Findings (title page, year-end 1990)",
+      "documentType": "arbitration-exhibit",
+      "subject": "Mean and median pay by sex and race for reporters and outside sales representatives at The Washington Post, year-end 1990",
+      "date": "1990 (data effective year-end 1990)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "First page of the report continued by DOC-001 (image 5144DD97...). Typewritten page photographed on a wooden table; show-through of the reverse side (the cohort table of DOC-001) confirms the two pages are faces of the same exhibit. Some struck-through/edited handwriting above the data note.",
+      "pages": [
+        {
+          "imageFile": "5551063C-6582-4151-899B-15C648227B78_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "PAY DISCRIMINATION AT THE WASHINGTON POST\n\nPRELIMINARY ANALYSIS AND FINDINGS\n(All data is for Year-End 1990)   [struck-through text following]\n\nSPECIAL NOTES: 1) This analysis is based on data effective year-end 1990. Any individual's comparison to current pay should take into account Guild raises or merit raises since 1990.\n2) Not all classes are reported where numbers are too small for statistical significance.\n\nI -      PAY IN JOB CLASSIFICATIONS WITH SUFFICIENT NUMBERS FOR ANALYSIS\n\n        1) REPORTERS\n                        Mean        Median\n            ALL         64,030      62,387\n\n            M           67,317      65,637\n            F           59,118      60,359\n\n            B           59,000      59,809\n            W           65,823      64,041\n\n            WM          68,818      66,743\n            BM          62,830      59,334\n\n            WF          60,914      60,642\n            BF          55,171      60,352\n\n\n        2) ALL OUTSIDE SALES REP PAY:\n                        Mean        Median\n\n            ALL         50,048      50,650\n\n            ALL M       53,019      53,973\n            ALL F       46,764      46,009\n\n            ALL W       51,005      51,085\n            ALL B       46,408      46,389\n\n            WM          53,032      53,973\n            WF          48,086      48,317\n\n            BM          52,940      53,973\n            BF          42,489      44,810"
+        }
+      ]
+    },
+    {
+      "id": "DOC-005",
+      "title": "Internal Post memo, Frank Swoboda to Financial Staff on interim section assignments (Sept. 16)",
+      "documentType": "memo",
+      "subject": "Washington Post Financial/ME department reassignment notice naming Don Brazeal (interim local business and Washington business) and Martha Hamilton (Sunday budget); Martha Hamilton is referenced by name",
+      "date": "unknown year, September 16 (no year typed on the memo)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "UNUSUAL: the image is rotated 90 degrees (text runs sideways; rotate counterclockwise/upright to read). Carbon/photocopy on punch-hole paper with black tape or corner marks. Red grease-pencil annotation in the margin plus a large red question mark and a red circle around the word 'keeper'. Signed in typescript 'Swoboda' under the letterhead name Frank Swoboda.",
+      "pages": [
+        {
+          "imageFile": "55DA5D5D-5ED9-4278-B278-6E50CEDD2D89_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "[image rotated 90 degrees]\n\nThe Washington Post\nFRANK SWOBODA\nA.M.E. Financial\nExt. 334-6242\n\n                                                                    Sept. 16\n\nFinancial Staff:\n\nThe New World begins today - on an interim basis.\n\nStarting today, Don Brazeal will be handling all local business and Washington business assignments.\n\nAnd until further notice, Martha Hamilton will be the keeper of the Sunday budget and Nanny for the section.\n\nWithin the next few weeks, when we have finished redefining everyone's beat, we will announce the permanent system.\n\nStay tuned.\n\n                                                                Swoboda\n\n[handwritten in red ink, side margin]: Is this as \"[illegible]\" of Sam?\n[handwritten in red ink]: large question mark; the word \"keeper\" circled in red"
+        }
+      ]
+    },
+    {
+      "id": "DOC-006",
+      "title": "Post Unit News No. 99 - 'Discrimination at The Post: PAY GAPS WIDEN'",
+      "documentType": "newspaper-clipping",
+      "subject": "Washington/Baltimore Newspaper Guild unit newsletter reporting widened race and sex pay gaps at The Washington Post, with reporter salary comparison table (1/86 vs. 9/87)",
+      "date": "1987 (October 22, 1987)",
+      "pageCount": 1,
+      "confidence": "high",
+      "notes": "One mimeographed/printed union newsletter page, flagged 'Discrimination at The Post' and marked '-over-' at the bottom, so the comparison table continues on a verso page that is not in this batch. Photographed on a rattan chair with a binder clip at the right edge.",
+      "pages": [
+        {
+          "imageFile": "562BE275-1687-465F-AADC-911FD1D6F5EF_1_105_c.jpeg",
+          "pageNumber": 1,
+          "pageKind": "content",
+          "transcript": "-Post Unit News-\n\nWashington/Baltimore Newspaper Guild\nNo. 99        Date October 22, 1987\n\nDiscrimination at The Post\n\n                            PAY GAPS WIDEN\n\nThe patterns of pay discrimination that have contributed over the years to low morale and wide gaps in the amount Washington Post managers are willing to pay their employees not only persist, but have widened significantly since management imposed its version of the contract in August.\n\nIf you needed a reason to understand why this contract is inadequate, here it is.\n\nLast we looked, white males topped the salary scales in the best-paying jobs in many of the largest job categories at the Post. The news is this: despite the company's stated commitments to the hiring and nurturing of women and minorities, the practice of paying inequitably based on race and sex has not only continued--it's gotten worse.\n\nFor reporters--the largest single job category covered by the contract--the average salary for white males was $988.68 at the beginning of 1986. By September of 1987, that figure had jumped to $1,140.52.\n\nSuch a salary improvement is not the source of our complaints, however. The problem is that while white males were continuing to improve, females and blacks continued the slide away from parity.\n\nThe numbers compiled after the so-called impasse was declared in mid-August tell the story.\n\nAcross all classifications, white males average $332 more a week than black females, $204.39 more than white females and $230.66 more than black males.\n\nAmong reporters, the figures are reversed slightly, but the discrepancies remain just as stark. White male reporters, on the average, make $240.59 more a week than black females, a gap that is $43.24 wider than in January of 1986.\n\nThe gap has also grown by about $2 a week between white male and white female reporters and by about $15 a week between white male and black male reporters.\n\nAmong outside advertising salespersons, the gap also increased significantly. White males, on average, earned about $25 more a week than black males and black females in 1986, a disparity which has now increased to $96 weekly. White females in this classification earn on average $61.51 less than their male counterparts, up from a $43.03 average weekly difference in 1986.\n\nAnd the gap among white men and white women who work as T-5 Data Programmers has opened dramatically, moving from an $8.33 average weekly difference in 1986 to an $86.07 average difference now.\n\nThere have been some improvements. Black females who are classified as managers, assistant managers, editors, deputy and associate editors have closed a more than $200 gap between their average salaries and salaries for white males.\n\nBut overall, the Post's record on equal pay for equal work sends a clear message to the rank and file at the Washington Post about which employees are valued at this company, and which are not.\n\nThese comparisons tell the story:\n\nReporters                                    1/86          9/87\n\nWhite males                                 $988.68        $1,140.52\nBlack males                                  $920.46        $1,057.39\nWhite females                                $859.37        $1,008.56\nBlack females                                $791.33           $ 899.33\n\n                                -over-"
+        }
+      ]
+    }
+  ]
+}
