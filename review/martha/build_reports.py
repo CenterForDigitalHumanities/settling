@@ -13,7 +13,11 @@ from rotations import ROTATIONS
 MASTER = r"e:\docs\GitHub\settling\review\martha\master-data.json"
 REPORT_OUT = r"e:\docs\GitHub\settling\review\martha.html"
 AUDIT_OUT = r"e:\docs\GitHub\settling\review\martha-audit.html"
-IMG_BASE = r"file:///C:/Users/cubap/LesTrouves/Martha%20M.%20Hamilton%20Documents/"
+# Image paths are relative to the site's <base href="/settling/">. In the served
+# repo the scans live at review/martha/images/<file>, so from the base that is
+# "review/martha/images/". The inline base-rewrite on file:// keeps this correct
+# for local preview too.
+IMG_BASE = "review/martha/images/"
 
 with open(MASTER, encoding="utf-8") as fh:
     data = json.load(fh)

@@ -3,7 +3,10 @@
 // Expects `window.__MARTHA__` to be defined on the page (imageFilenames per doc, etc.)
 
 const MarthaReview = (() => {
-  const IMG_BASE = "file:///C:/Users/cubap/LesTrouves/Martha%20M.%20Hamilton%20Documents/"
+  // Base-relative to the site's `<base href="/settling/">`. On local file:// the
+  // inline base-rewrite sets the base to the site root, so this resolves the same
+  // way as when served.
+  const IMG_BASE = "review/martha/images/"
   const STORAGE_KEY = "martha-off-the-record"
 
   // ---------- Off-the-record store ----------
