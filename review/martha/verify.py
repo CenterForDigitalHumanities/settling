@@ -332,5 +332,34 @@ print("rotation: %d table entries, %d pages rotated, %d shape/rotation off-diago
 for s in sideways:
     print("   CHECK BY READING:", s)
 
+# (e) Every applied rotation must record why. 12(a) only enforces transcript => rotation,
+#     so before this a rotation could be restored from the shape heuristic this branch
+#     disproved, pass every other check, and ship a sideways page. It is also invisible to
+#     12(d): a landscape file WITH a rotation sits on that check's diagonal, so the report
+#     that is meant to catch shape-driven rotations actively hides this regression.
+#     Zero-valued entries apply nothing and need no basis.
+BASIS_KINDS = ("ocr", "unverified")
+for k, v in sorted(rotations.ROTATIONS.items()):
+    if not v:
+        continue
+    basis = getattr(rotations, "ROTATION_BASIS", {}).get(k)
+    if not basis:
+        bad("ROTATIONS entry %s applies %+d but ROTATION_BASIS records no reason; "
+            "settle it by the four-angle OCR test and record it, or remove the entry"
+            % (k, v))
+    elif not basis.startswith(BASIS_KINDS):
+        bad("ROTATION_BASIS %s has unrecognised basis %r; must start with one of %s"
+            % (k, basis, ", ".join(BASIS_KINDS)))
+for k in getattr(rotations, "ROTATION_BASIS", {}):
+    if not (rotations.ROTATIONS.get(k, 0) or 0):
+        bad("ROTATION_BASIS key %s records a basis for a rotation that is not applied" % k)
+
+unverified = [k for k, b in getattr(rotations, "ROTATION_BASIS", {}).items()
+              if b.startswith("unverified")]
+print("rotation basis: %d applied, %d recorded, %d unverified%s"
+      % (sum(1 for v in rotations.ROTATIONS.values() if v),
+         len(getattr(rotations, "ROTATION_BASIS", {})), len(unverified),
+         (": " + ", ".join(sorted(unverified))) if unverified else ""))
+
 print("\nALL CHECKS PASSED" if ok else "\nFAILURES ABOVE")
 sys.exit(0 if ok else 1)

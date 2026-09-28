@@ -25,8 +25,8 @@
 # One entry, 75C37361, could not be settled by OCR at all and is marked UNVERIFIED. Do
 # not read that as confirmed -- it carries forward the previous value because nothing can
 # beat it, not because anything checked it. It needs a human eye. C04781D1 was the other
-# such candidate; on re-measurement its applied angle returned nothing at all while 0
-# degrees returned the only readable text, so its rotation has been removed.
+# such candidate; on re-measurement its applied angle recovered 6 characters against 82
+# at 0 degrees, so its rotation has been removed.
 #
 # This is offline evidence only. easyocr costs minutes per pass on CPU, so it cannot run
 # in CI; verify.py check 12 enforces the invariants that are pure data.
@@ -60,13 +60,21 @@ ROTATIONS = {
     # C04781D1 (DOC-024 Hamilton's handwritten notes) is deliberately ABSENT. It carried
     # +90, which the migration added from a shape inference: Ashley's re-scan is a
     # landscape file, therefore the page must be sideways. That is the same heuristic this
-    # change set disproved on CDA2FC15 from the opposite direction. Measured: at the
-    # applied 90 degrees OCR recovers 0 characters; at 0 it recovers 64 chars / 6 words /
-    # 2 matches to this page's own transcript, the only angle that returns anything at
-    # all. An independent projection test scores it strongly horizontal. The transcript
-    # note that asserted the rotation is corrected in transcript_notes.py, and check 12(a)
-    # keeps the two in step. Still a judgment call on handwriting, but "no rotation" is
-    # now the position the evidence supports rather than a default.
+    # change set disproved on CDA2FC15 from the opposite direction. Measured, bracketed
+    # transcript notes excluded from the match set: at 90 degrees, 14 raw detections, 4
+    # above 0.30 confidence, 6 characters, volume 3.3, zero transcript matches; at 0,
+    # 82 characters, volume 38.4 and the only transcript match in the run. So the applied
+    # angle was not silent -- it recovered a handful of junk characters -- but 0 degrees is
+    # ~12x its volume and the only angle that reads as this page. An independent projection
+    # test agrees it is strongly horizontal. The photo is of two loose handwritten sheets
+    # plus the edge of a typed page, which is why no angle is clean. The transcript note
+    # that asserted the rotation is corrected in transcript_notes.py.
+    #
+    # It is absent rather than present-and-zero purely as tidiness. A zero-valued key is
+    # NOT rejected by check 12(b), which fails only on ambiguous keys and keys matching no
+    # page; "5C74254C": 0 below is the counter-example, a deliberate zero-valued entry that
+    # passes CI. What actually makes the removal safe is ROTATION_BASIS and check 12(e):
+    # re-adding a rotation here without also recording why is now a build failure.
     "75C37361": -90,  # DOC-029 continuation. UNVERIFIED: the page is folded against a
                       # table edge and OCR returns 0-5 chars at every angle, which is
                       # consistent with this page's own transcript note. Kept at -90 on
@@ -92,4 +100,33 @@ ROTATIONS = {
     # files martha11-pg1/3/4/6 all share the prefix "martha11", so one key would
     # silently rotate four different pages. No such key exists; verify.py check 12(b)
     # fails the build if one is added.
+}
+
+# Why every rotation the table actually applies was chosen. verify.py check 12(e)
+# requires an entry here for each one, and 12(f) requires each entry here to still be an
+# applied rotation, so a basis cannot outlive the decision it justifies.
+#
+# This exists because check 12(a) only enforces transcript => rotation. Before it, a
+# rotation could be restored to the table from the very shape heuristic this branch
+# disproved, pass every check, and ship a sideways page. Zero-valued entries need no
+# basis because they apply nothing.
+#
+# Vocabulary, validated by the check:
+#   "ocr"        settled by the four-angle test in the header above
+#   "unverified" carried forward from the previous catalog; nothing could decide it
+ROTATION_BASIS = {
+    "020E073B": "ocr",
+    "04894C59": "ocr",
+    "3E9114EE": "ocr",
+    "44F2AF4E": "ocr",
+    "49FB1A98": "ocr",
+    "6C631833": "ocr",
+    "86353EBE": "ocr",
+    "A224D886": "ocr: 92 transcript matches at 270, 0 at 90",
+    "C8993692": "ocr",
+    "EDB55A73": "ocr",
+    "3B62EA88": "ocr",
+    "CDA2FC15": "ocr: 246 words / 23 matches at 270 vs 12 words / 0 at 90",
+    "2E37B36F": "ocr: volume 529.5 at 270 vs 5.8 at 0",
+    "75C37361": "unverified: 0-5 chars at every angle, needs a human eye",
 }
