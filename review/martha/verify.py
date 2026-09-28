@@ -63,16 +63,20 @@ for x, (folder, spec) in zip(docs, sorted(ot.FOLDERS, key=sortkey)):
     if x["orderBasis"] != spec["basis"]:
         bad("basis drift in %s" % folder)
 
-# 5. rotations: the 5 upright re-scans must be absent, C04781D1 must be +90
+# 5. rotations: the 5 upright re-scans must be absent, and every value must be a
+#    right angle. Individual angles are editorial data and change with the evidence, so
+#    no specific page's angle is asserted here; check 12 owns the invariants that couple
+#    the table to the transcripts and to the files on disk.
 sys.path.insert(0, MAR)
 from rotations import ROTATIONS
 for k in ("486E2B93", "55DA5D5D", "17A709FB", "2C3188B8", "3C9351ED", "B32F08FD", "B559737D", "D33544E8", "3B9C8F5A"):
     if k in ROTATIONS:
         bad("stale rotation entry %s" % k)
-if ROTATIONS.get("C04781D1") != 90:
-    bad("C04781D1 rotation should be +90")
-if any(v is None for v in ROTATIONS.values()):
-    bad("None rotation value remains")
+for k, v in ROTATIONS.items():
+    if v is None:
+        bad("None rotation value remains in %s" % k)
+    elif v % 90:
+        bad("rotation %s is %s, not a multiple of 90" % (k, v))
 
 # 6. Ashley's 6 re-scans + 4 new scans are byte-identical to her originals
 ASH = next((a[len("--source="):] for a in sys.argv if a.startswith("--source=")), None)

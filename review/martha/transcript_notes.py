@@ -1,19 +1,22 @@
-"""Corrections to bracketed editorial notes carried over from superseded scans.
+"""Corrections to bracketed editorial notes about image rotation.
 
-Ten pages tell the reader the image is sideways while the catalog applies no
-rotation to it. That is not a contradiction in the data so much as a fossil: the
-note was written against an earlier photograph of the same page, and the migration
-swapped in an upright image without touching the prose.
+Eleven pages carry a note that no longer matches what the catalog does with the image.
+Ten tell the reader the page is sideways while the catalog applies no rotation to it;
+that is not a contradiction in the data so much as a fossil - the note was written
+against an earlier photograph of the same page, and the migration swapped in an upright
+image without touching the prose. The eleventh is the reverse: the note and the table
+agreed with each other, and both were wrong.
 
-Each case was settled by OCR at all four angles, scoring the recovered words against
-the page's own transcription. All ten read upright as shipped. The three distinct
-histories are recorded in the comments because they carry different information:
+Each case was settled by OCR at all four angles, scoring the recovered words against the
+page's own transcription. The four distinct histories are recorded in the comments
+because they carry different information:
 
   A  Ashley re-scanned the page but kept the original GUID filename, so the shipped
      bytes differ from the baseline while the name does not. The baseline bytes were
      1024x768 landscape; hers are 768x1024 portrait.
   B  Ashley re-scanned the page and gave it a human name, superseding the old entry.
   C  The file has never been replaced. The note was inaccurate when it was written.
+  D  The rotation entry itself is removed, because the note was written to justify it.
 
 Only the rotation claim is removed. Anything else a note carried - a torn corner, a
 cut-off heading, uncertainty about grid attribution - is a statement about the page
@@ -57,4 +60,17 @@ TRANSCRIPT_NOTES = {
     "0250A525-57E4-477A-B043-8D12FF78FCB4_1_105_c.jpeg": (
         "[rotated 90 degrees; top of sheet cut off]",
         NEVER),
+
+    # D - the rotation itself was wrong, not just the prose. The +90 entry was added
+    #     during the migration because Ashley's re-scan is a landscape file, i.e. from
+    #     the shape heuristic this change set elsewhere disproved. At the angle that was
+    #     applied, OCR recovers literally nothing; at 0 degrees it recovers the only
+    #     readable text on the page, including two words from its own transcript. An
+    #     independent projection test scores it strongly horizontal. See rotations.py.
+    "C04781D1-50B5-4597-8901-850756CE32E6_1_105_c.jpeg": (
+        "[Photograph rotated; two handwritten sheets on 'The Washington Post / "
+        "memorandum' letterhead, plus edge of a typed page beneath.]",
+        "[Two handwritten sheets on 'The Washington Post / memorandum' letterhead, "
+        "plus edge of a typed page beneath. Upright as scanned: the letterhead and "
+        "the typed fragments read horizontally.]"),
 }

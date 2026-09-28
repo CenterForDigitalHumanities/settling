@@ -22,9 +22,11 @@
 # A table value of -90 is therefore the angle reported as "270" below.
 #
 # Only images that are genuinely sideways are listed; upright images are omitted.
-# Two entries could not be settled by OCR at all and are marked UNVERIFIED. Do not read
-# those as confirmed -- they carry forward the previous value because nothing can beat
-# it, not because anything checked it. They need a human eye.
+# One entry, 75C37361, could not be settled by OCR at all and is marked UNVERIFIED. Do
+# not read that as confirmed -- it carries forward the previous value because nothing can
+# beat it, not because anything checked it. It needs a human eye. C04781D1 was the other
+# such candidate; on re-measurement its applied angle returned nothing at all while 0
+# degrees returned the only readable text, so its rotation has been removed.
 #
 # This is offline evidence only. easyocr costs minutes per pass on CPU, so it cannot run
 # in CI; verify.py check 12 enforces the invariants that are pure data.
@@ -55,15 +57,24 @@ ROTATIONS = {
                       # 91x margin. Its seven sibling pages in the same folder are all
                       # -90. The transcript is "[illegible]", so transcript matching
                       # cannot help here and the confidence metric carries it alone.
-    "C04781D1": 90,   # DOC-024 Hamilton's handwritten notes. UNVERIFIED: handwriting,
-                      # and OCR returns 9 chars at 90 vs 25 at 270 -- no signal at any
-                      # angle, so neither direction is evidenced. Kept at +90 because a
-                      # landscape file is at least consistent with a sideways page and
-                      # nothing contradicts it. Needs a human eye.
+    # C04781D1 (DOC-024 Hamilton's handwritten notes) is deliberately ABSENT. It carried
+    # +90, which the migration added from a shape inference: Ashley's re-scan is a
+    # landscape file, therefore the page must be sideways. That is the same heuristic this
+    # change set disproved on CDA2FC15 from the opposite direction. Measured: at the
+    # applied 90 degrees OCR recovers 0 characters; at 0 it recovers 64 chars / 6 words /
+    # 2 matches to this page's own transcript, the only angle that returns anything at
+    # all. An independent projection test scores it strongly horizontal. The transcript
+    # note that asserted the rotation is corrected in transcript_notes.py, and check 12(a)
+    # keeps the two in step. Still a judgment call on handwriting, but "no rotation" is
+    # now the position the evidence supports rather than a default.
     "75C37361": -90,  # DOC-029 continuation. UNVERIFIED: the page is folded against a
                       # table edge and OCR returns 0-5 chars at every angle, which is
                       # consistent with this page's own transcript note. Kept at -90 on
-                      # the strength of the previous value. Needs a human eye.
+                      # the strength of the previous value. Recorded for the human who
+                      # checks it: 0 degrees scored marginally higher (3 chars vs 0),
+                      # but 3 characters with no transcript match is noise, not signal,
+                      # and unlike C04781D1 there is no independent method agreeing.
+                      # This is the genuinely unresolved one. Needs a human eye.
     "5C74254C": 0,    # DOC-029 table-photo sep (no content to orient by)
     #
     # Removed when Ashley's ordered set was adopted, because her file replaced the
