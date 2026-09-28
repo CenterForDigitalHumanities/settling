@@ -1,0 +1,45 @@
+name: Martha catalog checks
+
+# verify.py is the only re-runnable check on the 167-page Martha catalog. Without CI it
+# only runs when a human remembers, and an edit can silently break the byte-identity and
+# provenance claims the catalog rests on. Ashley's ordered folder is not available here,
+# so the byte-for-byte comparison against her originals is skipped; everything else runs.
+
+on:
+  push:
+    paths:
+      - "review/martha/**"
+      - "review/martha.html"
+      - "review/martha-audit.html"
+      - "review/martha-schema.md"
+      - ".github/workflows/martha-catalog-check.yml"
+  pull_request:
+    paths:
+      - "review/martha/**"
+      - "review/martha.html"
+      - "review/martha-audit.html"
+      - "review/martha-schema.md"
+      - ".github/workflows/martha-catalog-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify catalog, provenance and reports
+        run: python review/martha/verify.py
+
+      - name: Rebuild reports
+        run: python review/martha/build_reports.py
+
+      - name: Fail if the committed reports are stale
+        run: git diff --exit-code -- review/martha.html review/martha-audit.html

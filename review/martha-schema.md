@@ -49,6 +49,7 @@ Pick the best fit:
       "date": "YYYY or approx date or unknown",
       "pageCount": 2,
       "confidence": "high",
+      "orderConfidence": "high",
       "notes": "Brief summary / why grouped this way",
       "previousDocIds": ["DOC-012", "DOC-056"],
       "pages": [
@@ -57,6 +58,8 @@ Pick the best fit:
           "pageNumber": 1,
           "pageKind": "content",
           "transcript": "Full transcription of visible text",
+          "transcriptionConfidence": "high",
+          "orderBasis": "internal-pagination",
           "previousDocId": "DOC-012",
           "sourceFilename": "Martha 1/486E2B93-....jpeg",
           "supersedes": "B559737D-....jpeg",
@@ -71,7 +74,15 @@ Pick the best fit:
 
 `pageKind` values: `content`, `cover`, `divider`, `table-photo`, `photograph`, `blank`, `partial`.
 
-`confidence` values: `high`, `medium`, `low`.
+Two confidence fields, deliberately separate:
+
+| field | on | rates | values |
+| --- | --- | --- | --- |
+| `confidence` | document | how reliably the text could be transcribed | `high`, `medium`, `low` |
+| `orderConfidence` | document | how firmly the page sequence is evidenced | `high`, `mixed`, `medium` |
+
+`confidence` is the original schema's meaning and is inherited from the document's least
+legible page. `orderConfidence` is derived from the pages' `orderBasis` (see below).
 
 ## Catalog structure and order
 
@@ -108,8 +119,16 @@ How much the page sequence inside a document can be trusted:
 | `not-asserted` | The grouping is Ashley's; the sequence within it is ours and makes no claim about her intent. |
 
 Ashley encoded folder membership, not page order, so only `explicit` and
-`internal-pagination` documents may be presented as her ordering. Those two are
-rated `confidence: "high"`; everything else is `medium`.
+`internal-pagination` may be presented as her ordering.
+
+`orderBasis` is recorded **per page** as well as per document. A document's own value is
+the label its folder was given; where the evidence only covers part of the folder, the
+weaker pages carry their own value and the document is rated `orderConfidence: "mixed"`.
+Downgrades are declared in `order_table.py` as `page_basis={pageNumber: basis}` so the
+curated table stays the single source of truth. A document is `high` when every page is
+`explicit` or `internal-pagination`, `mixed` when only some are, and `medium` when none
+are. Do not let every page simply copy the folder value &mdash; a uniform copy carries no
+information and will contradict the notes.
 
 Grouping follows Ashley's folders, not a judgement about where one item ends: every
 folder is exactly one document, and every image in it is a page of that document.

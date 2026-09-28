@@ -14,6 +14,8 @@ from transcript_utils import extract_tables, tables_to_html, representative_quot
 from rotations import ROTATIONS
 
 MASTER = os.path.join(HERE, "master-data.json")
+# Bases that assert a sequence the material itself evidences; see martha-schema.md.
+STRONG_BASES = ("explicit", "internal-pagination")
 REPORT_OUT = os.path.join(SITE_ROOT, "review", "martha.html")
 AUDIT_OUT = os.path.join(SITE_ROOT, "review", "martha-audit.html")
 # Image paths are relative to the site's <base href="/settling/">. In the served
@@ -35,11 +37,13 @@ with open(MASTER, encoding="utf-8") as fh:
 docs = data["documents"]
 total_docs = len(docs)
 total_pages = sum(len(d["pages"]) for d in docs)
-source_name = os.path.basename(data["sourceFolder"].rstrip("\\").rstrip("/"))
+source_name = data["sourceFolder"].replace("\\", "/").rstrip("/").rsplit("/", 1)[-1]
 
 from collections import Counter
 type_counts = Counter(d["documentType"] for d in docs)
 conf_counts = Counter(d["confidence"] for d in docs)
+order_conf_counts = Counter(d.get("orderConfidence", "") for d in docs)
+page_basis_counts = Counter(p.get("orderBasis", "") for d in docs for p in d["pages"])
 kind_counts = Counter()
 for d in docs:
     for p in d["pages"]:
@@ -114,6 +118,17 @@ for label in ("high", "medium", "low"):
         </div>"""
     )
 
+on = max(order_conf_counts.values()) if order_conf_counts else 1
+order_conf_rows = []
+for label in ("high", "mixed", "medium"):
+    c = order_conf_counts.get(label, 0)
+    order_conf_rows.append(
+        f"""<div class="hbar">
+          <div class="hbar-label">{esc(label)} <span class="hbar-count">{c} ({round(c/total_docs*100) if total_docs else 0}%)</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:{round(c/on*100)}%"></div></div>
+        </div>"""
+    )
+
 name_terms = [
     "Martha", "Hamilton", "Mayer", "Skrzycki", "Walsh", "Mintz", "Mufson",
     "Farhi", "Fromson", "Yang", "Grimaldi", "Bluestein", "Chandler",
@@ -146,6 +161,10 @@ year_labels = ", ".join(str(y) for y in years_sorted)
 
 
 def doc_card(idx, d):
+    strong_pages = sum(1 for p in d["pages"] if p.get("orderBasis") in STRONG_BASES)
+    basis_label = d.get("orderBasis", "")
+    if d.get("orderConfidence") == "mixed":
+        basis_label = "%s (%d of %d pages)" % (basis_label, strong_pages, len(d["pages"]))
     pages_html = []
     for p in d["pages"]:
         transcript = p["transcript"].strip()
@@ -155,6 +174,8 @@ def doc_card(idx, d):
         prose = strip_tables(transcript)
         t_html = esc(prose).replace("\n", "<br>")
         prov = []
+        if p.get("orderBasis") and p["orderBasis"] != d["orderBasis"]:
+            prov.append("<span class='basisdown'>order not asserted here: %s</span>" % esc(p["orderBasis"]))
         if p.get("sourceFilename"):
             prov.append("Ashley's file: <code>%s</code>" % esc(p["sourceFilename"]))
         if p.get("supersedes"):
@@ -183,8 +204,9 @@ def doc_card(idx, d):
               <h3>{esc(d['title'])}</h3>
               <div class="doc-meta">
                 <span class="badge type">{esc(d['documentType'])}</span>
-                <span class="badge order" title="Why these pages are together in this order">{esc(d.get('orderBasis', ''))}</span>
-                <span class="badge conf {esc(d['confidence'])}">{esc(d['confidence'])}</span>
+                <span class="badge order" title="Why these pages are together in this order">{esc(basis_label)}</span>
+                <span class="badge orderconf {esc(d.get('orderConfidence', ''))}" title="How firmly the page order is evidenced">{esc(d.get('orderConfidence', ''))} order</span>
+                <span class="badge conf {esc(d['confidence'])}" title="How reliably the text could be read">{esc(d['confidence'])} read</span>
                 <span class="meta-item">{esc(d['date'])}</span>
                 <span class="meta-item">{d['pageCount']} page{'s' if d['pageCount'] != 1 else ''}</span>
               </div>
@@ -277,6 +299,9 @@ report_content = f"""<!DOCTYPE html>
     .badge.conf.high {{ background: #e4efe0; color: #3a5a36; }}
     .badge.conf.medium {{ background: #f4ead0; color: #7a5c1e; }}
     .badge.conf.low {{ background: #f3e0dd; color: #8a2a26; }}
+    .badge.orderconf.high {{ background: #e0eaf3; color: #2c4d6e; }}
+    .badge.orderconf.mixed {{ background: #e9e3f2; color: #55406e; }}
+    .badge.orderconf.medium {{ background: #eceff1; color: #55606a; }}
     .meta-item {{ color: var(--ink-muted); font-size: .85rem; }}
     .doc-body {{ padding: 0 18px 18px; border-top: 1px solid var(--rule); }}
     .doc-subject, .doc-notes {{ margin: 14px 0; font-size: .95rem; }}
@@ -289,6 +314,7 @@ report_content = f"""<!DOCTYPE html>
     .page-prov {{ font-family: var(--sans); font-size: .74rem; color: var(--ink-muted); margin: -4px 0 10px; }}
     .page-prov code {{ font-size: .72rem; }}
     .page-prov .notfiled {{ color: #8a2a26; }}
+.page-prov .basisdown {{ color: #55406e; font-style: italic; }}
     .page-transcript {{ font-family: var(--serif-body); font-size: .9rem; color: var(--ink-soft); white-space: normal; line-height: 1.55; margin-top: 10px; }}
     .page-transcript:empty::before {{ content: "[no text transcribed]"; color: var(--ink-muted); font-style: italic; }}
     .note-block {{ background: var(--paper-soft); border-left: 4px solid var(--accent-rose); padding: 16px 20px; font-size: .95rem; }}
@@ -313,7 +339,8 @@ report_content = f"""<!DOCTYPE html>
       <div class="report-stats">
         <div class="stat-card"><div class="num">{total_docs}</div><div class="lbl">Documents</div></div>
         <div class="stat-card"><div class="num">{total_pages}</div><div class="lbl">Photos / Pages</div></div>
-        <div class="stat-card"><div class="num">{conf_counts.get('high',0)}</div><div class="lbl">High-confidence</div></div>
+        <div class="stat-card"><div class="num">{order_conf_counts.get('high', 0)}</div><div class="lbl">Order fully evidenced</div></div>
+        <div class="stat-card"><div class="num">{page_basis_counts.get('not-asserted', 0)}</div><div class="lbl">Pages ordered by us</div></div>
         <div class="stat-card"><div class="num">{kind_counts.get('table-photo', 0)}</div><div class="lbl">Blank separators</div></div>
         <div class="stat-card"><div class="num">{type_counts.get('arbitration-exhibit',0)}</div><div class="lbl">Arbitration exhibits</div></div>
       </div>
@@ -328,11 +355,17 @@ report_content = f"""<!DOCTYPE html>
         grouped as <strong>Not filed</strong>, each with its reason recorded. Both groups come last.</p>
       <p>Each document carries an <em>order basis</em> saying how much the page sequence can be trusted:
         {basis_summary}. Only <code>explicit</code> and <code>internal-pagination</code> mean the order is written on the
-        pages themselves; <code>not-asserted</code> means the grouping is Ashley's but the sequence within it is ours.</p>
+        pages themselves; <code>not-asserted</code> means the grouping is Ashley's but the sequence within it is ours.
+        The basis is recorded <strong>per page</strong>, because a folder is often only partly evidenced: where a page's
+        basis is weaker than its document's label, the page says so in its own provenance line. A document rated
+        <strong>mixed order</strong> has some firmly evidenced pages and some that are not &mdash; check the pages before
+        trusting the sequence.</p>
       <p>The transcriptions themselves were produced by reading each photograph with human-style
         visual inspection — no OCR software was used. Where the images are separated by blank or damaged "table surface"
         photos, those separators are preserved in place as <code>table-photo</code> pages.</p>
-      <p>Every document carries a confidence rating (<strong>high</strong> / <strong>medium</strong> / <strong>low</strong>).
+      <p>Separately from the order, every document carries a <em>reading</em> confidence rating
+        (<strong>high</strong> / <strong>medium</strong> / <strong>low</strong>) describing how reliably its text could be
+        transcribed; a multi-page document is rated by its least legible page.
         Passages that could not be read are marked <code>[illegible]</code> rather than guessed, because accuracy matters
         more than completeness for archival material. Text that is rotated sideways is noted in the transcript.</p>
       <p>Where pages contain columnar data — salary tables, newsroom headcounts, pay gaps — the values are
@@ -346,7 +379,15 @@ report_content = f"""<!DOCTYPE html>
     </section>
 
     <section class="report-section">
+      <h2>Order confidence</h2>
+      <p class="legend">How firmly each document's page sequence is evidenced by Ashley's filenames or the documents' own
+        pagination. <strong>mixed</strong> means part of the folder is evidenced and part is our arrangement.</p>
+      {''.join(order_conf_rows)}
+    </section>
+
+    <section class="report-section">
       <h2>Reading confidence</h2>
+      <p class="legend">How reliably each document's text could be transcribed from the scans, rated by its least legible page.</p>
       {''.join(conf_rows)}
     </section>
 
@@ -373,7 +414,7 @@ report_content = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-with open(REPORT_OUT, "w", encoding="utf-8") as fh:
+with open(REPORT_OUT, "w", encoding="utf-8", newline="\n") as fh:
     fh.write(report_content)
 
 print(f"Wrote {REPORT_OUT}")
@@ -430,7 +471,8 @@ for d in docs:
           <span class="martha-card-meta">
             <span class="badge type">{esc(d['documentType'])}</span>
             <span class="badge order">{esc(d.get('folder', ''))}</span>
-            <span class="badge conf {esc(d['confidence'])}">{esc(d['confidence'])}</span>
+            <span class="badge orderconf {esc(d.get('orderConfidence', ''))}" title="How firmly the page order is evidenced">{esc(d.get('orderConfidence', ''))} order</span>
+            <span class="badge conf {esc(d['confidence'])}" title="How reliably the text could be read">{esc(d['confidence'])} read</span>
             <span class="meta-item">{d['pageCount']} pg</span>
           </span>
         </span>
@@ -529,7 +571,7 @@ audit_content = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-with open(AUDIT_OUT, "w", encoding="utf-8") as fh:
+with open(AUDIT_OUT, "w", encoding="utf-8", newline="\n") as fh:
     fh.write(audit_content)
 
 print(f"Wrote {AUDIT_OUT}")

@@ -6,7 +6,12 @@
 #   content-sequence      - pages of one physical document split across her folders
 #   editorial-alphabetical- arranged by comparator/subject name (my arrangement)
 #   editorial-chronological- arranged by date (my arrangement)
-#   not-asserted          - grouping only; page order is mine, no claim about intent
+#   not-asserted          - grouping only; page order is ours, no claim about intent
+#
+# Optional "page_basis" downgrades individual pages below the folder's label when the
+# folder's evidence only covers part of it (e.g. a numbered document whose tail sheets
+# carry no numbering). "rescans" lists GUID prefixes Ashley re-scanned at higher
+# resolution, which build_master.py uses to assert the pre-migration baseline.
 
 FOLDERS = [
     ("Martha 1", dict(basis="editorial-chronological", title="", pages=[
@@ -24,7 +29,9 @@ FOLDERS = [
     ("Martha 6", dict(basis="not-asserted", title="", pages=[
         "03AF6102", "341A593E", "2AED39B4", "32765112", "5551063C", "5144DD97",
         "7903878F", "E6982426", "97EC57F6", "D95CD1E3", "F5CFB9BC"])),
-    ("Martha 7", dict(basis="internal-pagination", title="", pages=[
+    # Cover and numbered introduction are on the document's own pagination; the twelve
+    # response sheets behind them carry no reliable numbering, so their order is ours.
+    ("Martha 7", dict(basis="internal-pagination", title="", page_basis={n: "not-asserted" for n in range(3, 15)}, pages=[
         "C21A73F5", "3544C530", "C4FAD717", "DFEF0E89", "24230EBA", "348882EF",
         "14184033", "437C1B9C", "48C061FC", "709B688A", "95A0AAF9", "AA658104",
         "CCAD4C37", "E68F7CC5"])),
@@ -51,7 +58,9 @@ FOLDERS = [
         "ADBCDF62", "F2E17762"])),
     ("Martha 15", dict(basis="not-asserted", title="", pages=[
         "36C7EEB3", "3E305A17"])),
-    ("Martha 16", dict(basis="internal-pagination", title="", pages=[
+    # The three contract pages are fixed by their printed numbers (29, 30, 34); placing
+    # the request memo ahead of them is our editorial call, not the document's order.
+    ("Martha 16", dict(basis="internal-pagination", title="", page_basis={1: "not-asserted"}, pages=[
         "19ECFDC6", "979C7D06", "845A7ECA", "31969D00"])),
     ("Martha 17", dict(basis="not-asserted", title="", pages=[
         "0250A525", "1153867E", "15DBC894", "17427AFB", "1EFF2199", "22CF0B38",
@@ -69,7 +78,10 @@ FOLDERS = [
         "62E6E6D8", "120DE6EE"])),
     ("Martha 23", dict(basis="content-sequence", title="", pages=[
         "E3136FCF", "20CC7734", "1781CF24"])),
+    # Pages 1-3 follow the memo's own numbering; the handwritten notes page is placed
+    # last by us, so its position is not asserted as the document's.
     ("Martha 24", dict(basis="internal-pagination", title="", rescans=["C04781D1"],
+        page_basis={4: "not-asserted"},
         pages=["5637EF0F", "2D71B907", "EDB712D1", "C04781D1"])),
     ("Martha 25", dict(basis="content-sequence", title="", pages=[
         "8DBBE865", "EA9F9F76"])),

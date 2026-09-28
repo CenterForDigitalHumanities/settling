@@ -123,5 +123,66 @@ print("pages carrying Ashley's source filename:", ren, "(expect 18 = 8 renamed +
 if ren != 18:
     bad("sourceFilename count")
 
+# 9. order basis is genuinely per-page, and the two confidence fields stay distinct
+BASES = set(d["ordering"]["basisVocabulary"])
+STRONG = {"explicit", "internal-pagination"}
+for x in docs:
+    for p in x["pages"]:
+        if p.get("orderBasis") not in BASES:
+            bad("unknown page orderBasis %r (%s p%s)" % (p.get("orderBasis"), x["docId"], p["pageNumber"]))
+        if p.get("transcriptionConfidence") not in ("high", "medium", "low"):
+            bad("missing page transcriptionConfidence (%s p%s)" % (x["docId"], p["pageNumber"]))
+    if x.get("orderConfidence") not in ("high", "mixed", "medium"):
+        bad("bad orderConfidence %s" % x["docId"])
+    bases = [p["orderBasis"] for p in x["pages"]]
+    want_oc = "high" if all(b in STRONG for b in bases) else ("mixed" if any(b in STRONG for b in bases) else "medium")
+    if x["orderConfidence"] != want_oc:
+        bad("orderConfidence %s: want %s got %s" % (x["docId"], want_oc, x["orderConfidence"]))
+    ranks = {"high": 0, "medium": 1, "low": 2}
+    want_c = max((p["transcriptionConfidence"] for p in x["pages"]), key=lambda c: ranks[c])
+    if x["confidence"] != want_c:
+        bad("confidence %s: want %s got %s" % (x["docId"], want_c, x["confidence"]))
+
+# The defect this guards: a uniform copy of the folder value carries no information.
+echo = sum(1 for x in docs for p in x["pages"] if p["orderBasis"] == x["orderBasis"])
+if echo == sum(len(x["pages"]) for x in docs):
+    bad("every page just echoes its folder's orderBasis - per-page basis is not doing any work")
+print("pages whose basis differs from their folder's label:",
+      sum(len(x["pages"]) for x in docs) - echo, "(expect 14)")
+
+# The specific downgrades, and the order_table overrides that produce them, must agree.
+EXPECT = {"DOC-007": {n: "not-asserted" for n in range(3, 15)},
+          "DOC-016": {1: "not-asserted"},
+          "DOC-024": {4: "not-asserted"}}
+for did, over in EXPECT.items():
+    x = next(y for y in docs if y["docId"] == did)
+    for p in x["pages"]:
+        want_b = over.get(p["pageNumber"], x["orderBasis"])
+        if p["orderBasis"] != want_b:
+            bad("%s p%s basis: want %s got %s" % (did, p["pageNumber"], want_b, p["orderBasis"]))
+    if x["orderConfidence"] != "mixed":
+        bad("%s should be orderConfidence=mixed" % did)
+for folder, spec in ot.FOLDERS:
+    for n, b in spec.get("page_basis", {}).items():
+        x = next(y for y in docs if y["folder"] == folder)
+        if x["pages"][n - 1]["orderBasis"] != b:
+            bad("order_table page_basis %s p%s not applied" % (folder, n))
+
+# Two docs keep fully evidenced order; the transcription ratings must not have been lost.
+if [x["docId"] for x in docs if x["orderConfidence"] == "high"] != ["DOC-005", "DOC-011"]:
+    bad("orderConfidence=high set changed")
+if not any(x["confidence"] == "low" for x in docs):
+    bad("no low-confidence transcription remains - collapsing 148 docs into 29 dropped the reading ratings")
+
+# 10. no machine-specific paths in the committed data
+sf = d.get("sourceFolder", "")
+if "\\" in sf or "/" in sf or re.match(r"^[A-Za-z]:", sf):
+    bad("sourceFolder is an absolute path, not a display name: %r" % sf)
+for f in (os.path.join(REPO, "review", "martha.html"), os.path.join(REPO, "review", "martha-audit.html")):
+    body = open(f, encoding="utf-8").read()
+    if re.search(r"[A-Za-z]:\\\\|[A-Za-z]:\\Users|[A-Za-z]:\\Downloads", body):
+        bad("absolute local path leaked into %s" % os.path.basename(f))
+print("sourceFolder:", repr(sf))
+
 print("\nALL CHECKS PASSED" if ok else "\nFAILURES ABOVE")
 sys.exit(0 if ok else 1)

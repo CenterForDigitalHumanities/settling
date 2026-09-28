@@ -53,7 +53,7 @@ META = {
     documentType="report",
     subject="Compiled staff-survey responses on race and gender relations, hiring, promotions and advancement at The Washington Post.",
     date="1986-1997",
-    notes="One survey compilation. The cover (January 1986) and the numbered introduction are placed first on the document's own pagination; the remaining ten single-page response sheets carry no reliable internal numbering, so their sequence is ours and is not asserted as Ashley's.",
+    notes="One survey compilation. The cover (January 1986) and the numbered introduction are placed first on the document's own pagination; the remaining twelve single-page response sheets (ten complete, two with torn edges) carry no reliable internal numbering, so their sequence is ours and is not asserted as Ashley's.",
 ),
 "Martha 8": dict(
     title="Guild newsletter pages on EEO settlements and Post discrimination charges",
@@ -116,7 +116,7 @@ META = {
     documentType="arbitration-exhibit",
     subject="Martha Hamilton's May 1976 maternity/sick-leave request memo alongside the Post-Guild collective bargaining agreement pages governing discharge, sick leave, vacations and maternity leave.",
     date="1976 (with contract pages)",
-    notes="The request memo is followed by the contract language it turns on. The three contract pages are placed in the order of their printed page numbers (29, 30, 34).",
+    notes="The request memo is followed by the contract language it turns on. The three contract pages are placed in the order of their printed page numbers (29, 30, 34); putting the memo ahead of them is our editorial call, so page 1 is not asserted as the document's own sequence.",
 ),
 "Martha 17": dict(
     title="Payroll salary printouts by job category, race and sex",
@@ -172,7 +172,7 @@ META = {
     documentType="memo",
     subject="Hamilton's typescript draft memo pitching ideas for education journalism, with her handwritten notes.",
     date="undated (1980s-90s)",
-    notes="One memo recovered from four fragments. Pages 1-3 follow the document's own page numbering and the closing page is signed; the handwritten notes page is placed last. Three of these pages are Ashley's higher-resolution re-scans.",
+    notes="One memo recovered from four fragments. Pages 1-3 follow the document's own page numbering and the closing page is signed; the handwritten notes page is placed last, which is our choice rather than the document's, so its position is not asserted. Three of these pages are Ashley's higher-resolution re-scans.",
 ),
 "Martha 25": dict(
     title="OPEIU/AFL-CIO wage comparison and annotated 1986 payroll summary",

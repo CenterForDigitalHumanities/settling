@@ -33,6 +33,8 @@ REPO = os.path.dirname(os.path.dirname(MAR))
 IMGDIR = os.path.join(MAR, "images")
 MASTER = os.path.join(MAR, "master-data.json")
 GUID = re.compile(r"^([0-9A-Fa-f]{8})")
+# Bases that assert a sequence Ashley's material actually evidences.
+STRONG_BASES = ("explicit", "internal-pagination")
 
 WRITE = "--write" in sys.argv
 _src = [a for a in sys.argv if a.startswith("--source=")]
@@ -91,6 +93,18 @@ for folder, fn, path in ashley_files:
 print("ashley files:", len(ashley_files), "| resolved:", len(resolve), "| new:", len(newscans))
 print("classes:", Counter(v[3] for v in resolve.values()))
 
+# A class-C re-scan is only detectable while the repo still holds the lower-quality page
+# it replaced. If images/ has already been migrated, C collapses into A and the page
+# silently loses its sourceFilename. Fail loudly instead of shipping bad provenance.
+declared = {p.upper() for _, spec in ot.FOLDERS for p in spec.get("rescans", [])}
+not_c = sorted(p for p in declared if resolve.get(p, (None, None, None, None))[3] != "C")
+if not_c:
+    sys.exit(
+        "expected %d class-C re-scans, but these did not classify as C: %s\n"
+        "review/martha/images/ is not at the pre-migration baseline. Restore the whole\n"
+        "directory first:  git checkout <commit-before-reorg> -- review/martha/images/"
+        % (len(declared), ", ".join(not_c)))
+
 # map the 4 brand-new arbitration scans onto their slot keys
 SLOT = {"NEW:pg1": "Arbitation Procedures pg 1.jpeg", "NEW:pg3": "Arbitation Procedures pg 3.jpeg",
         "NEW:pg4": "Arbitation Procedures pg 4.jpeg", "NEW:pg6": "Arbitation Procedures pg 6.jpeg"}
@@ -127,6 +141,13 @@ for i, (folder, spec) in enumerate(folders, 1):
     meta = tt.META[folder]
     doc_id = "DOC-%03d" % i
     out_pages, prevs = [], set()
+    # A folder's basis is only an honest label for the pages it actually evidences.
+    # page_basis downgrades individual pages; the folder then reports "mixed".
+    overrides = spec.get("page_basis", {})
+
+    def basis_for(n):
+        return overrides.get(n, spec["basis"])
+
     for n, slot in enumerate(spec["pages"], 1):
         if slot.startswith("NEW:"):
             sup = tt.SUPERSEDES[slot]
@@ -137,7 +158,8 @@ for i, (folder, spec) in enumerate(folders, 1):
                 "pageKind": src["page"]["pageKind"],
                 "transcript": src["page"]["transcript"],
                 "sourceFilename": SLOT[slot],
-                "orderBasis": spec["basis"],
+                "transcriptionConfidence": src["doc"]["confidence"],
+                "orderBasis": basis_for(n),
                 "previousDocId": src["doc"]["docId"],
                 "supersedes": src["page"]["imageFile"],
                 "provenance": "Ashley's re-scan of the page previously catalogued as %s; content verified identical by image correlation." % src["doc"]["docId"],
@@ -149,7 +171,8 @@ for i, (folder, spec) in enumerate(folders, 1):
         _, ashley_fn, _, cls = resolve.get(pre, (None, None, None, "absent"))
         page = dict(src["page"])
         page["pageNumber"] = n
-        page["orderBasis"] = spec["basis"]
+        page["transcriptionConfidence"] = src["doc"]["confidence"]
+        page["orderBasis"] = basis_for(n)
         page["previousDocId"] = src["doc"]["docId"]
         if cls in ("B", "C"):
             page["sourceFilename"] = ashley_fn
@@ -157,6 +180,24 @@ for i, (folder, spec) in enumerate(folders, 1):
             page["notFiledReason"] = tt.NOT_FILED_REASONS[pre]
         prevs.add(src["doc"]["docId"])
         out_pages.append(page)
+
+    # `confidence` has always meant *transcription* confidence in this schema (see
+    # martha-schema.md: illegible pages are rated "low"). Collapsing 148 docs into 29
+    # must not drop those ratings, so the folder inherits its weakest page.
+    ranks = {"high": 0, "medium": 1, "low": 2}
+    confidence = max((p["transcriptionConfidence"] for p in out_pages), key=lambda c: ranks[c])
+
+    # Order evidence is a separate claim, so it gets its own field. It follows the
+    # weakest page: a folder whose basis is only evidenced on part of it is "mixed",
+    # which keeps the strong pages creditable.
+    bases = [p["orderBasis"] for p in out_pages]
+    if all(b in STRONG_BASES for b in bases):
+        order_confidence = "high"
+    elif any(b in STRONG_BASES for b in bases):
+        order_confidence = "mixed"
+    else:
+        order_confidence = "medium"
+
     docs.append({
         "docId": doc_id,
         "folder": folder,
@@ -166,7 +207,8 @@ for i, (folder, spec) in enumerate(folders, 1):
         "subject": meta["subject"],
         "date": meta["date"],
         "pageCount": len(out_pages),
-        "confidence": "high" if spec["basis"] in ("explicit", "internal-pagination") else "medium",
+        "confidence": confidence,
+        "orderConfidence": order_confidence,
         "notes": meta["notes"],
         "orderBasis": spec["basis"],
         "previousDocIds": sorted(prevs),
@@ -183,7 +225,10 @@ superseded = [{
 out = {
     "generated": payload["generated"],
     "reorganized": "2026-09-28",
-    "sourceFolder": ASHLEY,
+    # Store the folder's display name, not the absolute path: a drive letter and a
+    # user directory are meaningless to anyone else, and os.path.basename would not
+    # strip them on Linux, leaking the whole path into the generated reports.
+    "sourceFolder": os.path.basename(ASHLEY.rstrip("\\/")),
     "imageArchive": "review/martha/images/",
     "totalDocuments": len(docs),
     "totalPages": sum(len(d["pages"]) for d in docs),
@@ -197,6 +242,13 @@ out = {
             "editorial-alphabetical": "Editorial arrangement by comparator surname.",
             "editorial-chronological": "Editorial arrangement by dates written on the pages.",
             "not-asserted": "Grouping only; the sequence is editorial and makes no claim about Ashley's intent.",
+        },
+        "basisNote": "orderBasis is recorded per page. A document's own orderBasis is the basis its folder was labelled with; where some pages are weaker than that label, they say so individually and the document is rated mixed.",
+        "confidenceNote": "confidence rates the transcription (high/medium/low, unchanged from the original schema) and is inherited from the weakest page in the folder. orderConfidence separately rates the page-order claim.",
+        "orderConfidenceVocabulary": {
+            "high": "Every page's order is evidenced by Ashley's own filename or the document's own pagination.",
+            "mixed": "Some pages are firmly evidenced and some are not; check the per-page basis before trusting the sequence.",
+            "medium": "The grouping is Ashley's; the sequence within it is ours.",
         },
     },
     "documents": docs,
