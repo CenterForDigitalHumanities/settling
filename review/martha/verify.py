@@ -187,8 +187,9 @@ print("sourceFolder:", repr(sf))
 # 11. every image the reports reference must resolve under the site's <base href="/settling/">
 SRC_RE = re.compile(r'src="(review/martha/images/([^"]+))"')
 OTHER_SRC = re.compile(r'src="((?!review/martha/images/|assets/|https?:)[^"]*images/[^"]+)"')
+report_path = os.path.join(REPO, "review", "martha.html")
 audit_path = os.path.join(REPO, "review", "martha-audit.html")
-for f in (os.path.join(REPO, "review", "martha.html"), audit_path):
+for f in (report_path, audit_path):
     body = open(f, encoding="utf-8").read()
     name = os.path.basename(f)
     if OTHER_SRC.search(body):
@@ -196,12 +197,15 @@ for f in (os.path.join(REPO, "review", "martha.html"), audit_path):
     for src, _ in SRC_RE.findall(body):
         if not os.path.isfile(os.path.join(REPO, src.replace("/", os.sep))):
             bad("%s: referenced image missing on disk: %s" % (name, src))
-referenced = {n for _, n in SRC_RE.findall(open(audit_path, encoding="utf-8").read())}
+# Coverage of the *rendered* page, not just the data: a report with no image for a
+# page it transcribes is not auditable, and checks 1-10 cannot see that.
 expected = {p["imageFile"] for x in docs for p in x["pages"]}
-if expected - referenced:
-    bad("audit page is missing thumbnails for %d page(s): %s"
-        % (len(expected - referenced), sorted(expected - referenced)[:5]))
-print("audit thumbnails:", len(referenced), "of", len(expected), "pages")
+for label, f in (("martha.html", report_path), ("martha-audit.html", audit_path)):
+    ref = {n for _, n in SRC_RE.findall(open(f, encoding="utf-8").read())}
+    gap = expected - ref
+    if gap:
+        bad("%s imaged %d of %d pages, missing: %s" % (label, len(expected) - len(gap), len(expected), sorted(gap)[:5]))
+    print("%s: %d of %d pages imaged" % (label, len(expected) - len(gap), len(expected)))
 
 print("\nALL CHECKS PASSED" if ok else "\nFAILURES ABOVE")
 sys.exit(0 if ok else 1)

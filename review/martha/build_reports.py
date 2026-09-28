@@ -160,6 +160,32 @@ years_sorted = sorted([y for y in year_buckets if isinstance(y, int)])
 year_labels = ", ".join(str(y) for y in years_sorted)
 
 
+def rot_inline(rot):
+    """Inline transform for a rotated thumbnail.
+
+    The element is absolutely centred in its box, so the translate has to
+    precede the rotate or the swapped image sits off-centre.
+    """
+    return f' style="transform: translate(-50%, -50%) rotate({rot}deg)"' if rot else ""
+
+
+def page_figure(d, p):
+    """Thumbnail beside a transcript page, opening the lightbox on that page.
+
+    The reading report is laid out page by page, so the image belongs next to
+    the text it came from rather than in a separate strip.
+    """
+    rot = rotation_for(p["imageFile"])
+    rot_cls = " page-fig-rotated" if rot else ""
+    return (
+        f'<button class="page-fig" data-open-lightbox="{esc(d["docId"])}" '
+        f'data-open-page="{p["pageNumber"]}" '
+        f'aria-label="View {esc(d["docId"])} page {p["pageNumber"]} of {d["pageCount"]} as an image">'
+        f'<img class="page-fig-img{rot_cls}" src="{IMG_BASE}{esc(p["imageFile"])}" '
+        f'alt="" loading="lazy"{rot_inline(rot)}></button>'
+    )
+
+
 def doc_card(idx, d):
     strong_pages = sum(1 for p in d["pages"] if p.get("orderBasis") in STRONG_BASES)
     basis_label = d.get("orderBasis", "")
@@ -186,7 +212,8 @@ def doc_card(idx, d):
         pages_html.append(
             f"""<div class="page">
               <div class="page-head">
-                <span class="page-num">p. {esc(p['pageNumber'])}</span>
+                  {page_figure(d, p)}
+                  <span class="page-num">p. {esc(p['pageNumber'])}</span>
                 <span class="page-kind">{esc(p['pageKind'])}</span>
                 <code class="page-file">{esc(p['imageFile'])}</code>
               </div>
@@ -311,6 +338,10 @@ report_content = f"""<!DOCTYPE html>
     .page-num {{ font-weight: 600; color: var(--accent-red-dark); }}
     .page-kind {{ font-size: .72rem; text-transform: uppercase; color: var(--ink-muted); background: var(--paper); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 4px; }}
     .page-file {{ font-size: .7rem; color: var(--ink-muted); word-break: break-all; }}
+    .page-fig {{ position: relative; flex: 0 0 auto; width: 46px; height: 61px; padding: 0; border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--paper); cursor: pointer; overflow: hidden; align-self: flex-start; }}
+    .page-fig img {{ display: block; width: 100%; height: 100%; object-fit: cover; }}
+    .page-fig img.page-fig-rotated {{ position: absolute; left: 50%; top: 50%; width: 61px; height: 46px; object-fit: contain; }}
+    .page-fig:hover, .page-fig:focus-visible {{ border-color: var(--accent-rose); }}
     .page-prov {{ font-family: var(--sans); font-size: .74rem; color: var(--ink-muted); margin: -4px 0 10px; }}
     .page-prov code {{ font-size: .72rem; }}
     .page-prov .notfiled {{ color: #8a2a26; }}
@@ -457,14 +488,14 @@ def page_strip(d):
     for p in d["pages"]:
         rot = rotation_for(p["imageFile"])
         rot_cls = " page-thumb-rotated" if rot else ""
-        rot_style = f' style="transform: rotate({rot}deg)"' if rot else ""
         kind = p["pageKind"] if p.get("pageKind") in ("content", "cover") else "secondary"
         cells.append(
             f'<button class="page-thumb {kind}" data-open-lightbox="{esc(d["docId"])}" '
             f'data-open-page="{p["pageNumber"]}" '
             f'aria-label="Open {esc(d["docId"])} page {p["pageNumber"]} of {d["pageCount"]} ({esc(p.get("pageKind", ""))})">'
+            f'<span class="page-thumb-box">'
             f'<img class="page-thumb-img{rot_cls}" src="{IMG_BASE}{esc(p["imageFile"])}" '
-            f'alt="" loading="lazy"{rot_style}>'
+            f'alt="" loading="lazy"{rot_inline(rot)}></span>'
             f'<span class="page-thumb-n">{p["pageNumber"]}</span></button>'
         )
     return (
@@ -549,8 +580,9 @@ audit_content = f"""<!DOCTYPE html>
     .page-strip-scroll {{ display: flex; gap: 5px; overflow-x: auto; padding: 1px; scrollbar-width: thin; }}
     .page-strip-scroll[data-more="1"] {{ -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); }}
     .page-thumb {{ flex: 0 0 auto; width: 32px; padding: 0; border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--paper); cursor: pointer; overflow: hidden; }}
-    .page-thumb img {{ display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }}
-    .page-thumb img.page-thumb-rotated {{ width: 133.33%; height: 100%; aspect-ratio: auto; object-fit: contain; transform-origin: center; }}
+    .page-thumb-box {{ display: block; position: relative; width: 100%; height: 43px; overflow: hidden; }}
+    .page-thumb img {{ display: block; width: 100%; height: 100%; object-fit: cover; }}
+    .page-thumb img.page-thumb-rotated {{ position: absolute; left: 50%; top: 50%; width: 43px; height: 32px; object-fit: contain; }}
     .page-thumb-n {{ display: block; font-family: var(--sans); font-size: .6rem; line-height: 1.5; color: var(--ink-soft); border-top: 1px solid var(--rule); }}
     .page-thumb.secondary img {{ filter: grayscale(1) contrast(.9); opacity: .62; }}
     .page-thumb:hover, .page-thumb:focus-visible {{ border-color: var(--accent-rose); }}
