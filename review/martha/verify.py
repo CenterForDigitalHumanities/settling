@@ -5,9 +5,10 @@ Usage: python verify.py [--source=<Ashley's ordered folder>]
 Without --source the byte-for-byte comparison against Ashley's originals is
 skipped; every other check still runs.
 """
-import json, os, re, sys, hashlib
+import json, os, re, struct, sys, hashlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import order_table as ot
+import rotations
 
 MAR = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(MAR))
@@ -206,6 +207,126 @@ for label, f in (("martha.html", report_path), ("martha-audit.html", audit_path)
     if gap:
         bad("%s imaged %d of %d pages, missing: %s" % (label, len(expected) - len(gap), len(expected), sorted(gap)[:5]))
     print("%s: %d of %d pages imaged" % (label, len(expected) - len(gap), len(expected)))
+
+# 12. rotation. The decision lives in three places at once - rotations.py, the
+#     JPEG's own pixel dimensions, and prose inside the transcript - and nothing
+#     reconciled them, so a page could render sideways while its own text said
+#     otherwise. Two of the 167 did.
+MARKER_RE = re.compile(r"\[[^\]]*rotat[^\]]*\]", re.I)
+
+
+def jpeg_dims(path):
+    """(w, h) from the start-of-frame marker. Stdlib only; CI has no image library."""
+    data = open(path, "rb").read()
+    if data[:2] != b"\xff\xd8":
+        return None
+    i, n = 2, len(data)
+    while i < n - 4:
+        if data[i] != 0xFF:
+            i += 1
+            continue
+        m = data[i + 1]
+        if m == 0x01 or m == 0xD8 or m == 0xD9 or 0xD0 <= m <= 0xD7:
+            i += 2
+            continue
+        if 0xC0 <= m <= 0xCF and m not in (0xC4, 0xC8, 0xCC):
+            h, w = struct.unpack(">HH", data[i + 5:i + 9])
+            return w, h
+        i += 2 + struct.unpack(">H", data[i + 2:i + 4])[0]
+    return None
+
+
+def jpeg_exif_orientation(path):
+    """EXIF tag 0x0112, or 1 when absent. No image library needed.
+
+    Layout: FFD8 | FFE1 | len(2) | "Exif\\0\\0" | TIFF header, so the TIFF block
+    starts at byte 12 and every offset inside it is relative to that point.
+    """
+    data = open(path, "rb").read()
+    i, n = 2, len(data)
+    while i + 4 <= n:
+        if data[i] != 0xFF:
+            return 1
+        marker = data[i + 1]
+        if marker == 0xE1 and data[i + 4:i + 10] == b"Exif\x00\x00":
+            seg = data[i + 10:]
+            endian = "<" if seg[0:2] == b"II" else ">"
+            ifd = struct.unpack(endian + "I", seg[4:8])[0]
+            count = struct.unpack(endian + "H", seg[ifd:ifd + 2])[0]
+            for e in range(count):
+                off = ifd + 2 + e * 12
+                if off + 12 > len(seg):
+                    break
+                if struct.unpack(endian + "H", seg[off:off + 2])[0] == 0x0112:
+                    return struct.unpack(endian + "H", seg[off + 8:off + 10])[0]
+            return 1
+        if marker in (0xD8, 0x01) or 0xD0 <= marker <= 0xD7:
+            i += 2
+            continue
+        i += 2 + struct.unpack(">H", data[i + 2:i + 4])[0]
+    return 1
+
+
+# (a) A transcript that tells the reader the image is sideways is a hard claim
+#     about the shipped pixels, so the table must rotate it. The converse is NOT
+#     required: not every rotated page carries a marker, because the markers were
+#     written page by page and only some of them mention it.
+for x in docs:
+    for p in x["pages"]:
+        if MARKER_RE.search(p.get("transcript") or ""):
+            if not (rotations.ROTATIONS.get(p["imageFile"][:8], 0) or 0):
+                bad("%s p%s transcript claims a rotated image but ROTATIONS has no entry"
+                    % (x["docId"], p["pageNumber"]))
+
+# (b) rotation_for() keys on the first 8 characters of the filename, and Ashley's
+#     human names collide inside that window: martha11-pg1/pg3/pg4/pg6 all read
+#     "martha11", so one key would silently rotate four different pages.
+by_prefix = {}
+for x in docs:
+    for p in x["pages"]:
+        by_prefix.setdefault(p["imageFile"][:8], set()).add(p["imageFile"])
+for k in rotations.ROTATIONS:
+    if len(by_prefix.get(k, ())) > 1:
+        bad("ROTATIONS key %s is ambiguous, matches %s" % (k, sorted(by_prefix[k])))
+    if k not in by_prefix:
+        bad("ROTATIONS key %s matches no catalog page" % k)
+
+# (c) EXIF orientation must be neutral. A baked-in 6 or 8 makes the browser rotate
+#     the image before our own rotation is applied, so the two would stack.
+for x in docs:
+    for p in x["pages"]:
+        e12 = jpeg_exif_orientation(os.path.join(IMG, p["imageFile"]))
+        if e12 != 1:
+            bad("%s p%s carries EXIF orientation %s; the pixel dimensions the table "
+                "was keyed against are not what the browser displays"
+                % (x["docId"], p["pageNumber"], e12))
+
+# (d) File shape against rotation presence: reported, not failed. Both off-diagonal
+#     shapes occur here and only one of them is a defect. DOC-009 p8 is a landscape
+#     file with no entry and does read sideways (missing -90). DOC-029 p1 is a
+#     portrait file with +90 and also reads sideways. Shape cannot decide
+#     orientation, so it only points a human at pages worth reading.
+sideways = []
+for x in docs:
+    for p in x["pages"]:
+        dims = jpeg_dims(os.path.join(IMG, p["imageFile"]))
+        if not dims:
+            bad("%s p%s is not a readable JPEG" % (x["docId"], p["pageNumber"]))
+            continue
+        landscape, rot = dims[0] > dims[1], (rotations.ROTATIONS.get(p["imageFile"][:8], 0) or 0)
+        if landscape and not rot:
+            sideways.append("%s p%s %s %dx%d landscape, no rotation"
+                            % (x["docId"], p["pageNumber"], p["imageFile"][:8], dims[0], dims[1]))
+        elif rot and not landscape:
+            sideways.append("%s p%s %s %dx%d portrait, rotated %+d"
+                            % (x["docId"], p["pageNumber"], p["imageFile"][:8],
+                               dims[0], dims[1], rot))
+print("rotation: %d table entries, %d pages rotated, %d shape/rotation off-diagonal"
+      % (sum(1 for v in rotations.ROTATIONS.values() if v),
+         sum(1 for x in docs for p in x["pages"]
+             if (rotations.ROTATIONS.get(p["imageFile"][:8], 0) or 0)), len(sideways)))
+for s in sideways:
+    print("   CHECK BY READING:", s)
 
 print("\nALL CHECKS PASSED" if ok else "\nFAILURES ABOVE")
 sys.exit(0 if ok else 1)

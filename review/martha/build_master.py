@@ -27,6 +27,7 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import order_table as ot
 import titles as tt
+import transcript_notes as tn
 
 MAR = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(MAR))
@@ -180,6 +181,15 @@ for i, (folder, spec) in enumerate(folders, 1):
             page["notFiledReason"] = tt.NOT_FILED_REASONS[pre]
         prevs.add(src["doc"]["docId"])
         out_pages.append(page)
+
+    # Notes written against photographs this catalog no longer ships would tell the
+    # reader the page is sideways when it is not. Applied here rather than by editing
+    # batches/*.json so the batch files stay a faithful record of what was transcribed.
+    for p in out_pages:
+        fix = tn.TRANSCRIPT_NOTES.get(p["imageFile"])
+        text = p.get("transcript") or ""
+        if fix and fix[0] in text:
+            p["transcript"] = text.replace(fix[0], fix[1], 1)
 
     # `confidence` has always meant *transcription* confidence in this schema (see
     # martha-schema.md: illegible pages are rated "low"). Collapsing 148 docs into 29
