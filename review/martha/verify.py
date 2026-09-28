@@ -184,5 +184,24 @@ for f in (os.path.join(REPO, "review", "martha.html"), os.path.join(REPO, "revie
         bad("absolute local path leaked into %s" % os.path.basename(f))
 print("sourceFolder:", repr(sf))
 
+# 11. every image the reports reference must resolve under the site's <base href="/settling/">
+SRC_RE = re.compile(r'src="(review/martha/images/([^"]+))"')
+OTHER_SRC = re.compile(r'src="((?!review/martha/images/|assets/|https?:)[^"]*images/[^"]+)"')
+audit_path = os.path.join(REPO, "review", "martha-audit.html")
+for f in (os.path.join(REPO, "review", "martha.html"), audit_path):
+    body = open(f, encoding="utf-8").read()
+    name = os.path.basename(f)
+    if OTHER_SRC.search(body):
+        bad("%s: image src not under review/martha/images/ - breaks <base href> resolution" % name)
+    for src, _ in SRC_RE.findall(body):
+        if not os.path.isfile(os.path.join(REPO, src.replace("/", os.sep))):
+            bad("%s: referenced image missing on disk: %s" % (name, src))
+referenced = {n for _, n in SRC_RE.findall(open(audit_path, encoding="utf-8").read())}
+expected = {p["imageFile"] for x in docs for p in x["pages"]}
+if expected - referenced:
+    bad("audit page is missing thumbnails for %d page(s): %s"
+        % (len(expected - referenced), sorted(expected - referenced)[:5]))
+print("audit thumbnails:", len(referenced), "of", len(expected), "pages")
+
 print("\nALL CHECKS PASSED" if ok else "\nFAILURES ABOVE")
 sys.exit(0 if ok else 1)

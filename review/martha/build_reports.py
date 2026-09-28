@@ -445,6 +445,35 @@ def doc_quote(d):
     return ""
 
 
+def page_strip(d):
+    """Per-page thumbnails so every page of a folder-document stays reachable.
+
+    The card's hero image is one page; this strip is the rest of the evidence.
+    Each thumb opens the lightbox directly on its own page.
+    """
+    if len(d["pages"]) < 2:
+        return ""
+    cells = []
+    for p in d["pages"]:
+        rot = rotation_for(p["imageFile"])
+        rot_cls = " page-thumb-rotated" if rot else ""
+        rot_style = f' style="transform: rotate({rot}deg)"' if rot else ""
+        kind = p["pageKind"] if p.get("pageKind") in ("content", "cover") else "secondary"
+        cells.append(
+            f'<button class="page-thumb {kind}" data-open-lightbox="{esc(d["docId"])}" '
+            f'data-open-page="{p["pageNumber"]}" '
+            f'aria-label="Open {esc(d["docId"])} page {p["pageNumber"]} of {d["pageCount"]} ({esc(p.get("pageKind", ""))})">'
+            f'<img class="page-thumb-img{rot_cls}" src="{IMG_BASE}{esc(p["imageFile"])}" '
+            f'alt="" loading="lazy"{rot_style}>'
+            f'<span class="page-thumb-n">{p["pageNumber"]}</span></button>'
+        )
+    return (
+        f'<div class="page-strip" role="group" aria-label="Pages of {esc(d["title"])}">'
+        f'<span class="page-strip-label">{d["pageCount"]} pages</span>'
+        f'<div class="page-strip-scroll">{"".join(cells)}</div></div>'
+    )
+
+
 audit_cards = []
 for d in docs:
     img = first_page_image(d)
@@ -477,6 +506,7 @@ for d in docs:
           </span>
         </span>
       </button>
+      {page_strip(d)}
       <button class="otr-btn" data-mark-otr="{esc(d['docId'])}">Off the record</button>
     </article>""")
 
@@ -514,6 +544,18 @@ audit_content = f"""<!DOCTYPE html>
     .martha-quote {{ font-size: .85rem; font-style: italic; color: var(--ink-muted); border-left: 3px solid var(--accent-rose); padding-left: 10px; margin: 0 0 4px; line-height: 1.5; }}
     .martha-card-meta {{ display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-family: var(--sans); margin-top: 4px; }}
     .martha-card .otr-btn {{ position: absolute; top: 10px; right: 10px; z-index: 2; background: rgba(255,255,255,.92); }}
+    .page-strip {{ display: flex; align-items: center; gap: 9px; padding: 2px 14px 13px; }}
+    .page-strip-label {{ font-family: var(--sans); font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-muted); white-space: nowrap; }}
+    .page-strip-scroll {{ display: flex; gap: 5px; overflow-x: auto; padding: 1px; scrollbar-width: thin; }}
+    .page-strip-scroll[data-more="1"] {{ -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent); }}
+    .page-thumb {{ flex: 0 0 auto; width: 32px; padding: 0; border: 1px solid var(--rule-strong); border-radius: 4px; background: var(--paper); cursor: pointer; overflow: hidden; }}
+    .page-thumb img {{ display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }}
+    .page-thumb img.page-thumb-rotated {{ width: 133.33%; height: 100%; aspect-ratio: auto; object-fit: contain; transform-origin: center; }}
+    .page-thumb-n {{ display: block; font-family: var(--sans); font-size: .6rem; line-height: 1.5; color: var(--ink-soft); border-top: 1px solid var(--rule); }}
+    .page-thumb.secondary img {{ filter: grayscale(1) contrast(.9); opacity: .62; }}
+    .page-thumb:hover, .page-thumb:focus-visible {{ border-color: var(--accent-rose); }}
+    .page-thumb:hover .page-thumb-n, .page-thumb:focus-visible .page-thumb-n {{ color: var(--ink); }}
+    .martha-card.is-redacted .page-strip {{ display: none; }}
     .martha-card.is-redacted .martha-preview-btn {{ opacity: .55; }}
     .martha-card.is-redacted:after {{ content: "OFF THE RECORD"; position: absolute; top: 10px; left: 10px; background: var(--accent-red); color: #fff; font-family: var(--sans); font-size: .68rem; letter-spacing: .05em; padding: 3px 8px; border-radius: 4px; z-index: 2; }}
     .martha-empty {{ font-family: var(--sans); color: var(--ink-muted); padding: 40px 0; text-align: center; }}
@@ -566,6 +608,18 @@ audit_content = f"""<!DOCTYPE html>
       document.addEventListener('martha:redacted-changed', () => {{
         cards.forEach((c) => c.classList.toggle('is-redacted', window.__MARTHA_OTR__ && window.__MARTHA_OTR__[c.id]))
       }})
+      // Fade a page strip only while more thumbs remain off to the right.
+      const strips = Array.from(grid.querySelectorAll('.page-strip-scroll'))
+      const syncStrip = (el) => {{
+        const more = el.scrollLeft + el.clientWidth < el.scrollWidth - 2
+        el.dataset.more = more ? '1' : ''
+      }}
+      strips.forEach((el) => {{
+        syncStrip(el)
+        el.addEventListener('scroll', () => syncStrip(el), {{ passive: true }})
+      }})
+      window.addEventListener('resize', () => strips.forEach(syncStrip))
+      filter.addEventListener('input', () => requestAnimationFrame(() => strips.forEach(syncStrip)))
     }})()
   </script>
 </body>
