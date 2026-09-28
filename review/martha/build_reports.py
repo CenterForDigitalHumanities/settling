@@ -6,21 +6,32 @@ import os
 import re
 import sys
 
-sys.path.insert(0, r"e:\docs\GitHub\settling\review\martha")
+HERE = os.path.dirname(os.path.abspath(__file__))
+SITE_ROOT = os.path.dirname(os.path.dirname(HERE))
+
+sys.path.insert(0, HERE)
 from transcript_utils import extract_tables, tables_to_html, representative_quote, strip_tables
 from rotations import ROTATIONS
 
-MASTER = r"e:\docs\GitHub\settling\review\martha\master-data.json"
-REPORT_OUT = r"e:\docs\GitHub\settling\review\martha.html"
-AUDIT_OUT = r"e:\docs\GitHub\settling\review\martha-audit.html"
+MASTER = os.path.join(HERE, "master-data.json")
+REPORT_OUT = os.path.join(SITE_ROOT, "review", "martha.html")
+AUDIT_OUT = os.path.join(SITE_ROOT, "review", "martha-audit.html")
 # Image paths are relative to the site's <base href="/settling/">. In the served
 # repo the scans live at review/martha/images/<file>, so from the base that is
 # "review/martha/images/". The inline base-rewrite on file:// keeps this correct
 # for local preview too.
 IMG_BASE = "review/martha/images/"
 
+
+def rotation_for(image_file):
+    """CSS degrees for a scan; unknown or blank entries read as upright."""
+    return ROTATIONS.get(image_file[:8], 0) or 0
+
+
 with open(MASTER, encoding="utf-8") as fh:
     data = json.load(fh)
+# Catalog order is the order of the list: one document per folder in Ashley
+# Hamilton's ordered collection, numbered by folder. Do not re-sort.
 docs = data["documents"]
 total_docs = len(docs)
 total_pages = sum(len(d["pages"]) for d in docs)
@@ -33,6 +44,12 @@ kind_counts = Counter()
 for d in docs:
     for p in d["pages"]:
         kind_counts[p["pageKind"]] += 1
+
+
+basis_counts = Counter(d.get("orderBasis", "") for d in docs)
+basis_summary = " · ".join(
+    "<code>%s</code> (%d)" % (b, c) for b, c in sorted(basis_counts.items(), key=lambda kv: -kv[1])
+)
 
 
 def esc(t):
@@ -56,13 +73,14 @@ registry = [
     {
         "docId": d["docId"],
         "title": d["title"],
+        "folder": d.get("folder", ""),
         "documentType": d["documentType"],
         "confidence": d["confidence"],
         "pages": [
             {
                 "imageFile": p["imageFile"],
                 "pageNumber": p["pageNumber"],
-                "rotation": ROTATIONS.get(p["imageFile"][:8], 0),
+                "rotation": rotation_for(p["imageFile"]),
             }
             for p in d["pages"]
         ],
@@ -136,6 +154,14 @@ def doc_card(idx, d):
         # aren't duplicated by both the formatted table and the transcript.
         prose = strip_tables(transcript)
         t_html = esc(prose).replace("\n", "<br>")
+        prov = []
+        if p.get("sourceFilename"):
+            prov.append("Ashley's file: <code>%s</code>" % esc(p["sourceFilename"]))
+        if p.get("supersedes"):
+            prov.append("replaces <code>%s</code>" % esc(p["supersedes"]))
+        if p.get("notFiledReason"):
+            prov.append("<span class='notfiled'>Not filed by Ashley: %s</span>" % esc(p["notFiledReason"]))
+        prov_html = ('<div class="page-prov">%s</div>' % " &middot; ".join(prov)) if prov else ""
         pages_html.append(
             f"""<div class="page">
               <div class="page-head">
@@ -143,6 +169,7 @@ def doc_card(idx, d):
                 <span class="page-kind">{esc(p['pageKind'])}</span>
                 <code class="page-file">{esc(p['imageFile'])}</code>
               </div>
+              {prov_html}
               {tables}
               <div class="page-transcript">{t_html}</div>
             </div>"""
@@ -151,11 +178,12 @@ def doc_card(idx, d):
       <details>
         <summary>
           <div class="doc-head">
-            <span class="doc-id">{esc(d['docId'])}</span>
+            <span class="doc-id">{esc(d['docId'])}<br>{esc(d.get('folder', ''))}</span>
             <div class="doc-title-and-meta">
               <h3>{esc(d['title'])}</h3>
               <div class="doc-meta">
                 <span class="badge type">{esc(d['documentType'])}</span>
+                <span class="badge order" title="Why these pages are together in this order">{esc(d.get('orderBasis', ''))}</span>
                 <span class="badge conf {esc(d['confidence'])}">{esc(d['confidence'])}</span>
                 <span class="meta-item">{esc(d['date'])}</span>
                 <span class="meta-item">{d['pageCount']} page{'s' if d['pageCount'] != 1 else ''}</span>
@@ -245,6 +273,7 @@ report_content = f"""<!DOCTYPE html>
     .doc-meta {{ display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: var(--sans); }}
     .badge {{ font-size: .72rem; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: .03em; }}
     .badge.type {{ background: var(--accent-red); color: #fff; }}
+    .badge.order {{ background: var(--paper); color: var(--ink-muted); border: 1px solid var(--rule-strong); text-transform: none; letter-spacing: 0; font-style: italic; }}
     .badge.conf.high {{ background: #e4efe0; color: #3a5a36; }}
     .badge.conf.medium {{ background: #f4ead0; color: #7a5c1e; }}
     .badge.conf.low {{ background: #f3e0dd; color: #8a2a26; }}
@@ -257,6 +286,9 @@ report_content = f"""<!DOCTYPE html>
     .page-num {{ font-weight: 600; color: var(--accent-red-dark); }}
     .page-kind {{ font-size: .72rem; text-transform: uppercase; color: var(--ink-muted); background: var(--paper); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 4px; }}
     .page-file {{ font-size: .7rem; color: var(--ink-muted); word-break: break-all; }}
+    .page-prov {{ font-family: var(--sans); font-size: .74rem; color: var(--ink-muted); margin: -4px 0 10px; }}
+    .page-prov code {{ font-size: .72rem; }}
+    .page-prov .notfiled {{ color: #8a2a26; }}
     .page-transcript {{ font-family: var(--serif-body); font-size: .9rem; color: var(--ink-soft); white-space: normal; line-height: 1.55; margin-top: 10px; }}
     .page-transcript:empty::before {{ content: "[no text transcribed]"; color: var(--ink-muted); font-style: italic; }}
     .note-block {{ background: var(--paper-soft); border-left: 4px solid var(--accent-rose); padding: 16px 20px; font-size: .95rem; }}
@@ -289,11 +321,17 @@ report_content = f"""<!DOCTYPE html>
 
     <section class="report-section note-block">
       <h2>How to read this report</h2>
-      <p>This catalog was produced by reading each photograph in the source folder {esc(source_name)} with human-style
-        visual inspection — no OCR software was used. Each of the {total_pages} photographs is recorded as a
-        <em>page</em>, and consecutive pages that appear to belong to the same item are grouped into a
-        <em>document</em>. Where the images are separated by blank or damaged "table surface" photos, those separators
-        are preserved in place as <code>table-photo</code> pages.</p>
+      <p>The catalog follows the order Ashley Hamilton gave these documents. Each numbered folder in
+        <em>{esc(source_name)}</em> is catalogued as one <em>document</em>, and the image files inside it are that
+        document's pages, in sequence. Folders appear in numeric order; pages Ashley left loose in the folder root are
+        grouped as <strong>Unfiled</strong>, and the handful of scanned pages that do not appear in her ordered set are
+        grouped as <strong>Not filed</strong>, each with its reason recorded. Both groups come last.</p>
+      <p>Each document carries an <em>order basis</em> saying how much the page sequence can be trusted:
+        {basis_summary}. Only <code>explicit</code> and <code>internal-pagination</code> mean the order is written on the
+        pages themselves; <code>not-asserted</code> means the grouping is Ashley's but the sequence within it is ours.</p>
+      <p>The transcriptions themselves were produced by reading each photograph with human-style
+        visual inspection — no OCR software was used. Where the images are separated by blank or damaged "table surface"
+        photos, those separators are preserved in place as <code>table-photo</code> pages.</p>
       <p>Every document carries a confidence rating (<strong>high</strong> / <strong>medium</strong> / <strong>low</strong>).
         Passages that could not be read are marked <code>[illegible]</code> rather than guessed, because accuracy matters
         more than completeness for archival material. Text that is rotated sideways is noted in the transcript.</p>
@@ -369,10 +407,12 @@ def doc_quote(d):
 audit_cards = []
 for d in docs:
     img = first_page_image(d)
-    img_rot = ROTATIONS.get((d["pages"][0]["imageFile"] if d["pages"] else "")[:8], 0) if d["pages"] else 0
+    img_rot = rotation_for(d["pages"][0]["imageFile"]) if d["pages"] else 0
     rot_cls = " martha-thumb-rotated" if img_rot else ""
+    # The shared class swaps the 3:4 bounding box; the angle itself varies per scan.
+    rot_style = f' style="transform: rotate({img_rot}deg)"' if img_rot else ""
     thumb = (
-        f'<img class="martha-thumb{rot_cls}" src="{IMG_BASE}{esc(img)}" alt="Preview of {esc(d["title"])}" loading="lazy" '
+        f'<img class="martha-thumb{rot_cls}"{rot_style} src="{IMG_BASE}{esc(img)}" alt="Preview of {esc(d["title"])}" loading="lazy" '
         f'onerror="this.outerHTML=`<div class=&quot;martha-thumb-fallback&quot;>No preview</div>`">'
         if img
         else '<div class="martha-thumb-fallback">No image</div>'
@@ -389,6 +429,7 @@ for d in docs:
           {quote_html}
           <span class="martha-card-meta">
             <span class="badge type">{esc(d['documentType'])}</span>
+            <span class="badge order">{esc(d.get('folder', ''))}</span>
             <span class="badge conf {esc(d['confidence'])}">{esc(d['confidence'])}</span>
             <span class="meta-item">{d['pageCount']} pg</span>
           </span>

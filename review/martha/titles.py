@@ -1,0 +1,236 @@
+# -*- coding: utf-8 -*-
+"""Curated document-level metadata for the 29 folder-documents.
+
+Keyed by folder name as it appears in order_table.FOLDERS.
+`notes` always states why the pages are together and what the page order is based on.
+"""
+
+META = {
+"Martha 1": dict(
+    title="Draft letters and statements on the Juan Williams case, 1991",
+    documentType="letter",
+    subject="Martha Hamilton's typescript drafts responding to The Washington Post's handling of the Juan Williams sexual-harassment complaint, including a letter to Ben Bradlee Jr.",
+    date="1991",
+    notes="Three related 1991 drafts about the same episode. Ordered by the dates written on the pages (Oct 2 -> undated final page -> Nov 1). Page 2 of the Bradlee letter (DOC-040) was not filed by Ashley and appears in the Not filed group.",
+),
+"Martha 2": dict(
+    title="Guild pay-equity flyer and Unit News report on widening pay gaps",
+    documentType="arbitration-exhibit",
+    subject="Newspaper Guild advocacy print material arguing that white male reporters were paid more, including the first page of the 'How much more is a white male reporter worth?' flyer and Post Unit News No. 99.",
+    date="1987-1988",
+    notes="Thematic grouping of two separate print items. Ashley did not encode a sequence between them, so the order is ours and makes no claim about her intent. Page 2 of the Guild flyer is in Martha 3.",
+),
+"Martha 3": dict(
+    title="Union newsletter pages asking whether the Post discriminates",
+    documentType="arbitration-exhibit",
+    subject="Bargaining-committee and Guild newsletter pages comparing Post salaries with the New York Times and with starting salaries by race and sex.",
+    date="mid-1980s",
+    notes="Thematic grouping of three newsletter pages. Order not asserted. Includes page 2 of the Guild flyer whose page 1 is in Martha 2, and page 2 of DOC-030 whose table photograph (page 1) is in the Not filed group.",
+),
+"Martha 4": dict(
+    title="'It Doesn't Pay to Be Female or Black' and 'Why does the Post discriminate?'",
+    documentType="newspaper-clipping",
+    subject="Two illustrated Guild / bargaining-committee pages comparing 1982 and 1986 salary data by race and sex.",
+    date="1986-1999",
+    notes="Thematic pairing of two salary-comparison graphics pages. Order not asserted.",
+),
+"Martha 5": dict(
+    title="Declaration of Martha McNeil Hamilton (Hamilton, Mayer, Skrzycki, Walsh)",
+    documentType="arbitration-exhibit",
+    subject="Hamilton's complete 14-page sworn declaration in the compensation-discrimination arbitration brought with Caroline Mayer, Cynthia Skrzycki and Walsh, signed 24 March 2003.",
+    date="2003-03-24",
+    notes="One physical document recovered from 12 previously fragmented catalogue entries. Page order is the document's own: each page carries a printed footer number 1-14 and the paragraph numbering runs unbroken from para. 1 to the signature page. Seam text was checked page to page (e.g. p1 ends '...filed a sex' / p2 begins 'discrimination complaint)').",
+),
+"Martha 6": dict(
+    title="Pay-discrimination statistical analyses and Guild salary printouts, 1982-1991",
+    documentType="arbitration-exhibit",
+    subject="'Pay Discrimination at the Washington Post: Preliminary Analysis and Findings' together with the Guild's supporting salary and merit-pay tabulations by race and sex.",
+    date="1982-1991",
+    notes="Thematic grouping of the statistical case for pay discrimination. Order not asserted, though the material runs roughly from early Guild bulletins to the 1990 preliminary analysis and the 1991 merit-pay printouts.",
+),
+"Martha 7": dict(
+    title="Newsroom survey: volunteered employee comments on race and sex",
+    documentType="report",
+    subject="Compiled staff-survey responses on race and gender relations, hiring, promotions and advancement at The Washington Post.",
+    date="1986-1997",
+    notes="One survey compilation. The cover (January 1986) and the numbered introduction are placed first on the document's own pagination; the remaining ten single-page response sheets carry no reliable internal numbering, so their sequence is ours and is not asserted as Ashley's.",
+),
+"Martha 8": dict(
+    title="Guild newsletter pages on EEO settlements and Post discrimination charges",
+    documentType="newsletter-clipping",
+    subject="Newsletter reporting on four Financial News reporters settling EEO cases (1998) and the Post Guild Unit News issue of 15 May 2003.",
+    date="1998-2003",
+    notes="Thematic pairing of two newsletter pages. Order not asserted.",
+),
+"Martha 9": dict(
+    title="Newsroom professional staff racial and gender censuses, 1991-1996",
+    documentType="arbitration-exhibit",
+    subject="Dated headcount tables showing the composition of the Post newsroom by race and sex, with hires and departures, for 1991 through 1996.",
+    date="1991-07-08 to 1996",
+    notes="Ordered by the date printed on each census. The last two pages are not censuses: one comparator-memo page (DOC-081 p3) and one blank table verso that Ashley filed here.",
+),
+"Martha 10": dict(
+    title="Frank Swoboda memoranda on desk and section assignments",
+    documentType="memo",
+    subject="Internal Post memoranda from Frank Swoboda about Martha Hamilton returning to the reporting desk and about interim Financial section assignments.",
+    date="undated (Feb/Mar and Sept 16)",
+    notes="Two memos from the same series. Neither carries a year, so the sequence is not asserted. Both pages are Ashley's higher-resolution re-scans.",
+),
+"Martha 11": dict(
+    title="Agreed Arbitration Procedures for Compensation Discrimination Claims",
+    documentType="arbitration-exhibit",
+    subject="The Washington Post / Washington-Baltimore Newspaper Guild agreed procedures governing compensation-discrimination claims filed under the negotiated settlement.",
+    date="1994 onward",
+    notes="Complete six-page agreement. Page order is explicit: Ashley named the files 'Arbitation Procedures pg 1/3/4/6' and kept the existing scans of pages 2 and 5. Her four re-scans replace the earlier low-resolution copies of pages 1, 3, 4 and 6, which are recorded as superseded.",
+),
+"Martha 12": dict(
+    title="Hand-tallied analyses of 1995 salary and staffing data",
+    documentType="arbitration-exhibit",
+    subject="Manuscript and typescript tally grids counting Post employees by sex, race and age across job categories, prepared from the 1995 data.",
+    date="1995",
+    notes="Thematic pairing of two hand-analysed data sheets. Order not asserted. Both pages are Ashley's higher-resolution re-scans.",
+),
+"Martha 13": dict(
+    title="Confidential arbitration settlement narrative: male comparator profiles",
+    documentType="arbitration-exhibit",
+    subject="Comparator-by-comparator salary and experience narratives prepared under the agreed arbitration procedures, contrasting each male reporter's record with Martha Hamilton's.",
+    date="2002-2003",
+    notes="One submission of 29 pages. The introduction page is placed first, then the comparator profiles in alphabetical order of comparator surname (Alexander through Yang); pages belonging to the same physical sheet are kept adjacent. The alphabetical arrangement is editorial, not a sequence Ashley encoded. Three pages of the Alexander sheet (DOC-081) are elsewhere: p3 in Martha 9, p2 and p4 in the Not filed group.",
+),
+"Martha 14": dict(
+    title="Pay-tier tables by race and gender and Unit News 'Pay Gaps Widen'",
+    documentType="arbitration-exhibit",
+    subject="Gwen Ifill's 'Unit member' pay-tier tables by job category, race and gender, with the Post Unit News No. 99 story on widening pay gaps.",
+    date="1987-1990s",
+    notes="Thematic pairing of a data table and the newsletter story that uses it. Order not asserted.",
+),
+"Martha 15": dict(
+    title="Coverage of the 1980 EEO sex-discrimination settlement",
+    documentType="newsletter-clipping",
+    subject="Post Unit News reporting on the settlement of the 1972 class sex-discrimination complaint, including the Special Bulletin of 2 December 1980.",
+    date="1980",
+    notes="Thematic pairing of two newsletter pages about the same settlement. Order not asserted.",
+),
+"Martha 16": dict(
+    title="Maternity and sick leave: 1976 request and contract provisions",
+    documentType="arbitration-exhibit",
+    subject="Martha Hamilton's May 1976 maternity/sick-leave request memo alongside the Post-Guild collective bargaining agreement pages governing discharge, sick leave, vacations and maternity leave.",
+    date="1976 (with contract pages)",
+    notes="The request memo is followed by the contract language it turns on. The three contract pages are placed in the order of their printed page numbers (29, 30, 34).",
+),
+"Martha 17": dict(
+    title="Payroll salary printouts by job category, race and sex",
+    documentType="arbitration-exhibit",
+    subject="Dot-matrix and typeset payroll tabulations of Post salaries by job category, race and sex, used as equal-pay evidence.",
+    date="1980s",
+    notes="Sixteen printout fragments from the same evidentiary series. No internal pagination survives across the fragments, so the sequence is ours and is not asserted as Ashley's. Includes page 2 of the wage-discrimination questionnaire whose page 1 is in Martha 23; page 2 of DOC-114 is in the Not filed group.",
+),
+"Martha 18": dict(
+    title="Post-Guild joint EEO statement, claims procedure and Task Force announcement",
+    documentType="arbitration-exhibit",
+    subject="The joint statement of the Post and the Guild on equal employment opportunity, the arbitration claims procedure, and the announcement of the Task Force on personnel practices.",
+    date="1987-1997",
+    notes="Sequence follows the life of one agreement: the cover and joint statement, then the claims procedure and Task Force memo, then the final agreement page of 3 October 1997.",
+),
+"Martha 19": dict(
+    title="Letter from Black female reporters of The Washington Post on salary disparities",
+    documentType="letter",
+    subject="Signed letter from the Black female reporters of The Washington Post to 'Leonard' setting out the salary disparities they had identified.",
+    date="1967 / early 1980s",
+    notes="Two pages of one letter: the opening page followed by the signed closing page.",
+),
+"Martha 20": dict(
+    title="Guild handout on average salaries and complaint-filing announcement",
+    documentType="arbitration-exhibit",
+    subject="The Guild's 'Average Salaries Show Patterns of Discrimination' handout with the Unit News story announcing the Guild's discrimination complaint.",
+    date="1987-1998",
+    notes="Thematic pairing of the argument and the action. Order not asserted. The second page of the handout (DOC-011 p2) was left loose in the folder root and appears in the Unfiled group. This page is one of Ashley's higher-resolution re-scans.",
+),
+"Martha 21": dict(
+    title="Maternity-leave grievance and settlement correspondence, 1976-1978",
+    documentType="letter",
+    subject="Hamilton's request for six weeks sick leave after maternity, the union's reply on the grievance, and the letter enclosing the arbitration settlement cheque.",
+    date="1976-04-29 to 1978-12-12",
+    notes="Ordered by the dates on the letters, which trace the grievance from the request through settlement.",
+),
+"Martha 22": dict(
+    title="Post 'SHOP' page announcing new employees, 20 October 1972",
+    documentType="newspaper-clipping",
+    subject="The Washington Post 'SHOP' page and Composing Notes column of 20 October 1972 picturing and naming new employees, including Martha Hamilton.",
+    date="1972-10-20",
+    notes="Two halves of the same printed page, placed as one document.",
+),
+"Martha 23": dict(
+    title="Wage-discrimination arbitration claim forms",
+    documentType="arbitration-exhibit",
+    subject="The GBA/Post settlement arbitration claim form and the gender/race wage-discrimination questionnaire completed and signed by Martha Hamilton.",
+    date="1997",
+    notes="Sequence follows the claim: blank procedure form, then the signed final page of 12 October 1997, then page 1 of the questionnaire. Page 2 of that questionnaire is in Martha 17.",
+),
+"Martha 24": dict(
+    title="Draft memo to 'Leonard': proposals for education coverage",
+    documentType="memo",
+    subject="Hamilton's typescript draft memo pitching ideas for education journalism, with her handwritten notes.",
+    date="undated (1980s-90s)",
+    notes="One memo recovered from four fragments. Pages 1-3 follow the document's own page numbering and the closing page is signed; the handwritten notes page is placed last. Three of these pages are Ashley's higher-resolution re-scans.",
+),
+"Martha 25": dict(
+    title="OPEIU/AFL-CIO wage comparison and annotated 1986 payroll summary",
+    documentType="report",
+    subject="OPEIU/AFL-CIO tables comparing Post salaries by race and sex with the annotated Washington Post payroll summary of 2 October 1986.",
+    date="1986-1987",
+    notes="The payroll summary supplies the raw figures for the comparison tables, so it is placed with them. Page 1 of this DOC-055 report is here and page 2 is in Martha 27.",
+),
+"Martha 26": dict(
+    title="'Equality and Justice, Post Style' and newsroom salary wage lists",
+    documentType="newspaper-clipping",
+    subject="Post Unit News No. 103 article on salary listings by job classification, with the accompanying newsroom wage lists and cartoon.",
+    date="1987",
+    notes="Thematic pairing of the article and the wage list it discusses. Order not asserted.",
+),
+"Martha 27": dict(
+    title="Unit News 'Pay Gaps Widen' and OPEIU wage-comparison tables",
+    documentType="newspaper-clipping",
+    subject="Post Unit News No. 99 story on widening pay gaps together with the second page of the OPEIU/AFL-CIO wage comparison.",
+    date="1987",
+    notes="Thematic pairing. Page 1 of the OPEIU report is in Martha 25.",
+),
+"Unfiled (loose in folder root)": dict(
+    title="Unfiled pages: resume, newsroom badge and miscellaneous correspondence",
+    documentType="other",
+    subject="Loose pages that were in the root of Ashley's ordered folder rather than in any numbered subfolder: Hamilton's resume, her Post newsroom ID badge, printed email, a 1979 note to Tom Wilkinson, a 1993 Guild Bulletin, and the second page of the Guild average-salary handout.",
+    date="1967-2003",
+    notes="Ashley did not assign these six pages to a folder, so they are kept together and labelled as unfiled rather than being placed by guesswork. Sequence not asserted.",
+),
+"Not filed (absent from Ashley's set)": dict(
+    title="Not filed: table photographs, fragments and split-document pages",
+    documentType="table-photo",
+    subject="The twelve payload pages with no counterpart in Ashley's ordered folders: mostly table photographs and separator shots with no legible content, plus continuation pages of documents whose other pages she did file.",
+    date="1980s-2005",
+    notes="Retained so the catalogue still accounts for all 167 scanned pages. Each page carries its own reason for being unfiled. Four further pages are absent from Ashley's set for a different reason: they were the low-resolution arbitration-procedure scans she replaced, and they are recorded as superseded rather than shown here.",
+),
+}
+
+# Per-page reasons for the "Not filed" group (Patrick's requirement: auditable).
+NOT_FILED_REASONS = {
+    "CDA2FC15": "Table photograph of an open newspaper (Weekend section, 3 Apr 2005); no legible document content.",
+    "099DFA73": "Undated clipping fragment ('Lessons From Its Great Teachers'); only a passing mention of Hamilton.",
+    "2E5C18E8": "Left-edge fragment of a typescript pay-comparison page; the rest of the sheet is not in the collection.",
+    "75C37361": "Page 2 of 2 of the Ben Bradlee Jr. draft letter; Ashley filed page 1 in 'Martha 1'.",
+    "5C74254C": "Page 1 of DOC-030 shot as a table photograph; Ashley filed the legible page 2 in 'Martha 3'.",
+    "6EC7CCC7": "Blurry table photograph of a document fragment (survey ignoring gays); no legible content.",
+    "16E4B4BA": "Page 2 of 2 of the DOC-114 salary-table photograph; Ashley filed page 1 in 'Martha 17'.",
+    "24990590": "Table photograph / scan separator with only the edge of a numeric printout.",
+    "317C80E9": "Table photograph / scan separator; no legible content.",
+    "C83CBACF": "Page 2 of 5 of the DOC-081 comparator sheet; Ashley filed pages 1 and 5 in 'Martha 13' and page 3 in 'Martha 9'.",
+    "C94FDE4B": "Page 4 of 5 of the DOC-081 comparator sheet; same split as page 2.",
+    "ED565C0F": "Table-surface photograph with no document content.",
+}
+
+# Martha 11: Ashley's re-scans replace these payload pages (proven by image correlation).
+SUPERSEDES = {
+    "NEW:pg1": "B559737D",
+    "NEW:pg3": "D33544E8",
+    "NEW:pg4": "B32F08FD",
+    "NEW:pg6": "3B9C8F5A",
+}
