@@ -144,13 +144,12 @@ def set_basis(s, key, basis):
 # checked this claim. Between a quarter and a half of attempts, governed by machine load, and
 # nothing about the check itself keeps it down.
 #
-# An earlier revision of this comment offered a full-harness number as reassurance -- no wrong
-# verdicts in twelve runs. That instrument was broken: its sandbox resolved REPO to the wrong
-# parent and died before the interesting import, so it could not have produced one. Re-run
-# correctly, this machine gives 0 wrong verdicts in 6 replays and the machine that checked the
-# claim gives 2 in 6. The rate moves between boxes, so it is not a property of the check and
-# cannot be relied on. What the ordering buys is not a low rate; it is a loud failure on every
-# occasion the rate is paid.
+# No rate quoted from one box is worth anything on another. With both defences removed, the
+# full harness gives 0 wrong verdicts in 6 replays here and 2 in 6 on the machine that ran the
+# same probe; the first instrument reported a clean 12 runs and was itself broken, resolving
+# REPO to the wrong parent and dying before the import in question. The rate is a property of
+# load, not of the check. What the ordering buys is not a low rate -- it is a loud failure on
+# every occasion the rate is paid.
 #
 # With the shipped ordering that event is a visible verdict mismatch. Put the two PASS cases
 # side by side instead, which is how this file shipped through round twelve, and it is silent.
