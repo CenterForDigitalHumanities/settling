@@ -16,7 +16,7 @@ crash rather than fail -- so this is safe to run beside a dirty checkout and saf
 
 Exit code is 0 only if every case behaves as expected AND none of them crashed.
 
-Five rules learned the hard way, all encoded below:
+Six rules learned the hard way, all encoded below:
   * Assert WHERE an edit landed. "020E073B" is the first key of both ROTATIONS and
     ROTATION_BASIS, so anchoring on it silently mutated the wrong dict and produced two
     plausible, false results.
@@ -43,6 +43,11 @@ Five rules learned the hard way, all encoded below:
      do share a length and a verdict, and a guard that dropped adjacency would refuse the file
      as it stands. A revision of it also required j's want to be inside i's want and called
      that conservative. It was the reverse: see its docstring.
+  * A correction is not finished until every home of the claim is corrected, including the home
+    the correction points at. Rounds sixteen, seventeen and eighteen were that defect three times,
+    so stale_prose() below now fails the run on a fixed list of phrasings that were true here once
+    and are false now. It is a ratchet, not a proof: it can only re-block wording that has already
+    been wrong, so a first-time error still needs a reader.
 """
 import io
 import os
@@ -157,12 +162,18 @@ def set_basis(s, key, basis):
 #
 # No rate quoted from one box is worth anything on another, and none of them is worth anything
 # without its instrument. With both defences removed, counted by parsing expect=/got= and
-# cross-checked against the harness's own "WRONG GUARD" note (the two counters agreed on every
-# replay), two back-to-back batches of 8 replays on this machine gave 5 and 1 wrong verdicts,
-# always the same case: rot=360 reporting PASS when it must FAIL. The reviewing machine reported
-# 2 in 6. An earlier revision of this line claimed 0 in 6 here; it does not reproduce, and the
-# spread above replaces it. The rate is a property of load, not of the check, and what the
-# ordering buys is not a low rate -- it is a loud failure on every occasion the rate is paid.
+# cross-checked against the harness's own "WRONG GUARD" note, two back-to-back batches of 8
+# replays here gave 5 and 1 wrong verdicts; the reviewing machine gave 4 and 2, and had reported
+# 2 in 6 earlier. Four numbers, no two equal, always the same case: rot=360 reporting PASS when
+# it must FAIL. The two counters are not one measurement read twice -- msg_ok is `want in fired`
+# while ok additionally requires `verdict == expect and not wrote`, so WRONG GUARD can fire on a
+# line whose verdict column is correct. Their agreeing on every replay of both batches is a
+# result, not a tautology. An earlier revision of this line claimed 0 in 6 here; it does not
+# reproduce, and the spread above replaces it. The reviewing machine's 2 in 6 was checked against
+# its own transcript rather than against this repo, which is the only way a number attributed to
+# a person can be verified: grepping an artefact cannot settle provenance. The rate is a property
+# of load, not of the check, and what the ordering buys is not a low rate -- it is a loud failure
+# on every occasion the rate is paid.
 #
 # An earlier report claimed 0 wrong verdicts in 12 runs. It lived in the PR body, not in this
 # file, and it measured nothing: its counter kept lines containing both "MISMATCH" and
@@ -305,7 +316,7 @@ def blind_adjacent(pristine):
     described in prose -- an earlier version of this comment described it and got the danger
     wrong, naming a case that is confusable with nothing adjacent.
 
-    Two facts decide it without running anything:
+    Two more facts decide it, given adjacency, without running anything:
 
       * the mutated rotations.py must be the same number of bytes, or CPython rewrites the
         .pyc rather than reusing it (mtime alone is not enough -- it is truncated to whole
@@ -335,7 +346,54 @@ def blind_adjacent(pristine):
     return blind
 
 
+# Prose that was true somewhere in this file's history and is false now. Rounds sixteen, seventeen
+# and eighteen were the same defect three times -- a correction reached some copies of a claim and
+# not the copy the corrected copy points at -- and grep finds every home at review time but none of
+# them at the next rewrite. This list is the only version of that check which survives the rewrite.
+# Entries are underscore-encoded so that the list cannot match itself.
+RETIRED_PROSE = [
+    "nothing_more",                               # bullet 5, dropped in ab8e7aa
+    "Two_facts_decide",                           # blind_adjacent, dropped in round 18
+    "never_labelled",                             # the column prints `got=`
+    "0_wrong_verdicts_in_6_replays",              # measured 5 and 1 here, 4 and 2 there
+    "equal-length_neighbours_expect_PASS",        # case 20 has ONE equal-length neighbour
+    "is_confusable_with_nothing.",                # adjacency is a condition, not shorthand
+    "differs_from_every_equal-length_neighbour",  # true once, replaced by a false paraphrase
+]
+
+
+def stale_prose(own):
+    """[(entry, line)] for every retired phrasing still present in this module's own text.
+
+    A guard on the guards: it audits the descriptions, which nothing else does. It reads this
+    file rather than rotations.py, so it is independent of the sandbox and of every mutation
+    below, and it runs before either exists.
+    """
+    hits = []
+    for entry in RETIRED_PROSE:
+        phrase = entry.replace("_", " ")
+        for i, line in enumerate(own.splitlines(), 1):
+            if phrase in line:
+                hits.append((entry, i))
+    return hits
+
+
 def main():
+    # Fail before a sandbox exists. A stale description of a guard is the defect this file exists
+    # to prevent, and every verdict printed below would be read under it.
+    own_path = globals().get("__file__")
+    if not own_path:
+        print("MISMATCH cannot audit prose: __file__ is unset")
+        return 1
+    with io.open(own_path, encoding="utf-8-sig") as f:
+        retired = stale_prose(f.read())
+    if retired:
+        for entry, ln in retired:
+            print("MISMATCH retired prose at L%d: %s" % (ln, entry))
+        print("cases: %d rotation, %d argument -- mismatches: %d"
+              % (len(CASES), len(ARG_CASES), len(retired)))
+        return 1
+
     sandbox = tempfile.mkdtemp(prefix="martha-check-matrix-")
     try:
         # REPO resolves to `sandbox`, so sandbox/review/*.html must exist for checks 10/11.
