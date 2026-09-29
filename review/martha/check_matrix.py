@@ -67,10 +67,16 @@ Six rules learned the hard way, all encoded below:
     constant-column check cannot see that. A census of timings needs the word census, or a reader
     takes its low edge for a floor. And a figure whose subject is anything another machine can
     change needs a fetch, not a re-reading: a remote-tracking ref is an artifact with a timestamp.
-    Naming the artifact is necessary and not sufficient. A machine rebuilt a six-row table from the right
-    file and labelled it with the right revision, and every position in it was one line high, because
+    Naming the artifact is necessary and not sufficient. A machine rebuilt a seven-row table from the right
+    file and labelled it with the right revision, and four of its positions were one line high, because
     enumerate(lines[1230:1312], 1231) is already 1-based and the loop added another; the totals came from
-    str.count, never touched the index, which is why the table agreed with itself. Past noun, revision and
+    str.count, never touched the index, which is why the table agreed with itself. The same machine then
+    named that loop as the cause of the whole column, and an exhaustive sweep of 3,915 single-window
+    configurations shows no window that yields its seven published values together -- the quoted slice
+    cannot reach the row the finding rests on, and any window that can also shifts a heading the table
+    reports as correct. So the rule has a second half: an explanation has to be tested against every row it
+    claims to cover, not only the ones its author was looking at, because a mechanism that fits the rows it
+    can reach will be believed for the rows it cannot. Past noun, revision and
     key order, a figure needs the expression that produced it, because that is the one part a reader can
     audit without holding the artifact. Co-generating a number and its sentence guards the drift between
     them and nothing at all against a defect in the thing that produced both, so the check that cannot be
