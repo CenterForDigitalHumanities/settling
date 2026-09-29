@@ -38,6 +38,12 @@ jobs:
       - name: Verify catalog, provenance and reports
         run: python review/martha/verify.py
 
+      # verify.py asserts things about the rotation table; check_matrix.py asserts that
+      # verify.py actually enforces them. It runs the whole matrix in a temp copy of
+      # review/, so it cannot dirty the checkout the next step diffs.
+      - name: Verify the guards actually fire
+        run: python review/martha/check_matrix.py
+
       - name: Rebuild reports
         run: python review/martha/build_reports.py
 

@@ -391,14 +391,21 @@ BASIS_KINDS = ("ocr", "unverified")
 # shape rather than a result.
 MEASUREMENT_RE = re.compile(r"\b\d[\d.]*\s+(?:transcript\s+)?matches\b|\bvolume\s+\d", re.I)
 ANGLE_RE = re.compile(r"\bat\s+(-?\d{1,3})\b")
-# Table angles are PIL rotate() arguments (counter-clockwise); the basis prose cites CSS
-# rotate() angles (clockwise), so table -90 and CSS 270 are the same rotation. Both
-# spellings are accepted so a basis can be written in either space.
-CSS_NAME_FOR_TABLE_ANGLE = {
-    -90: {270, -90},
-    90: {90, -270},
-    180: {180, -180},
-}
+
+
+def css_turn_names(v):
+    """Both spellings of one CSS turn, for the failure message."""
+    return " / ".join(str(x) for x in sorted({v, v + (360 if v < 0 else -360)}))
+
+
+# The table and the basis prose hold the SAME unit: CSS rotate() degrees. build_reports.py
+# drops the table value straight into `transform: rotate(<n>deg)` and PIL appears nowhere
+# in the repo -- PIL is only mentioned in rotations.py's header because the offline OCR
+# test emulated CSS theta with im.rotate(-theta). So a basis may name the applied turn
+# under any spelling of it (-90, 270 and 540 are one rotation), which is congruence mod
+# 360 rather than a lookup table. A table was also a crash: check 5 accepts any multiple
+# of 90, so the legal value 270 hit a bare subscript and died with a KeyError and no
+# verdict at all.
 for k, v in sorted(rotations.ROTATIONS.items()):
     if not v:
         continue
@@ -422,12 +429,15 @@ for k, v in sorted(rotations.ROTATIONS.items()):
         # pasted onto a different rotation than the run that produced it. Every applied
         # rotation on this branch is -90 and every ocr basis cites 270, so this is
         # currently vacuous; it is what stops that from drifting silently.
+        # Matching is by INTERSECTION, deliberately: honest prose cites the losing angles
+        # too ("volume 529.5 at 270 vs 5.8 at 0"), so requiring every cited angle to be
+        # the winner would reject true statements. The residual weakness is that this
+        # establishes the right angle APPEARS in the basis, not that it won.
         cited = set(int(a) for a in ANGLE_RE.findall(basis))
-        if not (cited & CSS_NAME_FOR_TABLE_ANGLE[v]):
+        if not any(a % 360 == v % 360 for a in cited):
             bad("ROTATION_BASIS %s cites angle(s) %s but the applied rotation is %+d, "
                 "which is CSS %s; the basis must name the angle that won"
-                % (k, sorted(cited) or "none", v,
-                   " / ".join(str(x) for x in sorted(CSS_NAME_FOR_TABLE_ANGLE[v]))))
+                % (k, sorted(cited) or "none", v, css_turn_names(v)))
 for k in getattr(rotations, "ROTATION_BASIS", {}):
     if not (rotations.ROTATIONS.get(k, 0) or 0):
         bad("ROTATION_BASIS key %s records a basis for a rotation that is not applied" % k)
