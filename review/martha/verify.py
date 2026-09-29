@@ -79,11 +79,37 @@ for k, v in ROTATIONS.items():
         bad("rotation %s is %s, not a multiple of 90" % (k, v))
 
 # 6. Ashley's 6 re-scans + 4 new scans are byte-identical to her originals
-ASH = next((a[len("--source="):] for a in sys.argv if a.startswith("--source=")), None)
 def md5(p):
     return hashlib.md5(open(p, "rb").read()).hexdigest()
-if not ASH or not os.path.isdir(ASH):
+
+ASH, _pending_path = None, False
+_args = sys.argv[1:]
+for _i, _a in enumerate(_args):
+    if _pending_path:
+        ASH, _pending_path = _a, False
+    elif _a.startswith("--source="):
+        ASH = _a[len("--source="):]
+    elif _a == "--source":
+        # Both spellings mean the same thing to someone typing it. Accepting only
+        # --source=PATH made `--source <path>` fall through to the SKIP branch with
+        # exit 0, so the byte check looked like it had run when it never had.
+        _pending_path = True
+    else:
+        # An unrecognised argument must not be swallowed either.
+        print("ERROR unrecognised argument %r (expected --source=PATH)" % _a)
+        sys.exit(2)
+if _pending_path:
+    print("ERROR --source needs a path")
+    sys.exit(2)
+if not ASH:
     print("SKIP byte-for-byte check (pass --source=<Ashley's ordered folder>)")
+elif not os.path.isdir(ASH):
+    # A bad path used to SKIP with exit 0 like the no-flag case. Ashley keeps two folders
+    # side by side and only "...Documents (ordered)" holds her re-scans, so a wrong path
+    # is the realistic mistake and it has to be loud.
+    print("ERROR --source path is not a directory: %s" % ASH)
+    print("       Ashley's re-scans are in 'Martha M. Hamilton Documents (ordered)'.")
+    sys.exit(2)
 else:
     pairs = [("martha11-pg1.jpeg", "Arbitation Procedures pg 1.jpeg"), ("martha11-pg3.jpeg", "Arbitation Procedures pg 3.jpeg"),
              ("martha11-pg4.jpeg", "Arbitation Procedures pg 4.jpeg"), ("martha11-pg6.jpeg", "Arbitation Procedures pg 6.jpeg")]
@@ -92,16 +118,32 @@ else:
             for f in fn:
                 if f.upper().startswith(pre):
                     pairs.append((os.path.basename(os.path.join(root, f)), f))
+    byte_ok = True
     for repo_name, ash_name in pairs:
         src = os.path.join(ASH, ash_name)
         if not os.path.isfile(src):
             src = next((os.path.join(r, f) for r, _, fs in os.walk(ASH) for f in fs if f == ash_name), None)
-        a, b = os.path.join(IMG, repo_name), src
+        a = os.path.join(IMG, repo_name)
         if not os.path.isfile(a):
             bad("not in repo: %s" % repo_name)
-        elif md5(a) != md5(b):
+            byte_ok = False
+        elif src is None:
+            # Ashley keeps two folders side by side, "...Documents" and "...Documents
+            # (ordered)", and only the latter holds her re-scans. Pointing --source at the
+            # wrong one is the realistic mistake, and it used to raise TypeError out of
+            # md5(None) -- on the martha11 pairs first, so the crash arrived before any
+            # of the six GUID comparisons that would have passed. Name the file instead.
+            bad("not found under --source: repo copy %s has no Ashley original %r; "
+                "is --source the (ordered) folder?" % (repo_name, ash_name))
+            byte_ok = False
+        elif md5(a) != md5(src):
             bad("bytes differ from Ashley's original: %s" % repo_name)
-    print("verified %d copied images byte-for-byte against Ashley's files" % len(pairs))
+            byte_ok = False
+    # Only when every comparison actually held. The line used to print unconditionally,
+    # so a run reporting "FAIL bytes differ" was followed on the next line by a
+    # "verified ... byte-for-byte" that was not true.
+    if byte_ok:
+        print("verified %d copied images byte-for-byte against Ashley's files" % len(pairs))
 
 # 7. HTML: docs appear in catalog order
 h = open(os.path.join(REPO, "review", "martha.html"), encoding="utf-8").read()
@@ -350,12 +392,27 @@ for k, v in sorted(rotations.ROTATIONS.items()):
     elif not basis.startswith(BASIS_KINDS):
         bad("ROTATION_BASIS %s has unrecognised basis %r; must start with one of %s"
             % (k, basis, ", ".join(BASIS_KINDS)))
+    elif basis.startswith("ocr") and not any(c.isdigit() for c in basis):
+        # Without this the credential is the three characters "ocr": re-adding the
+        # disproved C04781D1 rotation with a bare "ocr" basis passed every check. A
+        # fabricated number is still possible, but it is diffable and checkable against
+        # the per-entry comment, where a bare method word was neither.
+        bad("ROTATION_BASIS %s claims an OCR basis but records no measurement; cite the "
+            "transcript matches or volume that settled the angle" % k)
 for k in getattr(rotations, "ROTATION_BASIS", {}):
     if not (rotations.ROTATIONS.get(k, 0) or 0):
         bad("ROTATION_BASIS key %s records a basis for a rotation that is not applied" % k)
 
 unverified = [k for k, b in getattr(rotations, "ROTATION_BASIS", {}).items()
               if b.startswith("unverified")]
+# Pin the set rather than just counting it, the way check 9 pins the orderConfidence=high
+# docs. Without this the count above is a print statement, not an assertion: a restored
+# rotation labelled "unverified: trust me" passed, and downgrading all thirteen settled
+# bases to unverified passed too. "unverified" must be earned by a human looking at the
+# page, so adding to this list has to be a deliberate, visible edit.
+if sorted(unverified) != ["75C37361"]:
+    bad("the unverified-rotation set changed; 75C37361 is the only entry awaiting a human "
+        "eye, and settling another one needs its measurement recorded, not the label")
 print("rotation basis: %d applied, %d recorded, %d unverified%s"
       % (sum(1 for v in rotations.ROTATIONS.values() if v),
          len(getattr(rotations, "ROTATION_BASIS", {})), len(unverified),

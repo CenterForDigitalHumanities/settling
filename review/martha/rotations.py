@@ -112,20 +112,28 @@ ROTATIONS = {
 # basis because they apply nothing.
 #
 # Vocabulary, validated by the check:
-#   "ocr"        settled by the four-angle test in the header above
-#   "unverified" carried forward from the previous catalog; nothing could decide it
+#   "ocr"        settled by the four-angle test in the header above. Must carry the
+#                measurement, not just the word: 12(e) rejects an "ocr" basis with no
+#                digit in it, because otherwise the credential is the three characters
+#                "ocr" and a restored shape-heuristic rotation could cite it.
+#   "unverified" carried forward from the previous catalog; nothing could decide it.
+#                The set of these is pinned by 12(g), so the label cannot be adopted.
+#
+# The ten that previously read bare "ocr" were re-measured individually for this commit,
+# all four angles each. Every one won at 270 (table -90) with zero transcript matches at
+# any other angle, so the numbers below are from this run rather than remembered.
 ROTATION_BASIS = {
-    "020E073B": "ocr",
-    "04894C59": "ocr",
-    "3E9114EE": "ocr",
-    "44F2AF4E": "ocr",
-    "49FB1A98": "ocr",
-    "6C631833": "ocr",
-    "86353EBE": "ocr",
+    "020E073B": "ocr: 37 transcript matches at 270, 0 at the other three; volume 331.9 vs 69.2 best other",
+    "04894C59": "ocr: 143 matches at 270, 0 elsewhere; volume 1161.7 vs 363.6",
+    "3E9114EE": "ocr: 30 matches at 270, 0 elsewhere; volume 345.0 vs 79.0",
+    "44F2AF4E": "ocr: 123 matches at 270, 0 elsewhere; volume 1106.2 vs 319.0",
+    "49FB1A98": "ocr: 151 matches at 270, 0 elsewhere; volume 1731.8 vs 92.8",
+    "6C631833": "ocr: 38 matches at 270, 0 elsewhere; volume 454.6 vs 94.6",
+    "86353EBE": "ocr: 63 matches at 270, 0 elsewhere; volume 518.6 vs 86.9",
     "A224D886": "ocr: 92 transcript matches at 270, 0 at 90",
-    "C8993692": "ocr",
-    "EDB55A73": "ocr",
-    "3B62EA88": "ocr",
+    "C8993692": "ocr: 39 matches at 270, 0 elsewhere; volume 320.7 vs 99.0",
+    "EDB55A73": "ocr: 27 matches at 270, 0 elsewhere; volume 347.4 vs 76.0",
+    "3B62EA88": "ocr: 59 matches at 270, 0 elsewhere; volume 516.1 vs 60.3",
     "CDA2FC15": "ocr: 246 words / 23 matches at 270 vs 12 words / 0 at 90",
     "2E37B36F": "ocr: volume 529.5 at 270 vs 5.8 at 0",
     "75C37361": "unverified: 0-5 chars at every angle, needs a human eye",
