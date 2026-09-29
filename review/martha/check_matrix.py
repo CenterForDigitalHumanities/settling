@@ -49,11 +49,14 @@ Six rules learned the hard way, all encoded below:
     and are false now. It is a ratchet, not a proof: it can only re-block wording that has already
     been wrong, so a first-time error still needs a reader. Its scope is this module alone. The PR
     body still carries all seven phrasings, and that is deliberate: there they are a record of what
-    was said and when it was found false, not a description of the present file. No count of them is
-    stated here on purpose. A count describes an artifact this module cannot read, and the round that
-    reports a stale count is the round that adds occurrences of the phrases being counted: the body
-    said 17 while holding 21, and the sentence carrying the number sat inside the section that had
-    just added four of them. Nothing checks the body, so a green run is not coverage of it. The control in
+    was said and when it was found false, not a description of the present file. The rule, sharpened
+    a round later than it should have been: a count in the PRESENT tense of a living artifact is
+    stale by construction, because the edit that reports the staleness is itself an edit to the thing
+    counted; a count pinned to a frozen revision is a fact and may be stated. So every figure here
+    names its revision. In body v17 the assertion was 17 occurrences while the text held 21, and the
+    sentence carrying the number sat inside the section that had just added four of them. A figure
+    needs its noun and its revision before it needs its source. Nothing checks the body, so a green
+    run is not coverage of it. The control in
     main() proves the filter can see but cannot prove the audit still runs, so a CI step outside
     this module injects a retired phrase into a copy of this file and requires the copy to refuse
     to run. What neither can see is the deletion of that step, which is what a diff is for.
@@ -287,10 +290,13 @@ def run(sandbox, args):
     # import the first case's module. Cases 19 and 20 (rot=270-cites--90 then rot=360, both
     # 10,057 bytes) are exactly that pair; the two rot=270 cases are NOT, since case 18 sits
     # between them. A full run makes 32 verify.py invocations (23 rotation cases, 8 argument cases,
-    # one final clean run) in 20-23s on either machine, so under a second per invocation at any
-    # divisor between 31 and 32: 0.63-0.72s across six batches on two machines. The bound is the
-    # load-bearing fact and the decimals are not portable -- three runs here spread 0.4% and 2.3%,
-    # the reviewing machine's three spread 10.6%. Two writes therefore share a whole second on a
+    # one final clean run). Fifteen timed runs in five batches on two machines through `df3a18c`
+    # span 20.2-23.1s, so every one of them is under a second per invocation at either divisor,
+    # 31 cases or 32 invocations. That bound is the load-bearing fact; the decimals are not
+    # portable, and the range above is pinned to a revision because unpinned ranges rot in place --
+    # the batch that widened the upper bound ran on the machine that had earlier reported 0.4%
+    # spread, and per-batch spread across the five is 0.4%, 2.3%, 4.0%, 10.6% and 1.4%.
+    # Two writes therefore share a whole second on a
     # substantial minority of attempts --
     # measured, not assumed -- which is far too often to rely on. A stale PASS where PASS is
     # expected is invisible in the output; a stale FAIL
@@ -334,7 +340,8 @@ def blind_adjacent(pristine):
 
       * the mutated rotations.py must be the same number of bytes, or CPython rewrites the
         .pyc rather than reusing it (mtime alone is not enough -- it is truncated to whole
-        seconds and a full run makes 32 verify.py invocations in 20-23s, under a second each);
+        seconds and a full run makes 32 verify.py invocations, each under a second -- timed in
+        run());
       * the expected verdicts must agree, since a PASS run never satisfies a FAIL case.
 
     Nothing else may be required, and an earlier revision also required j's want to be
