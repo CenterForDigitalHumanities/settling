@@ -58,7 +58,16 @@ Six rules learned the hard way, all encoded below:
     needs its noun and its revision before it needs its source, and a bare tuple needs the key order
     it is read in: two machines counted the seven phrases, agreed digit for digit and on the total,
     and both described the digits as being in list order when they were in table order, because a
-    sum cannot see a permutation and neither side printed the phrase beside its count. Nothing
+    sum cannot see a permutation and neither side printed the phrase beside its count. A tuple's
+    label must be produced by the same object that produced the tuple: one machine printed the true
+    list order out of the live module and published the table order beside the same digits
+    forty-three seconds later, so displaying the truth is not checking against it. Where two
+    columns have a defined relationship, assert it per row -- a provenance grid that put last-true
+    and first-false on the same commit twice disagreed in a way that looked like data, and a
+    constant-column check cannot see that. A census of timings needs the word census, or a reader
+    takes its low edge for a floor. And a figure whose subject is anything another machine can
+    change needs a fetch, not a re-reading: a remote-tracking ref is an artifact with a timestamp.
+    Nothing
     checks the body, so a green run is not coverage of it. The control in
     main() proves the filter can see but cannot prove the audit still runs, so a CI step outside
     this module injects a retired phrase into a copy of this file and requires the copy to refuse
@@ -295,10 +304,16 @@ def run(sandbox, args):
     # between them. A full run makes 32 verify.py invocations (23 rotation cases, 8 argument cases,
     # one final clean run). Fifteen timed runs in five batches on two machines through `df3a18c`
     # span 20.2-23.1s, so every one of them is under a second per invocation at either divisor,
-    # 31 cases or 32 invocations. That bound is the load-bearing fact; the decimals are not
-    # portable, and the range above is pinned to a revision because unpinned ranges rot in place --
-    # the batch that widened the upper bound ran on the machine that had earlier reported 0.4%
-    # spread, and per-batch spread across the five is 0.4%, 2.3%, 4.0%, 10.6% and 1.4%.
+    # 31 cases or 32 invocations. That bound is the load-bearing fact and the only timing claim
+    # made here. The span above is a CENSUS of those fifteen runs, not a range of what the harness
+    # does, and it is already known to under-describe it: at `16bcc31` a third machine produced
+    # 15.29-15.66s, 4.6-4.9s below the lower edge, and a later batch on the census machine itself
+    # produced 23.53-25.69s, which is entirely above the upper edge. All eight runs still clear the
+    # bound. A span quoted without that warning reads as a floor, which is the opposite of a bound.
+    # Unpinned ranges rot in place for the same reason -- the batch that widened the upper bound ran
+    # on the machine that had earlier reported 0.4% spread, and per-batch spread across the five is
+    # 0.4%, 2.3%, 4.0%, 10.6% and 1.4%. Which end of a census one run lands on is variance, not
+    # evidence about the machine, so the census is kept only for the spreads.
     # Two writes therefore share a whole second on a
     # substantial minority of attempts --
     # measured, not assumed -- which is far too often to rely on. A stale PASS where PASS is
