@@ -116,24 +116,43 @@ def set_basis(s, key, basis):
 #
 # ORDER MATTERS, AND blind_adjacent() BELOW ENFORCES IT RATHER THAN DESCRIBING IT.
 # A stale import is only possible between ADJACENT cases whose mutated rotations.py has the
-# same byte length, and only if the later case would report ok on the earlier case's output.
-# That predicate does not pick the case an earlier version of this comment blamed. rot=360
-# expects FAIL and carries a want, so it differs from every equal-length neighbour by verdict
-# or by message and is confusable with nothing. The blind cases are the three PASS cases at
-# 10,057 bytes, which have no failure line to match and so cannot be protected by an
-# assertion at all.
+# same byte length AND which expect the same verdict. That is the whole rule, and it does not
+# pick the case an earlier version of this comment blamed: rot=360 expects FAIL while both of
+# its equal-length neighbours expect PASS, so it is confusable with nothing.
 #
-# PYTHONDONTWRITEBYTECODE plus the per-case purge in main() make a stale import impossible at
-# any length in any order, so this is a guard on a guard, not a live constraint on the
-# product. It exists so that if someone weakens the purge, the reorder that becomes unsafe
-# fails loudly instead of quietly testing the wrong module.
+# The rule is a guard on a guard, not a live constraint on the product, but the two guards it
+# sits behind are NOT symmetric and only one of them is asserted:
+#   * PYTHONDONTWRITEBYTECODE (run()) is the one that actually prevents the write. Delete it
+#     and the per-case purge still leaves every verdict correct, while all 31 cases report
+#     WROTE BYTECODE and the run exits 1. Loudly correct.
+#   * purge_caches() (main()) is what makes the first case's cache check mean anything, since
+#     without a purge the check can only ask "has a cache appeared yet". Delete it, leave the
+#     env line in place, and nothing is written, nothing flags, and the run exits 0 -- so its
+#     absence is invisible to every assertion in this file. The purge and the ordering guard
+#     the same event from two directions -- the purge tries to make it impossible, the ordering
+#     makes it loud when it happens anyway -- and only the ordering is checked.
+# So: the env line is load-bearing for correctness and watched; the purge is load-bearing for
+# attribution and unwatched.
+#
+# The ordering is the third defence, and it is not decoration. Measured on the one adjacent
+# equal-length pair this file actually contains (rot=270-cites--90 then rot=360, both 10,057
+# bytes), both defences off, twelve replays: 3 landed in the same whole second and all 3 ran
+# the PREVIOUS case's module, so rot=360 reported PASS when it must FAIL. The 9 that crossed a
+# second boundary were correct. The correlation was exact -- same-second implies stale, never
+# the reverse -- so the collision rate is simply the same-second rate, and the harness's own
+# overhead between the two writes is what keeps it low, not any property of the check.
+#
+# With the shipped ordering that event is a visible verdict mismatch. Put the two PASS cases
+# side by side instead, which is how this file shipped through round twelve, and it is silent.
+# The reorder converts an invisible failure into a loud one; it does not prevent the stale
+# import, and only the env line does that.
 CASES = [
     ("clean", lambda s: s, "PASS", ""),
     # --- a basis must exist, and be a known kind ---
     ("+90, no basis", lambda s: add_rot(s, "90"), "FAIL",
      "applies +90 but ROTATION_BASIS records no reason"),
-("+90, bare 'ocr'", lambda s: add_basis(add_rot(s, "90"), "ocr"), "FAIL",
-         "C04781D1 claims an OCR basis but records no measurement: 'ocr'."),
+     ("+90, bare 'ocr'", lambda s: add_basis(add_rot(s, "90"), "ocr"), "FAIL",
+      "C04781D1 claims an OCR basis but records no measurement: 'ocr'."),
     ("basis, no rotation", lambda s: add_basis(s, "ocr: 1 match"), "FAIL",
      "records a basis for a rotation that is not applied"),
     ("bogus basis kind", lambda s: set_basis(s, "2E37B36F", "vibes: volume 529.5 at 270"), "FAIL",
@@ -248,28 +267,32 @@ def purge_caches(work):
 
 
 def blind_adjacent(pristine):
-    """Adjacent cases that a stale import could hide. Computed, not asserted in prose.
+    """Adjacent cases between which a stale import is physically possible. Computed, not
+    described in prose -- an earlier version of this comment described it and got the danger
+    wrong, naming a case that is confusable with nothing.
 
-    Case j is blind to the case immediately before it when i's module would satisfy j's
-    assertion. Three facts decide it without running anything:
+    Two facts decide it without running anything:
 
       * the mutated rotations.py must be the same number of bytes, or CPython rewrites the
-        .pyc rather than reusing it;
-      * the expected verdicts must agree, since a PASS run never satisfies a FAIL case;
-      * and either both expect PASS (a PASS case has no want, so nothing can distinguish it)
-        or j's want is contained in i's want, because i's want is the only text known to
-        appear in i's FAIL line.
+        .pyc rather than reusing it (mtime alone is not enough -- it is truncated to whole
+        seconds and the harness runs ~0.7s per case);
+      * the expected verdicts must agree, since a PASS run never satisfies a FAIL case.
 
-    The last rule is conservative: it can flag a pair that extra text in i's message would in
-    fact rescue, never the reverse. An earlier comment here described this rule in words and
-    got the danger wrong, naming a case that is confusable with nothing.
+    Nothing else may be required, and an earlier revision also required j's want to be
+    contained in i's want. That test was backwards. The loop in main() asserts
+    `want in fired` for every FAIL case, so i's want is BY CONSTRUCTION a substring of i's
+    output; if wj is in wi then wj is in fired_i, which is precisely the condition under which
+    a stale import on j reports ok. Extra text in i's message therefore cannot rescue a pair
+    the substring test let through -- it could only ever hide blindness, never invent it.
+    Measured: dropping it flags 0 pairs on the shipped file (so it costs nothing today) and
+    1 pair on two injected equal-length FAIL mutations whose wants are unrelated (so it was
+    hiding a real case). The byte-length clause is not redundant the same way: it is what
+    keeps the two ceiling PASS cases, at 10,156 and 10,057 bytes, from being flagged.
     """
     blind = []
     for (li, mi, ei, wi), (lj, mj, ej, wj) in zip(CASES, CASES[1:]):
         ni, nj = len(mi(pristine).encode("utf-8")), len(mj(pristine).encode("utf-8"))
-        if ni != nj or ei != ej:
-            continue
-        if ei == "PASS" or wj in wi:
+        if ni == nj and ei == ej:
             blind.append((li, lj, nj))
     return blind
 
