@@ -67,6 +67,21 @@ Six rules learned the hard way, all encoded below:
     constant-column check cannot see that. A census of timings needs the word census, or a reader
     takes its low edge for a floor. And a figure whose subject is anything another machine can
     change needs a fetch, not a re-reading: a remote-tracking ref is an artifact with a timestamp.
+    Naming the artifact is necessary and not sufficient. A machine rebuilt a six-row table from the right
+    file and labelled it with the right revision, and every position in it was one line high, because
+    enumerate(lines[1230:1312], 1231) is already 1-based and the loop added another; the totals came from
+    str.count, never touched the index, which is why the table agreed with itself. Past noun, revision and
+    key order, a figure needs the expression that produced it, because that is the one part a reader can
+    audit without holding the artifact. Co-generating a number and its sentence guards the drift between
+    them and nothing at all against a defect in the thing that produced both, so the check that cannot be
+    co-generated is a second instrument, or the cheaper one: run the position finder against a file whose
+    answer is already known. Therefore, when the holder of the primary source corrects a figure and my
+    contrary number came from an instrument I have not tested, the holder wins by default and I reopen it
+    only by showing the instrument is sound. Two more names to pin down. Say which quantity a count
+    measures: "non-vacuity" meant distinct phrases present in one probe and stale_prose() hits in another,
+    and the two differ by every phrase appearing on two lines. And git status --porcelain is not a
+    portable check -- a rebuild producing byte-identical blobs still reports dirty on a machine with
+    autocrlf -- so assert with git diff --exit-code and git hash-object, which CI already uses.
     Nothing
     checks the body, so a green run is not coverage of it. The control in
     main() proves the filter can see but cannot prove the audit still runs, so a CI step outside
