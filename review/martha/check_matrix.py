@@ -35,11 +35,14 @@ Five rules learned the hard way, all encoded below:
     that no stale import can happen at all.
   * Prefer an executable invariant to a warning comment. The first version of this file
      carried a "DO NOT REORDER" note whose stated REASON was wrong: it named rot=360 as the
-     hazard, and that case is confusable with nothing: its only equal-length neighbour
-     (case 19, 10,057 bytes) expects PASS while it expects FAIL. blind_adjacent() below enforces the real rule
-     -- equal byte length and equal expected verdict, nothing more -- so it cannot be
-     misread. A revision of it also required j's want to be inside i's want and called that
-     conservative. It was the reverse: see its docstring.
+     hazard. It is not one. Case 20's only ADJACENT equal-length neighbour is case 19, which
+     expects PASS while case 20 expects FAIL, and case 21 is 10,056 so the rule cannot pair
+     them either. blind_adjacent() below enforces the real rule -- ADJACENT cases, equal byte
+     length, equal expected verdict -- so it cannot be misread. Adjacency is one of the three
+     conditions and not shorthand for a two-clause rule: four non-adjacent pairs in this file
+     do share a length and a verdict, and a guard that dropped adjacency would refuse the file
+     as it stands. A revision of it also required j's want to be inside i's want and called
+     that conservative. It was the reverse: see its docstring.
 """
 import io
 import os
@@ -119,8 +122,14 @@ def set_basis(s, key, basis):
 # A stale import is only possible between ADJACENT cases whose mutated rotations.py has the
 # same byte length AND which expect the same verdict. That is the whole rule, and it does not
 # pick the case an earlier version of this comment blamed: rot=360 (case 20) is confusable with
-# nothing, because its only equal-length neighbour (case 19, both 10,057 bytes) expects PASS while
-# it expects FAIL. Case 21 is 10,056, so the rule cannot pair it with case 20 at all.
+# nothing ADJACENT, because its only equal-length neighbour (case 19, both 10,057 bytes) expects
+# PASS while it expects FAIL. Case 21 is 10,056, so the rule cannot pair it with case 20 at all.
+# Adjacency is load-bearing and the file depends on it: four NON-adjacent pairs share a length and
+# a verdict -- 9/20 (both FAIL at 10,057, and neither want contains the other) plus 17/19, 17/23
+# and 19/23 (all PASS at 10,057) -- and a stale import cannot cross the gap between them because
+# only the immediately preceding module was just written. Move case 9 beside case 20 and
+# blind_adjacent() refuses the run: `MISMATCH blind adjacency rot=360, basis cites 270 -> 'ocr:
+# settled in round 8' at 10057 bytes`, rc 1, zero cases executed.
 #
 # The rule is a guard on a guard, not a live constraint on the product, but the two guards it
 # sits behind are NOT symmetric and only one of them is asserted:
@@ -141,19 +150,24 @@ def set_basis(s, key, basis):
 # rot=360, both 10,057 bytes), both defences off: the collision happens exactly when the two
 # writes land in the same whole second, and all such trials ran the PREVIOUS case's module, so
 # rot=360 reported PASS when it must FAIL. The biconditional has never been violated, so the
-# collision rate IS the same-second rate: 10 of 24 trials here, 9 of 24 on the machine that
-# checked this claim. Between a quarter and a half of attempts, governed by machine load, and
-# nothing about the check itself keeps it down.
+# collision rate IS the same-second rate. Three independent 24-trial batches on two machines
+# measured 9, 10 and 11 of 24. Between a third and a half of attempts, governed by machine load,
+# and nothing about the check itself keeps it down -- so no single figure in that range should be
+# quoted as "the" rate, including the three above.
 #
-# No rate quoted from one box is worth anything on another. With both defences removed, the
-# full harness gives 0 wrong verdicts in 6 replays here and 2 in 6 on the machine that ran the
-# same probe. The rate is a property of load, not of the check, and what the ordering buys is
-# not a low rate -- it is a loud failure on every occasion the rate is paid.
+# No rate quoted from one box is worth anything on another, and none of them is worth anything
+# without its instrument. With both defences removed, counted by parsing expect=/got= and
+# cross-checked against the harness's own "WRONG GUARD" note (the two counters agreed on every
+# replay), two back-to-back batches of 8 replays on this machine gave 5 and 1 wrong verdicts,
+# always the same case: rot=360 reporting PASS when it must FAIL. The reviewing machine reported
+# 2 in 6. An earlier revision of this line claimed 0 in 6 here; it does not reproduce, and the
+# spread above replaces it. The rate is a property of load, not of the check, and what the
+# ordering buys is not a low rate -- it is a loud failure on every occasion the rate is paid.
 #
 # An earlier report claimed 0 wrong verdicts in 12 runs. It lived in the PR body, not in this
 # file, and it measured nothing: its counter kept lines containing both "MISMATCH" and
 # "verdict=", and no line this harness prints has ever contained "verdict=" (grep the file: the
-# verdict column is printed positionally, never labelled). It returned 0 on a working sandbox and
+# verdict column is labelled, as `got=`, and never as `verdict=`). It returned 0 on a working sandbox and
 # on a crashing one alike. That sandbox was separately broken -- REPO resolved to the wrong parent
 # -- but a broken sandbox is not why the count was 0, because it would have printed 23 got=CRASH
 # lines and exited 1, the loudest failure in this file, and the counter would still have seen
@@ -289,7 +303,7 @@ def purge_caches(work):
 def blind_adjacent(pristine):
     """Adjacent cases between which a stale import is physically possible. Computed, not
     described in prose -- an earlier version of this comment described it and got the danger
-    wrong, naming a case that is confusable with nothing.
+    wrong, naming a case that is confusable with nothing adjacent.
 
     Two facts decide it without running anything:
 
