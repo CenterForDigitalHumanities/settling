@@ -16,7 +16,7 @@ crash rather than fail -- so this is safe to run beside a dirty checkout and saf
 
 Exit code is 0 only if every case behaves as expected AND none of them crashed.
 
-Three rules learned the hard way, all encoded below:
+Five rules learned the hard way, all encoded below:
   * Assert WHERE an edit landed. "020E073B" is the first key of both ROTATIONS and
     ROTATION_BASIS, so anchoring on it silently mutated the wrong dict and produced two
     plausible, false results.
@@ -32,7 +32,13 @@ Three rules learned the hard way, all encoded below:
     failed on one verify.py line that interpolated only the page id, so all four printed
     byte-identical text and the check was vacuous; the message now quotes the rejected
     basis. Where a case has no message to match (the PASS cases), the defence is the
-    per-case bytecode check, not a substring.
+    per-case bytecode purge, not a substring.
+  * Prefer an executable invariant to a warning comment. The first version of this file
+     carried a "DO NOT REORDER" note whose stated REASON was wrong: it named rot=360 as the
+     hazard, and that case is confusable with nothing (it expects FAIL and carries a want,
+     so it differs from its equal-length neighbours by verdict or by message). The genuinely
+     blind cases are the three PASS cases at 10,057 bytes, which have no message to match.
+     blind_adjacent() below enforces the real rule, so it cannot be misread.
 """
 import io
 import os
@@ -108,23 +114,26 @@ def set_basis(s, key, basis):
 # future tightening has to update them deliberately rather than discovering the change as a
 # surprise.
 #
-# DO NOT REORDER THIS LIST. The cases are distinguished by the byte length of the file each
-# one writes, and the stale-import bug this harness once had lives entirely inside that
-# shape: five cases (9, 17, 18, 20, 23) all produce a 10,057-byte rotations.py, and only the
-# position of case 19 (10,058) keeps 18 and 20 from being adjacent. Case 20 is rot=360,
-# which MUST fail, so a reorder that puts it next to another 10,057 case recreates the
-# collision. Sorting, grouping by section, or inserting a case can all do that silently.
+# ORDER MATTERS, AND blind_adjacent() BELOW ENFORCES IT RATHER THAN DESCRIBING IT.
+# A stale import is only possible between ADJACENT cases whose mutated rotations.py has the
+# same byte length, and only if the later case would report ok on the earlier case's output.
+# That predicate does not pick the case an earlier version of this comment blamed. rot=360
+# expects FAIL and carries a want, so it differs from every equal-length neighbour by verdict
+# or by message and is confusable with nothing. The blind cases are the three PASS cases at
+# 10,057 bytes, which have no failure line to match and so cannot be protected by an
+# assertion at all.
 #
-# What the message layer cannot do: PASS cases have no failure line, so want="" and a stale
-# import on one is invisible here. That class is closed by the mechanism instead, by
-# PYTHONDONTWRITEBYTECODE plus the per-case cache check in main(), not by the assertion.
+# PYTHONDONTWRITEBYTECODE plus the per-case purge in main() make a stale import impossible at
+# any length in any order, so this is a guard on a guard, not a live constraint on the
+# product. It exists so that if someone weakens the purge, the reorder that becomes unsafe
+# fails loudly instead of quietly testing the wrong module.
 CASES = [
     ("clean", lambda s: s, "PASS", ""),
     # --- a basis must exist, and be a known kind ---
     ("+90, no basis", lambda s: add_rot(s, "90"), "FAIL",
      "applies +90 but ROTATION_BASIS records no reason"),
-    ("+90, bare 'ocr'", lambda s: add_basis(add_rot(s, "90"), "ocr"), "FAIL",
-     "claims an OCR basis but records no measurement"),
+("+90, bare 'ocr'", lambda s: add_basis(add_rot(s, "90"), "ocr"), "FAIL",
+         "C04781D1 claims an OCR basis but records no measurement: 'ocr'."),
     ("basis, no rotation", lambda s: add_basis(s, "ocr: 1 match"), "FAIL",
      "records a basis for a rotation that is not applied"),
     ("bogus basis kind", lambda s: set_basis(s, "2E37B36F", "vibes: volume 529.5 at 270"), "FAIL",
@@ -132,16 +141,16 @@ CASES = [
     # --- a digit is not a measurement ---
     # Each of these four mutates the SAME page, so before verify.py quoted the rejected
     # basis back they printed byte-identical FAIL lines and the assertion below could not
-    # tell one from another. The want strings now name the value, which is what makes a
-    # stale import on these cases visible.
+    # tell one from another. The want strings now name the page and the value, which is what
+    # makes a stale import on these cases visible.
     ("digit stripped to 'ocr'", lambda s: set_basis(s, PROBE, "ocr"), "FAIL",
-     "no measurement: 'ocr'"),
+     "04894C59 claims an OCR basis but records no measurement: 'ocr'."),
     ("'ocr: 9'", lambda s: set_basis(s, PROBE, "ocr: 9"), "FAIL",
-     "no measurement: 'ocr: 9'"),
+     "04894C59 claims an OCR basis but records no measurement: 'ocr: 9'"),
     ("'ocr: see note 1'", lambda s: set_basis(s, PROBE, "ocr: see note 1"), "FAIL",
-     "no measurement: 'ocr: see note 1'"),
+     "04894C59 claims an OCR basis but records no measurement: 'ocr: see note 1'"),
     ("'ocr: settled in round 8'", lambda s: set_basis(s, PROBE, "ocr: settled in round 8"), "FAIL",
-     "no measurement: 'ocr: settled in round 8'"),
+     "04894C59 claims an OCR basis but records no measurement: 'ocr: settled in round 8'"),
     # --- the cited angle must be the applied rotation ---
     ("cites 90, applied -90", lambda s: set_basis(s, PROBE, "ocr: 143 matches at 90, 0 elsewhere"),
      "FAIL", "cites angle(s) [90] but the applied rotation is -90"),
@@ -150,22 +159,27 @@ CASES = [
     ("cites 270, applied -90", lambda s: set_basis(s, PROBE, "ocr: 143 matches at 270, 0 elsewhere"),
      "PASS", ""),
     # --- the pinned unverified set cannot be emptied by typing a number ---
+    # These three fail on one message, so verify.py prints the set it found as well as the
+    # one it expected; without that the three want strings could not be told apart.
     ("75C37361 faked to ocr", lambda s: set_basis(s, "75C37361", "ocr: 40 matches at 270"), "FAIL",
-     "the unverified-rotation set changed"),
+     "expected ['75C37361'], found []"),
     ("75C37361 bare 'unverified'", lambda s: set_basis(s, "75C37361", "unverified"), "PASS", ""),
     ("all ocr downgraded", lambda s: s.replace(': "ocr', ': "unverified'), "FAIL",
-     "the unverified-rotation set changed"),
+     "found ['020E073B', '04894C59'"),
     ("+90 'unverified: trust me'", lambda s: add_basis(add_rot(s, "90"), "unverified: trust me"),
-     "FAIL", "the unverified-rotation set changed"),
+     "FAIL", "found ['75C37361', 'C04781D1']"),
     # --- angle aliasing: the table holds CSS degrees, so any spelling of the same turn
-    #     is the same rotation. These are the cases that used to raise KeyError. ---
+    #     is the same rotation. These are the cases that used to raise KeyError.
+    #     The FAIL case sits between the two PASS cases on purpose: all three PASS cases in
+    #     this file are 10,057 bytes, and blind_adjacent() refuses the run if two of them are
+    #     ever placed side by side. ---
     ("rot=270, basis cites 270",
      lambda s: set_basis(set_rot(s, PROBE, "270"), PROBE, "ocr: 143 matches at 270"), "PASS", ""),
-    ("rot=270, basis cites -90",
-     lambda s: set_basis(set_rot(s, PROBE, "270"), PROBE, "ocr: 143 matches at -90"), "PASS", ""),
     ("rot=-270, basis cites 270",
      lambda s: set_basis(set_rot(s, PROBE, "-270"), PROBE, "ocr: 143 matches at 270"), "FAIL",
      "applied rotation is -270, which is CSS -270 / 90"),
+    ("rot=270, basis cites -90",
+     lambda s: set_basis(set_rot(s, PROBE, "270"), PROBE, "ocr: 143 matches at -90"), "PASS", ""),
     ("rot=360, basis cites 270",
      lambda s: set_basis(set_rot(s, PROBE, "360"), PROBE, "ocr: 143 matches at 270"), "FAIL",
      "applied rotation is +360, which is CSS 0 / 360"),
@@ -199,9 +213,9 @@ def run(sandbox, args):
     # PYTHONDONTWRITEBYTECODE is load-bearing, not hygiene. CPython validates a .pyc from
     # the source's mtime truncated to WHOLE SECONDS plus its byte length. Two adjacent
     # mutations of identical length inside the same second therefore make the second case
-    # import the first case's module. Cases 17 and 18 are exactly that pair (both
-    # 10,057 bytes), and the harness averages 0.7s per case, so they land together most of
-    # the time. A stale PASS where PASS is expected is invisible in the output; a stale FAIL
+    # import the first case's module. The two rot=270 aliasing cases are exactly that pair
+    # (both 10,057 bytes), and the harness averages 0.7s per case, so they land together most
+    # of the time. A stale PASS where PASS is expected is invisible in the output; a stale FAIL
     # prints the PREVIOUS case's message and looks like the right guard fired. Writing no
     # bytecode removes the whole class.
     p = subprocess.run([sys.executable, "verify.py"] + args, cwd=sandbox,
@@ -220,9 +234,44 @@ def run(sandbox, args):
 
 
 def caches_in(work):
-    """Any __pycache__ under the sandbox. Non-empty means a verdict may be stale."""
+    """Any __pycache__ under the sandbox. Non-empty means bytecode reached the disk."""
     return [os.path.join(dp, dn) for dp, dns, _ in os.walk(work) for dn in dns
             if dn == "__pycache__"]
+
+
+def purge_caches(work):
+    """Delete any __pycache__ under the sandbox and report how many directories went."""
+    found = caches_in(work)
+    for d in found:
+        shutil.rmtree(d, ignore_errors=True)
+    return len(found)
+
+
+def blind_adjacent(pristine):
+    """Adjacent cases that a stale import could hide. Computed, not asserted in prose.
+
+    Case j is blind to the case immediately before it when i's module would satisfy j's
+    assertion. Three facts decide it without running anything:
+
+      * the mutated rotations.py must be the same number of bytes, or CPython rewrites the
+        .pyc rather than reusing it;
+      * the expected verdicts must agree, since a PASS run never satisfies a FAIL case;
+      * and either both expect PASS (a PASS case has no want, so nothing can distinguish it)
+        or j's want is contained in i's want, because i's want is the only text known to
+        appear in i's FAIL line.
+
+    The last rule is conservative: it can flag a pair that extra text in i's message would in
+    fact rescue, never the reverse. An earlier comment here described this rule in words and
+    got the danger wrong, naming a case that is confusable with nothing.
+    """
+    blind = []
+    for (li, mi, ei, wi), (lj, mj, ej, wj) in zip(CASES, CASES[1:]):
+        ni, nj = len(mi(pristine).encode("utf-8")), len(mj(pristine).encode("utf-8"))
+        if ni != nj or ei != ej:
+            continue
+        if ei == "PASS" or wj in wi:
+            blind.append((li, lj, nj))
+    return blind
 
 
 def main():
@@ -236,6 +285,20 @@ def main():
         with io.open(rot_path, encoding="utf-8-sig") as f:
             pristine = f.read()
 
+        for label, _m, expect, want in CASES:
+            assert expect != "FAIL" or want, "FAIL case %r has no message to assert" % label
+
+        # The ordering rule, enforced. If a reorder makes two adjacent cases indistinguishable
+        # then a stale import between them is invisible, so stop rather than print verdicts
+        # that cannot be attributed.
+        blind = blind_adjacent(pristine)
+        if blind:
+            for li, lj, n in blind:
+                print("MISMATCH blind adjacency %s -> %s at %d bytes" % (li, lj, n))
+            print("cases: %d rotation, %d argument -- mismatches: %d"
+                  % (len(CASES), len(ARG_CASES), len(blind)))
+            return 1
+
         fails = 0
         print("== rotation guard matrix ==")
         for label, mutate, expect, want in CASES:
@@ -248,28 +311,35 @@ def main():
                 f.write(text)
             with io.open(rot_path, encoding="utf-8") as f:
                 assert f.read() == text, "mutation did not land: %s" % label
+            # Purge BEFORE the run, not only check after. Clearing whatever the previous case
+            # left means this case cannot import a stale module, so a cache found afterwards is
+            # unambiguously this case's own write. Checking only afterwards asked "has a cache
+            # appeared yet", which is why the first case was once reported as stale.
+            purge_caches(work)
             rc, out, verdict = run(work, [])
-            # Checked per case, not once at the end. PASS cases have no message to assert
-            # against, so the cache check is the only defence they have, and a single
-            # post-hoc walk cannot say WHICH verdict was produced by a stale module.
-            stale = caches_in(work)
+            wrote = caches_in(work)
             # Match the whole line, not the printed excerpt, so truncation cannot invent a
             # mismatch.
             fired = next((ln[5:].strip() for ln in out.splitlines() if ln.startswith("FAIL ")), "")
             msg_ok = (not want) or (want in fired)
-            ok = (verdict == expect) and msg_ok and not stale
+            ok = (verdict == expect) and msg_ok and not wrote
             if not ok:
                 fails += 1
-            detail = fired
-            if verdict == "CRASH":
-                detail = next((ln.strip() for ln in out.splitlines() if ln.strip()), "")
-            if verdict == expect and not msg_ok:
-                detail = "WRONG GUARD (want %r) got: %s" % (want, fired)
-            if stale:
-                detail = "STALE (bytecode cache %s)" % ", ".join(
-                    os.path.relpath(c, work) for c in stale)
-            print("%s%-40s expect=%-5s got=%-5s %s" % (
-                "MISMATCH " if not ok else "ok       ", label, expect, verdict, detail[:120]))
+            # Report every diagnosis. Folding them into one variable hid WRONG GUARD behind
+            # the cache note, so the specific failure disappeared exactly when the mechanism
+            # was broken -- the same silence this whole file is about.
+            notes = []
+            if not msg_ok:
+                notes.append("WRONG GUARD (want %r)" % want)
+            if wrote:
+                notes.append("WROTE BYTECODE (%s)"
+                             % ", ".join(os.path.relpath(c, work) for c in wrote))
+            shown = fired if verdict != "CRASH" else next(
+                (ln.strip() for ln in out.splitlines() if ln.strip()), "")
+            print("%s%-40s expect=%-5s got=%-5s %s%s" % (
+                "MISMATCH " if not ok else "ok       ", label, expect, verdict,
+                "; ".join(notes) + (" " if notes else ""), shown[:110]))
+
 
         print("\n== argument matrix ==")
         with io.open(rot_path, "w", encoding="utf-8", newline="\n") as f:
@@ -278,35 +348,42 @@ def main():
             if needs_u and not (os.path.isdir(ORDERED) and os.path.isdir(ORIGINAL)):
                 print("%-32s SKIP (needs the U: download)" % label)
                 continue
+            purge_caches(work)
             rc, out, verdict = run(work, args)
-            stale = caches_in(work)
+            wrote = caches_in(work)
             # A run that did not compare must never claim that it did.
             false_claim = ("verified 10 copied images" in out
                            and want_text != "verified 10 copied images")
-            ok = rc == want_rc and want_text in out and not false_claim and not stale
+            ok = rc == want_rc and want_text in out and not false_claim and not wrote
             if not ok:
                 fails += 1
+            flags = ""
+            if false_claim:
+                flags += "  FALSE CLAIM"
+            if wrote:
+                flags += "  WROTE BYTECODE"
             print("%s%-32s rc=%s(want %s) %s%s" % (
                 "ok      " if ok else "MISMATCH", label, rc, want_rc,
-                "" if want_text in out else "missing %r " % want_text,
-                "  STALE" if stale else ("  FALSE CLAIM" if false_claim else "")))
-
-        # Belt to the per-case braces: if bytecode ever lands on disk then
-        # PYTHONDONTWRITEBYTECODE was not inherited and every verdict above is suspect, so
-        # say so rather than reporting a clean run.
-        caches = caches_in(work)
-        if caches:
-            fails += 1
-            print("MISMATCH bytecode cache written (%s): verdicts may be stale"
-                  % ", ".join(os.path.relpath(c, work) for c in caches))
+                "" if want_text in out else "missing %r " % want_text, flags))
 
         # The sandbox must be left exactly as found, or the matrix proves nothing.
         with io.open(rot_path, encoding="utf-8-sig") as f:
             assert f.read() == pristine, "sandbox rotations.py not restored"
+        purge_caches(work)
         rc, out, clean = run(work, [])
         print("\nsandbox clean run: %s" % clean)
         if clean != "PASS":
             fails += 1
+
+        # Aggregate belt, deliberately last and after a purge, so anything it finds was written
+        # by the run above. Bytecode on disk means PYTHONDONTWRITEBYTECODE was not inherited:
+        # the per-case purge would hide that from the matrix by deleting the evidence, so this
+        # is the check on the mechanism rather than on a verdict.
+        caches = caches_in(work)
+        if caches:
+            fails += 1
+            print("MISMATCH bytecode written (%s): PYTHONDONTWRITEBYTECODE not inherited"
+                  % ", ".join(os.path.relpath(c, work) for c in caches))
         print("cases: %d rotation, %d argument -- mismatches: %d"
               % (len(CASES), len(ARG_CASES), fails))
         return 1 if fails else 0

@@ -456,8 +456,9 @@ unverified = [k for k, b in getattr(rotations, "ROTATION_BASIS", {}).items()
 # bases to unverified passed too. "unverified" must be earned by a human looking at the
 # page, so adding to this list has to be a deliberate, visible edit.
 if sorted(unverified) != ["75C37361"]:
-    bad("the unverified-rotation set changed; 75C37361 is the only entry awaiting a human "
-        "eye, and settling another one needs its measurement recorded, not the label")
+    bad("the unverified-rotation set changed; expected ['75C37361'], found %r. 75C37361 is "
+        "the only entry awaiting a human eye, and settling another one needs its measurement "
+        "recorded, not the label" % (sorted(unverified),))
 print("rotation basis: %d applied, %d recorded, %d unverified%s"
       % (sum(1 for v in rotations.ROTATIONS.values() if v),
          len(getattr(rotations, "ROTATION_BASIS", {})), len(unverified),
