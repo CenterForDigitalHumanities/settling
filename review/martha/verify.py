@@ -391,13 +391,6 @@ BASIS_KINDS = ("ocr", "unverified")
 # shape rather than a result.
 MEASUREMENT_RE = re.compile(r"\b\d[\d.]*\s+(?:transcript\s+)?matches\b|\bvolume\s+\d", re.I)
 ANGLE_RE = re.compile(r"\bat\s+(-?\d{1,3})\b")
-
-
-def css_turn_names(v):
-    """Both spellings of one CSS turn, for the failure message."""
-    return " / ".join(str(x) for x in sorted({v, v + (360 if v < 0 else -360)}))
-
-
 # The table and the basis prose hold the SAME unit: CSS rotate() degrees. build_reports.py
 # drops the table value straight into `transform: rotate(<n>deg)` and PIL appears nowhere
 # in the repo -- PIL is only mentioned in rotations.py's header because the offline OCR
@@ -406,6 +399,11 @@ def css_turn_names(v):
 # 360 rather than a lookup table. A table was also a crash: check 5 accepts any multiple
 # of 90, so the legal value 270 hit a bare subscript and died with a KeyError and no
 # verdict at all.
+def css_turn_names(v):
+    """Both spellings of one CSS turn, for the failure message."""
+    return " / ".join(str(x) for x in sorted({v, v + (360 if v < 0 else -360)}))
+
+
 for k, v in sorted(rotations.ROTATIONS.items()):
     if not v:
         continue
