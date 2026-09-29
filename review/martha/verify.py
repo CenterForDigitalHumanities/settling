@@ -102,6 +102,10 @@ if _pending_path:
     print("ERROR --source needs a path")
     sys.exit(2)
 if not ASH:
+    # Includes --source= with an empty value, which is treated as "no source" rather than
+    # "source that does not exist". Deliberate: an explicit empty flag reads like an
+    # intentional opt-out, and it prints SKIP so the run never claims a comparison it
+    # skipped. A non-empty but bad path is the dangerous case and errors below.
     print("SKIP byte-for-byte check (pass --source=<Ashley's ordered folder>)")
 elif not os.path.isdir(ASH):
     # A bad path used to SKIP with exit 0 like the no-flag case. Ashley keeps two folders
@@ -381,6 +385,20 @@ for s in sideways:
 #     that is meant to catch shape-driven rotations actively hides this regression.
 #     Zero-valued entries apply nothing and need no basis.
 BASIS_KINDS = ("ocr", "unverified")
+# A "measurement" means a number attached to one of the two quantities the four-angle
+# test actually reports. Requiring merely a digit was too weak: "ocr: 9",
+# "ocr: see note 1" and "ocr: settled in round 8" all passed, which is a citation
+# shape rather than a result.
+MEASUREMENT_RE = re.compile(r"\b\d[\d.]*\s+(?:transcript\s+)?matches\b|\bvolume\s+\d", re.I)
+ANGLE_RE = re.compile(r"\bat\s+(-?\d{1,3})\b")
+# Table angles are PIL rotate() arguments (counter-clockwise); the basis prose cites CSS
+# rotate() angles (clockwise), so table -90 and CSS 270 are the same rotation. Both
+# spellings are accepted so a basis can be written in either space.
+CSS_NAME_FOR_TABLE_ANGLE = {
+    -90: {270, -90},
+    90: {90, -270},
+    180: {180, -180},
+}
 for k, v in sorted(rotations.ROTATIONS.items()):
     if not v:
         continue
@@ -392,13 +410,24 @@ for k, v in sorted(rotations.ROTATIONS.items()):
     elif not basis.startswith(BASIS_KINDS):
         bad("ROTATION_BASIS %s has unrecognised basis %r; must start with one of %s"
             % (k, basis, ", ".join(BASIS_KINDS)))
-    elif basis.startswith("ocr") and not any(c.isdigit() for c in basis):
+    elif basis.startswith("ocr") and not MEASUREMENT_RE.search(basis):
         # Without this the credential is the three characters "ocr": re-adding the
         # disproved C04781D1 rotation with a bare "ocr" basis passed every check. A
         # fabricated number is still possible, but it is diffable and checkable against
         # the per-entry comment, where a bare method word was neither.
         bad("ROTATION_BASIS %s claims an OCR basis but records no measurement; cite the "
             "transcript matches or volume that settled the angle" % k)
+    elif basis.startswith("ocr"):
+        # The basis must name the angle that actually won, so a justification cannot be
+        # pasted onto a different rotation than the run that produced it. Every applied
+        # rotation on this branch is -90 and every ocr basis cites 270, so this is
+        # currently vacuous; it is what stops that from drifting silently.
+        cited = set(int(a) for a in ANGLE_RE.findall(basis))
+        if not (cited & CSS_NAME_FOR_TABLE_ANGLE[v]):
+            bad("ROTATION_BASIS %s cites angle(s) %s but the applied rotation is %+d, "
+                "which is CSS %s; the basis must name the angle that won"
+                % (k, sorted(cited) or "none", v,
+                   " / ".join(str(x) for x in sorted(CSS_NAME_FOR_TABLE_ANGLE[v]))))
 for k in getattr(rotations, "ROTATION_BASIS", {}):
     if not (rotations.ROTATIONS.get(k, 0) or 0):
         bad("ROTATION_BASIS key %s records a basis for a rotation that is not applied" % k)

@@ -112,12 +112,22 @@ ROTATIONS = {
 # basis because they apply nothing.
 #
 # Vocabulary, validated by the check:
-#   "ocr"        settled by the four-angle test in the header above. Must carry the
+#   "ocr"        settled by the four-angle test in the header above. Must carry a
 #                measurement, not just the word: 12(e) rejects an "ocr" basis with no
-#                digit in it, because otherwise the credential is the three characters
-#                "ocr" and a restored shape-heuristic rotation could cite it.
+#                "<n> matches" or "volume <n>" in it, because otherwise the credential
+#                is the three characters "ocr" and a restored shape-heuristic rotation
+#                could cite it. "ocr: 9" and "ocr: settled in round 8" are citations
+#                without results and are rejected too.
+#                The basis must also name the angle that won (12(e)): an "ocr" basis on
+#                a -90 entry has to cite 270 (or -90), so a justification cannot be
+#                pasted onto a different rotation than the run that produced it.
 #   "unverified" carried forward from the previous catalog; nothing could decide it.
-#                The set of these is pinned by 12(g), so the label cannot be adopted.
+#                The set of these is pinned by 12(g), so the label cannot be adopted and
+#                the one open item cannot be closed by typing a number into its basis.
+#
+# What none of this rejects: a specific, plausible, self-attested measurement. "ocr: 999
+# matches at 270" passes. The guard makes a false claim expensive, diffable and
+# contradictable by the per-entry comment. It does not make it impossible.
 #
 # The ten that previously read bare "ocr" were re-measured individually for this commit,
 # all four angles each. Every one won at 270 (table -90) with zero transcript matches at
