@@ -55,8 +55,11 @@ Six rules learned the hard way, all encoded below:
     counted; a count pinned to a frozen revision is a fact and may be stated. So every figure here
     names its revision. In body v17 the assertion was 17 occurrences while the text held 21, and the
     sentence carrying the number sat inside the section that had just added four of them. A figure
-    needs its noun and its revision before it needs its source. Nothing checks the body, so a green
-    run is not coverage of it. The control in
+    needs its noun and its revision before it needs its source, and a bare tuple needs the key order
+    it is read in: two machines counted the seven phrases, agreed digit for digit and on the total,
+    and both described the digits as being in list order when they were in table order, because a
+    sum cannot see a permutation and neither side printed the phrase beside its count. Nothing
+    checks the body, so a green run is not coverage of it. The control in
     main() proves the filter can see but cannot prove the audit still runs, so a CI step outside
     this module injects a retired phrase into a copy of this file and requires the copy to refuse
     to run. What neither can see is the deletion of that step, which is what a diff is for.
