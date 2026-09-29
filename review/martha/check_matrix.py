@@ -118,8 +118,9 @@ def set_basis(s, key, basis):
 # ORDER MATTERS, AND blind_adjacent() BELOW ENFORCES IT RATHER THAN DESCRIBING IT.
 # A stale import is only possible between ADJACENT cases whose mutated rotations.py has the
 # same byte length AND which expect the same verdict. That is the whole rule, and it does not
-# pick the case an earlier version of this comment blamed: rot=360 expects FAIL while both of
-# its equal-length neighbours expect PASS, so it is confusable with nothing.
+# pick the case an earlier version of this comment blamed: rot=360 (case 20) is confusable with
+# nothing, because its only equal-length neighbour (case 19, both 10,057 bytes) expects PASS while
+# it expects FAIL. Case 21 is 10,056, so the rule cannot pair it with case 20 at all.
 #
 # The rule is a guard on a guard, not a live constraint on the product, but the two guards it
 # sits behind are NOT symmetric and only one of them is asserted:
@@ -146,10 +147,17 @@ def set_basis(s, key, basis):
 #
 # No rate quoted from one box is worth anything on another. With both defences removed, the
 # full harness gives 0 wrong verdicts in 6 replays here and 2 in 6 on the machine that ran the
-# same probe; the first instrument reported a clean 12 runs and was itself broken, resolving
-# REPO to the wrong parent and dying before the import in question. The rate is a property of
-# load, not of the check. What the ordering buys is not a low rate -- it is a loud failure on
-# every occasion the rate is paid.
+# same probe. The rate is a property of load, not of the check, and what the ordering buys is
+# not a low rate -- it is a loud failure on every occasion the rate is paid.
+#
+# An earlier report claimed 0 wrong verdicts in 12 runs. It lived in the PR body, not in this
+# file, and it measured nothing: its counter kept lines containing both "MISMATCH" and
+# "verdict=", and no line this harness prints has ever contained "verdict=" (grep the file: the
+# verdict column is printed positionally, never labelled). It returned 0 on a working sandbox and
+# on a crashing one alike. That sandbox was separately broken -- REPO resolved to the wrong parent
+# -- but a broken sandbox is not why the count was 0, because it would have printed 23 got=CRASH
+# lines and exited 1, the loudest failure in this file, and the counter would still have seen
+# none. A number is worth exactly what its filter can observe.
 #
 # With the shipped ordering that event is a visible verdict mismatch. Put the two PASS cases
 # side by side instead, which is how this file shipped through round twelve, and it is silent.
@@ -198,9 +206,10 @@ CASES = [
      "FAIL", "found ['75C37361', 'C04781D1']"),
     # --- angle aliasing: the table holds CSS degrees, so any spelling of the same turn
     #     is the same rotation. These are the cases that used to raise KeyError.
-    #     The FAIL case sits between the two PASS cases on purpose: all three PASS cases in
-    #     this file are 10,057 bytes, and blind_adjacent() refuses the run if two of them are
-    #     ever placed side by side. ---
+    #     The FAIL case sits between the two PASS cases on purpose: cases 17, 19 and 23 are the
+    #     three PASS cases at 10,057 bytes (there are seven PASS cases in all, at five distinct
+    #     lengths), and blind_adjacent() refuses the run whenever any two equal-length
+    #     same-verdict cases are placed side by side. ---
     ("rot=270, basis cites 270",
      lambda s: set_basis(set_rot(s, PROBE, "270"), PROBE, "ocr: 143 matches at 270"), "PASS", ""),
     ("rot=-270, basis cites 270",
