@@ -31,14 +31,15 @@ Five rules learned the hard way, all encoded below:
   * An assertion is only as good as the information in what it asserts. Four cases here
     failed on one verify.py line that interpolated only the page id, so all four printed
     byte-identical text and the check was vacuous; the message now quotes the rejected
-    basis. Where a case has no message to match (the PASS cases), the defence is the
-    per-case bytecode purge, not a substring.
+    basis. Where a case has no message to match (the PASS cases), the only defence left is
+    that no stale import can happen at all.
   * Prefer an executable invariant to a warning comment. The first version of this file
      carried a "DO NOT REORDER" note whose stated REASON was wrong: it named rot=360 as the
-     hazard, and that case is confusable with nothing (it expects FAIL and carries a want,
-     so it differs from its equal-length neighbours by verdict or by message). The genuinely
-     blind cases are the three PASS cases at 10,057 bytes, which have no message to match.
-     blind_adjacent() below enforces the real rule, so it cannot be misread.
+     hazard, and that case is confusable with nothing: its only equal-length neighbour
+     (case 19, 10,057 bytes) expects PASS while it expects FAIL. blind_adjacent() below enforces the real rule
+     -- equal byte length and equal expected verdict, nothing more -- so it cannot be
+     misread. A revision of it also required j's want to be inside i's want and called that
+     conservative. It was the reverse: see its docstring.
 """
 import io
 import os
@@ -135,12 +136,21 @@ def set_basis(s, key, basis):
 # attribution and unwatched.
 #
 # The ordering is the third defence, and it is not decoration. Measured on the one adjacent
-# equal-length pair this file actually contains (rot=270-cites--90 then rot=360, both 10,057
-# bytes), both defences off, twelve replays: 3 landed in the same whole second and all 3 ran
-# the PREVIOUS case's module, so rot=360 reported PASS when it must FAIL. The 9 that crossed a
-# second boundary were correct. The correlation was exact -- same-second implies stale, never
-# the reverse -- so the collision rate is simply the same-second rate, and the harness's own
-# overhead between the two writes is what keeps it low, not any property of the check.
+# equal-length pair this file actually contains (cases 19 and 20, rot=270-cites--90 then
+# rot=360, both 10,057 bytes), both defences off: the collision happens exactly when the two
+# writes land in the same whole second, and all such trials ran the PREVIOUS case's module, so
+# rot=360 reported PASS when it must FAIL. The biconditional has never been violated, so the
+# collision rate IS the same-second rate: 10 of 24 trials here, 9 of 24 on the machine that
+# checked this claim. Between a quarter and a half of attempts, governed by machine load, and
+# nothing about the check itself keeps it down.
+#
+# An earlier revision of this comment offered a full-harness number as reassurance -- no wrong
+# verdicts in twelve runs. That instrument was broken: its sandbox resolved REPO to the wrong
+# parent and died before the interesting import, so it could not have produced one. Re-run
+# correctly, this machine gives 0 wrong verdicts in 6 replays and the machine that checked the
+# claim gives 2 in 6. The rate moves between boxes, so it is not a property of the check and
+# cannot be relied on. What the ordering buys is not a low rate; it is a loud failure on every
+# occasion the rate is paid.
 #
 # With the shipped ordering that event is a visible verdict mismatch. Put the two PASS cases
 # side by side instead, which is how this file shipped through round twelve, and it is silent.
@@ -232,9 +242,11 @@ def run(sandbox, args):
     # PYTHONDONTWRITEBYTECODE is load-bearing, not hygiene. CPython validates a .pyc from
     # the source's mtime truncated to WHOLE SECONDS plus its byte length. Two adjacent
     # mutations of identical length inside the same second therefore make the second case
-    # import the first case's module. The two rot=270 aliasing cases are exactly that pair
-    # (both 10,057 bytes), and the harness averages 0.7s per case, so they land together most
-    # of the time. A stale PASS where PASS is expected is invisible in the output; a stale FAIL
+    # import the first case's module. Cases 19 and 20 (rot=270-cites--90 then rot=360, both
+    # 10,057 bytes) are exactly that pair; the two rot=270 cases are NOT, since case 18 sits
+    # between them. The harness runs ~0.7s per case, so the two writes share a whole second on
+    # a substantial minority of attempts -- measured, not assumed -- which is far too often to
+    # rely on. A stale PASS where PASS is expected is invisible in the output; a stale FAIL
     # prints the PREVIOUS case's message and looks like the right guard fired. Writing no
     # bytecode removes the whole class.
     p = subprocess.run([sys.executable, "verify.py"] + args, cwd=sandbox,
@@ -284,10 +296,14 @@ def blind_adjacent(pristine):
     output; if wj is in wi then wj is in fired_i, which is precisely the condition under which
     a stale import on j reports ok. Extra text in i's message therefore cannot rescue a pair
     the substring test let through -- it could only ever hide blindness, never invent it.
-    Measured: dropping it flags 0 pairs on the shipped file (so it costs nothing today) and
-    1 pair on two injected equal-length FAIL mutations whose wants are unrelated (so it was
-    hiding a real case). The byte-length clause is not redundant the same way: it is what
-    keeps the two ceiling PASS cases, at 10,156 and 10,057 bytes, from being flagged.
+    Measured on the shipped file, and on a copy with two injected equal-length FAIL
+    mutations whose wants are unrelated: the old predicate flags 0 and 0, the new one flags 0
+    and 1. The substring test cost nothing today and hid a real case later.
+
+    Neither surviving clause is redundant, and they fail at different edges. Drop the
+    byte-length test and 12 adjacent pairs are flagged: the eleven FAIL/FAIL adjacencies
+    2/3 3/4 4/5 5/6 6/7 7/8 8/9 9/10 10/11 15/16 20/21, plus the ceiling PASS pair 22/23.
+    Drop the verdict test and exactly 1 is: 19/20, both 10,057 bytes, one PASS and one FAIL.
     """
     blind = []
     for (li, mi, ei, wi), (lj, mj, ej, wj) in zip(CASES, CASES[1:]):
