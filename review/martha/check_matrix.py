@@ -28,6 +28,11 @@ Three rules learned the hard way, all encoded below:
     source mtime in whole seconds plus its byte length, so two same-length mutations in the
     same second run the previous case's module. Each case therefore carries the message it
     expects, and run() sets PYTHONDONTWRITEBYTECODE.
+  * An assertion is only as good as the information in what it asserts. Four cases here
+    failed on one verify.py line that interpolated only the page id, so all four printed
+    byte-identical text and the check was vacuous; the message now quotes the rejected
+    basis. Where a case has no message to match (the PASS cases), the defence is the
+    per-case bytecode check, not a substring.
 """
 import io
 import os
@@ -102,6 +107,17 @@ def set_basis(s, key, basis):
 # "ceiling" cases are EXPECTED TO PASS: they record what the guard cannot reject, so a
 # future tightening has to update them deliberately rather than discovering the change as a
 # surprise.
+#
+# DO NOT REORDER THIS LIST. The cases are distinguished by the byte length of the file each
+# one writes, and the stale-import bug this harness once had lives entirely inside that
+# shape: five cases (9, 17, 18, 20, 23) all produce a 10,057-byte rotations.py, and only the
+# position of case 19 (10,058) keeps 18 and 20 from being adjacent. Case 20 is rot=360,
+# which MUST fail, so a reorder that puts it next to another 10,057 case recreates the
+# collision. Sorting, grouping by section, or inserting a case can all do that silently.
+#
+# What the message layer cannot do: PASS cases have no failure line, so want="" and a stale
+# import on one is invisible here. That class is closed by the mechanism instead, by
+# PYTHONDONTWRITEBYTECODE plus the per-case cache check in main(), not by the assertion.
 CASES = [
     ("clean", lambda s: s, "PASS", ""),
     # --- a basis must exist, and be a known kind ---
@@ -114,14 +130,18 @@ CASES = [
     ("bogus basis kind", lambda s: set_basis(s, "2E37B36F", "vibes: volume 529.5 at 270"), "FAIL",
      "has unrecognised basis"),
     # --- a digit is not a measurement ---
+    # Each of these four mutates the SAME page, so before verify.py quoted the rejected
+    # basis back they printed byte-identical FAIL lines and the assertion below could not
+    # tell one from another. The want strings now name the value, which is what makes a
+    # stale import on these cases visible.
     ("digit stripped to 'ocr'", lambda s: set_basis(s, PROBE, "ocr"), "FAIL",
-     "records no measurement"),
+     "no measurement: 'ocr'"),
     ("'ocr: 9'", lambda s: set_basis(s, PROBE, "ocr: 9"), "FAIL",
-     "records no measurement"),
+     "no measurement: 'ocr: 9'"),
     ("'ocr: see note 1'", lambda s: set_basis(s, PROBE, "ocr: see note 1"), "FAIL",
-     "records no measurement"),
+     "no measurement: 'ocr: see note 1'"),
     ("'ocr: settled in round 8'", lambda s: set_basis(s, PROBE, "ocr: settled in round 8"), "FAIL",
-     "records no measurement"),
+     "no measurement: 'ocr: settled in round 8'"),
     # --- the cited angle must be the applied rotation ---
     ("cites 90, applied -90", lambda s: set_basis(s, PROBE, "ocr: 143 matches at 90, 0 elsewhere"),
      "FAIL", "cites angle(s) [90] but the applied rotation is -90"),
@@ -199,6 +219,12 @@ def run(sandbox, args):
     return p.returncode, out, verdict
 
 
+def caches_in(work):
+    """Any __pycache__ under the sandbox. Non-empty means a verdict may be stale."""
+    return [os.path.join(dp, dn) for dp, dns, _ in os.walk(work) for dn in dns
+            if dn == "__pycache__"]
+
+
 def main():
     sandbox = tempfile.mkdtemp(prefix="martha-check-matrix-")
     try:
@@ -223,11 +249,15 @@ def main():
             with io.open(rot_path, encoding="utf-8") as f:
                 assert f.read() == text, "mutation did not land: %s" % label
             rc, out, verdict = run(work, [])
+            # Checked per case, not once at the end. PASS cases have no message to assert
+            # against, so the cache check is the only defence they have, and a single
+            # post-hoc walk cannot say WHICH verdict was produced by a stale module.
+            stale = caches_in(work)
             # Match the whole line, not the printed excerpt, so truncation cannot invent a
             # mismatch.
             fired = next((ln[5:].strip() for ln in out.splitlines() if ln.startswith("FAIL ")), "")
             msg_ok = (not want) or (want in fired)
-            ok = (verdict == expect) and msg_ok
+            ok = (verdict == expect) and msg_ok and not stale
             if not ok:
                 fails += 1
             detail = fired
@@ -235,6 +265,9 @@ def main():
                 detail = next((ln.strip() for ln in out.splitlines() if ln.strip()), "")
             if verdict == expect and not msg_ok:
                 detail = "WRONG GUARD (want %r) got: %s" % (want, fired)
+            if stale:
+                detail = "STALE (bytecode cache %s)" % ", ".join(
+                    os.path.relpath(c, work) for c in stale)
             print("%s%-40s expect=%-5s got=%-5s %s" % (
                 "MISMATCH " if not ok else "ok       ", label, expect, verdict, detail[:120]))
 
@@ -246,22 +279,22 @@ def main():
                 print("%-32s SKIP (needs the U: download)" % label)
                 continue
             rc, out, verdict = run(work, args)
+            stale = caches_in(work)
             # A run that did not compare must never claim that it did.
             false_claim = ("verified 10 copied images" in out
                            and want_text != "verified 10 copied images")
-            ok = rc == want_rc and want_text in out and not false_claim
+            ok = rc == want_rc and want_text in out and not false_claim and not stale
             if not ok:
                 fails += 1
             print("%s%-32s rc=%s(want %s) %s%s" % (
                 "ok      " if ok else "MISMATCH", label, rc, want_rc,
                 "" if want_text in out else "missing %r " % want_text,
-                "  FALSE CLAIM" if false_claim else ""))
+                "  STALE" if stale else ("  FALSE CLAIM" if false_claim else "")))
 
-        # The staleness defence must actually hold. If bytecode landed on disk then
+        # Belt to the per-case braces: if bytecode ever lands on disk then
         # PYTHONDONTWRITEBYTECODE was not inherited and every verdict above is suspect, so
         # say so rather than reporting a clean run.
-        caches = [os.path.join(dp, dn) for dp, dns, fns in os.walk(work) for dn in dns
-                  if dn == "__pycache__"]
+        caches = caches_in(work)
         if caches:
             fails += 1
             print("MISMATCH bytecode cache written (%s): verdicts may be stale"
@@ -270,9 +303,9 @@ def main():
         # The sandbox must be left exactly as found, or the matrix proves nothing.
         with io.open(rot_path, encoding="utf-8-sig") as f:
             assert f.read() == pristine, "sandbox rotations.py not restored"
-        rc, out, verdict = run(work, [])
-        print("\nsandbox clean run: %s" % verdict)
-        if verdict != "PASS":
+        rc, out, clean = run(work, [])
+        print("\nsandbox clean run: %s" % clean)
+        if clean != "PASS":
             fails += 1
         print("cases: %d rotation, %d argument -- mismatches: %d"
               % (len(CASES), len(ARG_CASES), fails))

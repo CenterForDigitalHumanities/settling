@@ -421,8 +421,15 @@ for k, v in sorted(rotations.ROTATIONS.items()):
         # disproved C04781D1 rotation with a bare "ocr" basis passed every check. A
         # fabricated number is still possible, but it is diffable and checkable against
         # the per-entry comment, where a bare method word was neither.
-        bad("ROTATION_BASIS %s claims an OCR basis but records no measurement; cite the "
-            "transcript matches or volume that settled the angle" % k)
+        #
+        # The rejected string is quoted back, as the unrecognised-basis branch below
+        # already does. Partly it answers the first question a failing author has, which
+        # basis did you reject. Partly it is for check_matrix.py: four of its cases mutate
+        # the same page and all failed on this one line, so all four printed a byte-
+        # identical message and the harness could not tell a right verdict from a stale
+        # import. Naming the value makes each case's output its own.
+        bad("ROTATION_BASIS %s claims an OCR basis but records no measurement: %r. Cite the "
+            "transcript matches or volume that settled the angle" % (k, basis))
     elif basis.startswith("ocr"):
         # The basis must name the angle that actually won, so a justification cannot be
         # pasted onto a different rotation than the run that produced it. Every applied
