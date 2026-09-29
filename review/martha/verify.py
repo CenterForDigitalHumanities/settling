@@ -395,10 +395,11 @@ ANGLE_RE = re.compile(r"\bat\s+(-?\d{1,3})\b")
 # drops the table value straight into `transform: rotate(<n>deg)` and PIL appears nowhere
 # in the repo -- PIL is only mentioned in rotations.py's header because the offline OCR
 # test emulated CSS theta with im.rotate(-theta). So a basis may name the applied turn
-# under any spelling of it (-90, 270 and 540 are one rotation), which is congruence mod
-# 360 rather than a lookup table. A table was also a crash: check 5 accepts any multiple
-# of 90, so the legal value 270 hit a bare subscript and died with a KeyError and no
-# verdict at all.
+# under any spelling of it: -90, 270, 630 and -450 are one rotation, because congruence
+# mod 360 is the relation, not a lookup table. (540 is NOT one of them -- 540 mod 360 is
+# 180. An earlier draft of this comment said 540, and a reviewer caught it.) A table was
+# also a crash: check 5 accepts any multiple of 90, so the legal value 270 hit a bare
+# subscript and died with a KeyError and no verdict at all.
 def css_turn_names(v):
     """Both spellings of one CSS turn, for the failure message."""
     return " / ".join(str(x) for x in sorted({v, v + (360 if v < 0 else -360)}))

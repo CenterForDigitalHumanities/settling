@@ -16,13 +16,18 @@ crash rather than fail -- so this is safe to run beside a dirty checkout and saf
 
 Exit code is 0 only if every case behaves as expected AND none of them crashed.
 
-Two rules learned the hard way, both encoded below:
+Three rules learned the hard way, all encoded below:
   * Assert WHERE an edit landed. "020E073B" is the first key of both ROTATIONS and
     ROTATION_BASIS, so anchoring on it silently mutated the wrong dict and produced two
     plausible, false results.
   * Assert the mutation happened at all, and that the run did not raise. A traceback is
     not a FAIL; it is a broken harness. Check 5 accepts any multiple of 90, so the legal
     value 270 once reached a bare dict subscript and died with a KeyError and no verdict.
+  * Assert WHICH check fired, and never let the interpreter cache a mutation. A verdict
+    alone cannot tell a stale import from a real failure: CPython validates a .pyc from the
+    source mtime in whole seconds plus its byte length, so two same-length mutations in the
+    same second run the previous case's module. Each case therefore carries the message it
+    expects, and run() sets PYTHONDONTWRITEBYTECODE.
 """
 import io
 import os
@@ -85,40 +90,75 @@ def set_basis(s, key, basis):
     return out
 
 
-# (label, mutation, expected verdict). "ceiling" cases are EXPECTED TO PASS: they record
-# what the guard cannot reject, so a future tightening has to update them deliberately
-# rather than discovering the change as a surprise.
+# (label, mutation, expected verdict, required substring of the FAIL line).
+#
+# The fourth field exists because asserting only the verdict is not enough. A stale module
+# import, or a check that fails for an unrelated reason, both print FAIL, and the exit code
+# cannot tell them apart. "rot=45" is the example that is live in this file right now: it
+# expects FAIL and gets FAIL, but from check 5 ("not a multiple of 90"), not from the angle
+# cross-check the case is named after. The message pins WHICH guard fired. PASS cases carry
+# "" because there is no failure line to match.
+#
+# "ceiling" cases are EXPECTED TO PASS: they record what the guard cannot reject, so a
+# future tightening has to update them deliberately rather than discovering the change as a
+# surprise.
 CASES = [
-    ("clean", lambda s: s, "PASS"),
+    ("clean", lambda s: s, "PASS", ""),
     # --- a basis must exist, and be a known kind ---
-    ("+90, no basis", lambda s: add_rot(s, "90"), "FAIL"),
-    ("+90, bare 'ocr'", lambda s: add_basis(add_rot(s, "90"), "ocr"), "FAIL"),
-    ("basis, no rotation", lambda s: add_basis(s, "ocr: 1 match"), "FAIL"),
-    ("bogus basis kind", lambda s: set_basis(s, "2E37B36F", "vibes: volume 529.5 at 270"), "FAIL"),
+    ("+90, no basis", lambda s: add_rot(s, "90"), "FAIL",
+     "applies +90 but ROTATION_BASIS records no reason"),
+    ("+90, bare 'ocr'", lambda s: add_basis(add_rot(s, "90"), "ocr"), "FAIL",
+     "claims an OCR basis but records no measurement"),
+    ("basis, no rotation", lambda s: add_basis(s, "ocr: 1 match"), "FAIL",
+     "records a basis for a rotation that is not applied"),
+    ("bogus basis kind", lambda s: set_basis(s, "2E37B36F", "vibes: volume 529.5 at 270"), "FAIL",
+     "has unrecognised basis"),
     # --- a digit is not a measurement ---
-    ("digit stripped to 'ocr'", lambda s: set_basis(s, PROBE, "ocr"), "FAIL"),
-    ("'ocr: 9'", lambda s: set_basis(s, PROBE, "ocr: 9"), "FAIL"),
-    ("'ocr: see note 1'", lambda s: set_basis(s, PROBE, "ocr: see note 1"), "FAIL"),
-    ("'ocr: settled in round 8'", lambda s: set_basis(s, PROBE, "ocr: settled in round 8"), "FAIL"),
+    ("digit stripped to 'ocr'", lambda s: set_basis(s, PROBE, "ocr"), "FAIL",
+     "records no measurement"),
+    ("'ocr: 9'", lambda s: set_basis(s, PROBE, "ocr: 9"), "FAIL",
+     "records no measurement"),
+    ("'ocr: see note 1'", lambda s: set_basis(s, PROBE, "ocr: see note 1"), "FAIL",
+     "records no measurement"),
+    ("'ocr: settled in round 8'", lambda s: set_basis(s, PROBE, "ocr: settled in round 8"), "FAIL",
+     "records no measurement"),
     # --- the cited angle must be the applied rotation ---
-    ("cites 90, applied -90", lambda s: set_basis(s, PROBE, "ocr: 143 matches at 90, 0 elsewhere"), "FAIL"),
-    ("cites no angle at all", lambda s: set_basis(s, PROBE, "ocr: 143 matches, 0 elsewhere"), "FAIL"),
-    ("cites 270, applied -90", lambda s: set_basis(s, PROBE, "ocr: 143 matches at 270, 0 elsewhere"), "PASS"),
+    ("cites 90, applied -90", lambda s: set_basis(s, PROBE, "ocr: 143 matches at 90, 0 elsewhere"),
+     "FAIL", "cites angle(s) [90] but the applied rotation is -90"),
+    ("cites no angle at all", lambda s: set_basis(s, PROBE, "ocr: 143 matches, 0 elsewhere"),
+     "FAIL", "cites angle(s) none"),
+    ("cites 270, applied -90", lambda s: set_basis(s, PROBE, "ocr: 143 matches at 270, 0 elsewhere"),
+     "PASS", ""),
     # --- the pinned unverified set cannot be emptied by typing a number ---
-    ("75C37361 faked to ocr", lambda s: set_basis(s, "75C37361", "ocr: 40 matches at 270"), "FAIL"),
-    ("75C37361 bare 'unverified'", lambda s: set_basis(s, "75C37361", "unverified"), "PASS"),
-    ("all ocr downgraded", lambda s: s.replace(': "ocr', ': "unverified'), "FAIL"),
-    ("+90 'unverified: trust me'", lambda s: add_basis(add_rot(s, "90"), "unverified: trust me"), "FAIL"),
+    ("75C37361 faked to ocr", lambda s: set_basis(s, "75C37361", "ocr: 40 matches at 270"), "FAIL",
+     "the unverified-rotation set changed"),
+    ("75C37361 bare 'unverified'", lambda s: set_basis(s, "75C37361", "unverified"), "PASS", ""),
+    ("all ocr downgraded", lambda s: s.replace(': "ocr', ': "unverified'), "FAIL",
+     "the unverified-rotation set changed"),
+    ("+90 'unverified: trust me'", lambda s: add_basis(add_rot(s, "90"), "unverified: trust me"),
+     "FAIL", "the unverified-rotation set changed"),
     # --- angle aliasing: the table holds CSS degrees, so any spelling of the same turn
     #     is the same rotation. These are the cases that used to raise KeyError. ---
-    ("rot=270, basis cites 270", lambda s: set_basis(set_rot(s, PROBE, "270"), PROBE, "ocr: 143 matches at 270"), "PASS"),
-    ("rot=270, basis cites -90", lambda s: set_basis(set_rot(s, PROBE, "270"), PROBE, "ocr: 143 matches at -90"), "PASS"),
-    ("rot=-270, basis cites 270", lambda s: set_basis(set_rot(s, PROBE, "-270"), PROBE, "ocr: 143 matches at 270"), "FAIL"),
-    ("rot=360, basis cites 270", lambda s: set_basis(set_rot(s, PROBE, "360"), PROBE, "ocr: 143 matches at 270"), "FAIL"),
-    ("rot=45, basis cites 270", lambda s: set_basis(set_rot(s, PROBE, "45"), PROBE, "ocr: 143 matches at 270"), "FAIL"),
+    ("rot=270, basis cites 270",
+     lambda s: set_basis(set_rot(s, PROBE, "270"), PROBE, "ocr: 143 matches at 270"), "PASS", ""),
+    ("rot=270, basis cites -90",
+     lambda s: set_basis(set_rot(s, PROBE, "270"), PROBE, "ocr: 143 matches at -90"), "PASS", ""),
+    ("rot=-270, basis cites 270",
+     lambda s: set_basis(set_rot(s, PROBE, "-270"), PROBE, "ocr: 143 matches at 270"), "FAIL",
+     "applied rotation is -270, which is CSS -270 / 90"),
+    ("rot=360, basis cites 270",
+     lambda s: set_basis(set_rot(s, PROBE, "360"), PROBE, "ocr: 143 matches at 270"), "FAIL",
+     "applied rotation is +360, which is CSS 0 / 360"),
+    # Reaching the cross-check with an illegal angle is impossible: check 5 rejects 45
+    # first. Labelled for what it actually asserts.
+    ("rot=45 (check 5, not the cross-check)",
+     lambda s: set_basis(set_rot(s, PROBE, "45"), PROBE, "ocr: 143 matches at 270"), "FAIL",
+     "is 45, not a multiple of 90"),
     # --- the ceiling: specific, plausible, self-attested. Nothing rejects these. ---
-    ("+90 'ocr: 999 matches at 90'", lambda s: add_basis(add_rot(s, "90"), "ocr: 999 matches at 90"), "PASS"),
-    ("'ocr: 999 matches at 270'", lambda s: set_basis(s, PROBE, "ocr: 999 matches at 270"), "PASS"),
+    ("+90 'ocr: 999 matches at 90'", lambda s: add_basis(add_rot(s, "90"), "ocr: 999 matches at 90"),
+     "PASS", ""),
+    ("'ocr: 999 matches at 270'", lambda s: set_basis(s, PROBE, "ocr: 999 matches at 270"),
+     "PASS", ""),
 ]
 
 # (label, argv, expected rc, expected substring, needs U: drive)
@@ -136,8 +176,17 @@ ARG_CASES = [
 
 
 def run(sandbox, args):
+    # PYTHONDONTWRITEBYTECODE is load-bearing, not hygiene. CPython validates a .pyc from
+    # the source's mtime truncated to WHOLE SECONDS plus its byte length. Two adjacent
+    # mutations of identical length inside the same second therefore make the second case
+    # import the first case's module. Cases 17 and 18 are exactly that pair (both
+    # 10,057 bytes), and the harness averages 0.7s per case, so they land together most of
+    # the time. A stale PASS where PASS is expected is invisible in the output; a stale FAIL
+    # prints the PREVIOUS case's message and looks like the right guard fired. Writing no
+    # bytecode removes the whole class.
     p = subprocess.run([sys.executable, "verify.py"] + args, cwd=sandbox,
-                       capture_output=True, text=True)
+                       capture_output=True, text=True,
+                       env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
     out = (p.stdout or "") + (p.stderr or "")
     if "Traceback" in out:
         verdict = "CRASH"
@@ -163,7 +212,7 @@ def main():
 
         fails = 0
         print("== rotation guard matrix ==")
-        for label, mutate, expect in CASES:
+        for label, mutate, expect, want in CASES:
             text = mutate(pristine)
             if text == pristine and label != "clean":
                 print("%-30s HARNESS MISS (no change made)" % label)
@@ -171,14 +220,23 @@ def main():
                 continue
             with io.open(rot_path, "w", encoding="utf-8", newline="\n") as f:
                 f.write(text)
+            with io.open(rot_path, encoding="utf-8") as f:
+                assert f.read() == text, "mutation did not land: %s" % label
             rc, out, verdict = run(work, [])
-            if verdict != expect:
+            # Match the whole line, not the printed excerpt, so truncation cannot invent a
+            # mismatch.
+            fired = next((ln[5:].strip() for ln in out.splitlines() if ln.startswith("FAIL ")), "")
+            msg_ok = (not want) or (want in fired)
+            ok = (verdict == expect) and msg_ok
+            if not ok:
                 fails += 1
-            detail = next((ln[5:110].strip() for ln in out.splitlines() if ln.startswith("FAIL ")), "")
+            detail = fired
             if verdict == "CRASH":
                 detail = next((ln.strip() for ln in out.splitlines() if ln.strip()), "")
-            print("%s%-32s expect=%-5s got=%-5s %s" % (
-                "MISMATCH " if verdict != expect else "ok       ", label, expect, verdict, detail))
+            if verdict == expect and not msg_ok:
+                detail = "WRONG GUARD (want %r) got: %s" % (want, fired)
+            print("%s%-40s expect=%-5s got=%-5s %s" % (
+                "MISMATCH " if not ok else "ok       ", label, expect, verdict, detail[:120]))
 
         print("\n== argument matrix ==")
         with io.open(rot_path, "w", encoding="utf-8", newline="\n") as f:
@@ -198,6 +256,16 @@ def main():
                 "ok      " if ok else "MISMATCH", label, rc, want_rc,
                 "" if want_text in out else "missing %r " % want_text,
                 "  FALSE CLAIM" if false_claim else ""))
+
+        # The staleness defence must actually hold. If bytecode landed on disk then
+        # PYTHONDONTWRITEBYTECODE was not inherited and every verdict above is suspect, so
+        # say so rather than reporting a clean run.
+        caches = [os.path.join(dp, dn) for dp, dns, fns in os.walk(work) for dn in dns
+                  if dn == "__pycache__"]
+        if caches:
+            fails += 1
+            print("MISMATCH bytecode cache written (%s): verdicts may be stale"
+                  % ", ".join(os.path.relpath(c, work) for c in caches))
 
         # The sandbox must be left exactly as found, or the matrix proves nothing.
         with io.open(rot_path, encoding="utf-8-sig") as f:
