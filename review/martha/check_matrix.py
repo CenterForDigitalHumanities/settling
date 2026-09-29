@@ -48,9 +48,12 @@ Six rules learned the hard way, all encoded below:
     so stale_prose() below now fails the run on a fixed list of phrasings that were true here once
     and are false now. It is a ratchet, not a proof: it can only re-block wording that has already
     been wrong, so a first-time error still needs a reader. Its scope is this module alone. The PR
-    body still carries all seven phrasings, seventeen occurrences in total, and that is deliberate:
-    there they are a record of what was said and when it was found false, not a description of the
-    present file. Nothing checks the body, so a green run is not coverage of it. The control in
+    body still carries all seven phrasings, and that is deliberate: there they are a record of what
+    was said and when it was found false, not a description of the present file. No count of them is
+    stated here on purpose. A count describes an artifact this module cannot read, and the round that
+    reports a stale count is the round that adds occurrences of the phrases being counted: the body
+    said 17 while holding 21, and the sentence carrying the number sat inside the section that had
+    just added four of them. Nothing checks the body, so a green run is not coverage of it. The control in
     main() proves the filter can see but cannot prove the audit still runs, so a CI step outside
     this module injects a retired phrase into a copy of this file and requires the copy to refuse
     to run. What neither can see is the deletion of that step, which is what a diff is for.
@@ -283,9 +286,12 @@ def run(sandbox, args):
     # mutations of identical length inside the same second therefore make the second case
     # import the first case's module. Cases 19 and 20 (rot=270-cites--90 then rot=360, both
     # 10,057 bytes) are exactly that pair; the two rot=270 cases are NOT, since case 18 sits
-    # between them. The harness runs ~0.7s per case (22.02, 22.07 and 22.11s for the 31 verify.py
-    # invocations a full run makes, 0.710-0.713s each; the reviewing machine measured 22.09s and
-    # 0.712), so the two writes share a whole second on a substantial minority of attempts --
+    # between them. A full run makes 32 verify.py invocations (23 rotation cases, 8 argument cases,
+    # one final clean run) in 20-23s on either machine, so under a second per invocation at any
+    # divisor between 31 and 32: 0.63-0.72s across six batches on two machines. The bound is the
+    # load-bearing fact and the decimals are not portable -- three runs here spread 0.4% and 2.3%,
+    # the reviewing machine's three spread 10.6%. Two writes therefore share a whole second on a
+    # substantial minority of attempts --
     # measured, not assumed -- which is far too often to rely on. A stale PASS where PASS is
     # expected is invisible in the output; a stale FAIL
     # prints the PREVIOUS case's message and looks like the right guard fired. Writing no
@@ -328,7 +334,7 @@ def blind_adjacent(pristine):
 
       * the mutated rotations.py must be the same number of bytes, or CPython rewrites the
         .pyc rather than reusing it (mtime alone is not enough -- it is truncated to whole
-        seconds and the harness runs ~0.7s per case, 31 invocations in ~22s);
+        seconds and a full run makes 32 verify.py invocations in 20-23s, under a second each);
       * the expected verdicts must agree, since a PASS run never satisfies a FAIL case.
 
     Nothing else may be required, and an earlier revision also required j's want to be
