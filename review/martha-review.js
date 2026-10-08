@@ -288,10 +288,14 @@ const MarthaReview = (() => {
         const pages = (doc.pages || []).map((p) => ({
           imageFile: p.imageFile,
           rotation: p.rotation || 0,
+          pageNumber: p.pageNumber,
           label: `${doc.docId} — ${doc.title} · p. ${p.pageNumber}`,
         }))
         if (!pages.length) return
-        openLightbox(pages, 0)
+        // Optional 1-based page number so a per-page thumbnail opens on that page.
+        const want = parseInt(el.getAttribute("data-open-page"), 10)
+        const at = Number.isNaN(want) ? 0 : pages.findIndex((p) => p.pageNumber === want)
+        openLightbox(pages, at < 0 ? 0 : at)
       })
     })
   }

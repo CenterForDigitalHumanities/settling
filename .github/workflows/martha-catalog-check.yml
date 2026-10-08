@@ -1,0 +1,85 @@
+name: Martha catalog checks
+
+# verify.py is the only re-runnable check on the 167-page Martha catalog. Without CI it
+# only runs when a human remembers, and an edit can silently break the byte-identity and
+# provenance claims the catalog rests on. Ashley's ordered folder is not available here,
+# so the byte-for-byte comparison against her originals is skipped; everything else runs.
+
+on:
+  push:
+    paths:
+      - "review/martha/**"
+      - "review/martha.html"
+      - "review/martha-audit.html"
+      - "review/martha-schema.md"
+      - ".github/workflows/martha-catalog-check.yml"
+  pull_request:
+    paths:
+      - "review/martha/**"
+      - "review/martha.html"
+      - "review/martha-audit.html"
+      - "review/martha-schema.md"
+      - ".github/workflows/martha-catalog-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify catalog, provenance and reports
+        run: python review/martha/verify.py
+
+      # verify.py asserts things about the rotation table; check_matrix.py asserts that
+      # verify.py actually enforces them. It runs the whole matrix in a temp copy of
+      # review/, so it cannot dirty the checkout the next step diffs.
+      - name: Verify the guards actually fire
+        run: python review/martha/check_matrix.py
+
+      # check_matrix.py audits prose and its own control proves that audit can still see. Neither
+      # can notice the control being deleted, so this check is made from outside the module: read
+      # the retired list out of the source text, inject one decoded phrase into a copy, and require
+      # the copy to refuse to run. An emptied list, a broken decode, a neutered control and a dead
+      # audit all fail here; the module's own control cannot see that last one.
+      - name: Verify the prose ratchet from outside the module
+        run: |
+          python - <<'PY'
+          import pathlib, re, shutil, subprocess, sys, tempfile
+          src = pathlib.Path("review/martha/check_matrix.py").read_text(encoding="utf-8")
+          m = re.search(r"RETIRED_PROSE = \[(.*?)\n\]", src, re.S)
+          if not m:
+              sys.exit("could not find the RETIRED_PROSE list: the ratchet is gone")
+          entries = re.findall(r'"([^"]+)"', m.group(1))
+          if not entries:
+              sys.exit("RETIRED_PROSE is empty: the ratchet guards nothing")
+          d = pathlib.Path(tempfile.mkdtemp())
+          try:
+              probe = d / "check_matrix.py"
+              probe.write_text(src + "\n# " + entries[0].replace("_", " ") + "\n", encoding="utf-8")
+              try:
+                  p = subprocess.run([sys.executable, str(probe)], capture_output=True,
+                                     text=True, timeout=300)
+              except subprocess.TimeoutExpired:
+                  sys.exit("injected copy never returned: the audit did not short-circuit")
+          finally:
+              shutil.rmtree(d, ignore_errors=True)
+          out = p.stdout or ""
+          if p.returncode == 0 or "retired prose" not in out:
+              sys.exit("the prose ratchet did not fire on an injected retired phrase (rc=%s)"
+                       % p.returncode)
+          print("prose ratchet fires from outside: %d entries" % len(entries))
+          PY
+
+      - name: Rebuild reports
+        run: python review/martha/build_reports.py
+
+      - name: Fail if the committed reports are stale
+        run: git diff --exit-code -- review/martha.html review/martha-audit.html
