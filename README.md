@@ -54,11 +54,11 @@ This project serves as a digital archive exploring the lawsuits filed under the 
 
 ### GitHub Pages
 
-This site is designed to be served through GitHub Pages:
+This site is served through GitHub Pages with the custom domain `womenwhosuedthenews.com`:
 
 1. Go to repository Settings → Pages
 2. Set source to main branch
-3. Site will be available at `https://centerfordigitalhumanities.github.io/settling/`
+3. Site will be available at `https://womenwhosuedthenews.com/`
 
 ### Vercel Previews
 
