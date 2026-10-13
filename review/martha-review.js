@@ -3,7 +3,7 @@
 // Expects `window.__MARTHA__` to be defined on the page (imageFilenames per doc, etc.)
 
 const MarthaReview = (() => {
-  // Base-relative to the site's `<base href="/settling/">`. On local file:// the
+  // Base-relative to the site's `<base href="/">`. On local file:// the
   // inline base-rewrite sets the base to the site root, so this resolves the same
   // way as when served.
   const IMG_BASE = "review/martha/images/"

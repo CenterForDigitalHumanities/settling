@@ -235,7 +235,7 @@ for f in (os.path.join(REPO, "review", "martha.html"), os.path.join(REPO, "revie
         bad("absolute local path leaked into %s" % os.path.basename(f))
 print("sourceFolder:", repr(sf))
 
-# 11. every image the reports reference must resolve under the site's <base href="/settling/">
+# 11. every image the reports reference must resolve under the site's <base href="/">
 SRC_RE = re.compile(r'src="(review/martha/images/([^"]+))"')
 OTHER_SRC = re.compile(r'src="((?!review/martha/images/|assets/|https?:)[^"]*images/[^"]+)"')
 report_path = os.path.join(REPO, "review", "martha.html")

@@ -3,7 +3,7 @@ const SiteComponents = (() => {
   const RELEASE_END_DATE = new Date("2026-11-28T00:00:00").getTime()
 
   const prefixFor = () => {
-    // All relative URLs are resolved from /settling/ by <base href="/settling/">
+    // All relative URLs are resolved from / by <base href="/">
     return ""
   }
 
