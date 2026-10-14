@@ -76,3 +76,715 @@
         .timeline-item {
             position: relative;
             margin-bottom: 60px;
+            width: 50%;
+            padding: 0 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        /* Dot on the timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px var(--ink-deep);
+            z-index: 2;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -9px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -9px;
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.4);
+            box-shadow: 0 0 0 3px var(--cover-title-red), 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Category colors for dots */
+        .timeline-item[data-category="legislation"]::before {
+            background: var(--cover-title-red);
+        }
+
+        .timeline-item[data-category="lawsuit"]::before {
+            background: var(--cover-author-green);
+        }
+
+        .timeline-item[data-category="settlement"]::before {
+            background: #c49a3c;
+        }
+
+        .timeline-item[data-category="milestone"]::before {
+            background: #5b6b8a;
+        }
+
+        .timeline-item[data-category="movement"]::before {
+            background: #8b4a6b;
+        }
+
+        /* Card styling */
+        .timeline-card {
+            background: var(--surface-card);
+            padding: 24px;
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            border-left: 4px solid var(--ink-deep);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: default;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-card {
+            border-left: none;
+            border-right: 4px solid var(--ink-deep);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+        }
+
+        .timeline-date {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--cover-title-red);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .timeline-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--ink-soft);
+        }
+
+        .timeline-category {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 4px 10px;
+            border-radius: 2px;
+            margin-top: 12px;
+            color: #fff;
+        }
+
+        .timeline-item[data-category="legislation"] .timeline-category {
+            background: var(--cover-title-red);
+        }
+
+        .timeline-item[data-category="lawsuit"] .timeline-category {
+            background: var(--cover-author-green);
+        }
+
+        .timeline-item[data-category="settlement"] .timeline-category {
+            background: #c49a3c;
+        }
+
+        .timeline-item[data-category="milestone"] .timeline-category {
+            background: #5b6b8a;
+        }
+
+        .timeline-item[data-category="movement"] .timeline-category {
+            background: #8b4a6b;
+        }
+
+        /* Year markers */
+        .year-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--ink-deep);
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 20px;
+            z-index: 3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Legend */
+        .timeline-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: var(--surface-light);
+            border-radius: 4px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* View toggle */
+        .view-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 16px;
+        }
+
+        .view-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--line-muted);
+            color: var(--line-muted);
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 5px 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .view-toggle-btn:hover {
+            background: var(--ink-deep);
+            border-color: var(--ink-deep);
+            color: #fff;
+        }
+
+        .view-toggle-btn[aria-pressed="true"] {
+            background: var(--ink-deep);
+            border-color: var(--ink-deep);
+            color: #fff;
+        }
+
+        /* Table view */
+        .timeline-table-wrapper {
+            display: none;
+        }
+
+        .timeline-table-wrapper.active {
+            display: block;
+        }
+
+        .timeline-container.hidden {
+            display: none;
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .timeline-table thead th {
+            position: sticky;
+            top: 0;
+        }
+
+        .timeline-table td {
+            vertical-align: top;
+            padding: 12px 14px;
+        }
+
+        .timeline-table .event-date {
+            white-space: nowrap;
+            font-weight: 600;
+            color: var(--cover-title-red);
+            font-size: 0.92rem;
+            width: 140px;
+        }
+
+        .timeline-table .event-category {
+            width: 120px;
+        }
+
+        .timeline-table .table-cat-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 3px 8px;
+            border-radius: 2px;
+            color: #fff;
+        }
+
+        .table-cat-badge.cat-legislation { background: var(--cover-title-red); }
+        .table-cat-badge.cat-lawsuit { background: var(--cover-author-green); }
+        .table-cat-badge.cat-settlement { background: #c49a3c; }
+        .table-cat-badge.cat-milestone { background: #5b6b8a; }
+        .table-cat-badge.cat-movement { background: #8b4a6b; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline-container::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding: 0 20px 0 70px;
+                text-align: left !important;
+            }
+
+            .timeline-item::before {
+                left: 21px !important;
+                right: auto !important;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-card {
+                border-right: none;
+                border-left: 4px solid var(--ink-deep);
+            }
+
+            .year-marker {
+                left: 30px;
+                font-size: 1rem;
+                padding: 4px 12px;
+            }
+
+            .timeline-legend {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <settling-release-banner></settling-release-banner>
+    <settling-nav></settling-nav>
+
+    <header>
+        <div class="container">
+            <h1>Timeline</h1>
+            <p class="subtitle">Key events in the fight against workplace discrimination in journalism</p>
+            <p class="subtext">Laws, once passed, do not magically change the workplace or society overnight.
+                Instead, they are tested, adopted, and adapted rather slowly. The history of antidiscrimination law is
+                not a linear progression toward its annihilation. Instead, it has ebbed and flowed and crashed.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>Historical Timeline</h2>
+
+            <div class="timeline-controls">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="legislation">Legislation</button>
+                <button class="filter-btn" data-filter="lawsuit">Lawsuits</button>
+                <button class="filter-btn" data-filter="settlement">Settlements</button>
+                <button class="filter-btn" data-filter="milestone">Milestones</button>
+                <button class="filter-btn" data-filter="movement">Movement</button>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-toggle-btn" id="viewToggle" aria-pressed="false" aria-controls="timelineTable">View as Table</button>
+            </div>
+
+            <div class="timeline-container" id="timeline">
+                <!-- 1960s -->
+                <div class="year-marker">1960s</div>
+                
+                <div class="timeline-item" data-category="legislation" data-year="1964">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1964</div>
+                        <div class="timeline-text">Title VII of the Civil Rights Act prohibits workplace discrimination.</div>
+                        <span class="timeline-category">Legislation</span>
+                    </div>
+                </div>
+
+                <!-- 1970s -->
+                <div class="year-marker">1970s</div>
+                
+                <div class="timeline-item" data-category="lawsuit" data-year="1970">
+                    <div class="timeline-card">
+                        <div class="timeline-date">March 1970</div>
+                        <div class="timeline-text">Women at <em>Newsweek</em> hold a press conference announcing a US Equal Employment Opportunity Commission (EEOC) complaint.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1970">
+                    <div class="timeline-card">
+                        <div class="timeline-date">May 1970</div>
+                        <div class="timeline-text">Women at four Time Inc. magazines—<em>Time</em>, <em>Life</em>, <em>Fortune</em>, and <em>Sports Illustrated</em>—charge the company with sex discrimination.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="milestone" data-year="1970">
+                    <div class="timeline-card">
+                        <div class="timeline-date">August 1970</div>
+                        <div class="timeline-text">The year is the fiftieth anniversary of passage of the Nineteenth Amendment, which granted women suffrage.</div>
+                        <span class="timeline-category">Milestone</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="movement" data-year="1971">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1971</div>
+                        <div class="timeline-text">Columbia Law School establishes the Employment Rights Project.</div>
+                        <span class="timeline-category">Movement</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="settlement" data-year="1971">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1971</div>
+                        <div class="timeline-text">The Time Inc. lawsuit settles out of court.</div>
+                        <span class="timeline-category">Settlement</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1972">
+                    <div class="timeline-card">
+                        <div class="timeline-date">March 1972</div>
+                        <div class="timeline-text">A group of Black <em>Washington Post</em> reporters, dubbed the Metro 7, file a race discrimination complaint with the EEOC.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1972">
+                    <div class="timeline-card">
+                        <div class="timeline-date">June 1972</div>
+                        <div class="timeline-text">The <em>Reader's Digest</em> women's coalition files a formal EEOC complaint.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1972">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1972</div>
+                        <div class="timeline-text"><em>The Washington Post</em>'s first sex discrimination lawsuit begins.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1973">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1973</div>
+                        <div class="timeline-text">Women at <em>The New York Times</em> file an EEOC complaint.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="settlement" data-year="1973">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1973</div>
+                        <div class="timeline-text">The <em>Newsweek</em> lawsuit settles out of court.</div>
+                        <span class="timeline-category">Settlement</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="movement" data-year="1973">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1973</div>
+                        <div class="timeline-text">The lawyer Janice Goodman opens the first all-woman law firm in Manhattan.</div>
+                        <span class="timeline-category">Movement</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1973">
+                    <div class="timeline-card">
+                        <div class="timeline-date">October 1973</div>
+                        <div class="timeline-text">Women at the Associated Press (AP) file an EEOC complaint charging the wire service with discriminating against women and minorities.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1974">
+                    <div class="timeline-card">
+                        <div class="timeline-date">October 1974</div>
+                        <div class="timeline-text">Women working for the Register Publishing Company in New Haven, Connecticut, file an EEOC complaint.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1974">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1974</div>
+                        <div class="timeline-text">Black reporters sue <em>The New York Times</em> for race discrimination. The suit settles in 1979.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="movement" data-year="1975">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1975</div>
+                        <div class="timeline-text">The term <em>sexual harassment</em> is coined.</div>
+                        <span class="timeline-category">Movement</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1976">
+                    <div class="timeline-card">
+                        <div class="timeline-date">December 1976</div>
+                        <div class="timeline-text">Women at <em>The Detroit News</em> hold a news conference announcing a lawsuit.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="settlement" data-year="1977">
+                    <div class="timeline-card">
+                        <div class="timeline-date">November 1977</div>
+                        <div class="timeline-text">The <em>Reader's Digest</em> lawsuit settles out of court for $1.5 million.</div>
+                        <span class="timeline-category">Settlement</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="settlement" data-year="1978">
+                    <div class="timeline-card">
+                        <div class="timeline-date">October 1978</div>
+                        <div class="timeline-text">A <em>New York Times</em> settlement is reached.</div>
+                        <span class="timeline-category">Settlement</span>
+                    </div>
+                </div>
+
+                <!-- 1980s -->
+                <div class="year-marker">1980s</div>
+
+                <div class="timeline-item" data-category="settlement" data-year="1980">
+                    <div class="timeline-card">
+                        <div class="timeline-date">November 1980</div>
+                        <div class="timeline-text">A <em>Washington Post</em> settlement is reached.</div>
+                        <span class="timeline-category">Settlement</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1981">
+                    <div class="timeline-card">
+                        <div class="timeline-date">1981</div>
+                        <div class="timeline-text">A second suit begins at <em>The Washington Post</em>. The broad pay discrimination lawsuit includes women and people of color.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="lawsuit" data-year="1982">
+                    <div class="timeline-card">
+                        <div class="timeline-date">June 1982</div>
+                        <div class="timeline-text">The Register Publishing Company case goes to trial.</div>
+                        <span class="timeline-category">Lawsuit Filed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="settlement" data-year="1983">
+                    <div class="timeline-card">
+                        <div class="timeline-date">June 1983</div>
+                        <div class="timeline-text">The AP lawsuit ends with an out-of-court $1.5 million settlement.</div>
+                        <span class="timeline-category">Settlement</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-category="settlement" data-year="1983">
+                    <div class="timeline-card">
+                        <div class="timeline-date">November 1983</div>
+                        <div class="timeline-text">The <em>Detroit News</em> lawsuit settles out of court with a $300,000 settlement.</div>
+                        <span class="timeline-category">Settlement</span>
+                    </div>
+                </div>
+
+                <!-- 2000s -->
+                <div class="year-marker">2000s</div>
+
+                <div class="timeline-item" data-category="settlement" data-year="2003">
+                    <div class="timeline-card">
+                        <div class="timeline-date">Spring 2003</div>
+                        <div class="timeline-text">The second <em>Washington Post</em> lawsuit settles.</div>
+                        <span class="timeline-category">Settlement</span>
+                    </div>
+                </div>
+
+                <!-- 2020s -->
+                <div class="year-marker">2020s</div>
+
+                <div class="timeline-item" data-category="milestone" data-year="2021">
+                    <div class="timeline-card">
+                        <div class="timeline-date">Spring 2021</div>
+                        <div class="timeline-text"><em>The Washington Post</em> announces Sally Buzbee as its first female executive editor.</div>
+                        <span class="timeline-category">Milestone</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="timeline-table-wrapper" id="timelineTable" role="region" aria-label="Timeline events as a data table">
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Event</th>
+                            <th scope="col">Category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timelineTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Build table from timeline items
+        (function() {
+            var items = document.querySelectorAll('.timeline-item');
+            var tbody = document.getElementById('timelineTableBody');
+            var rows = [];
+
+            items.forEach(function(item) {
+                var date = item.querySelector('.timeline-date').textContent.trim();
+                var text = item.querySelector('.timeline-text').textContent.trim();
+                var cat = item.dataset.category;
+                var catLabel = item.querySelector('.timeline-category').textContent.trim();
+
+                var tr = document.createElement('tr');
+                tr.dataset.category = cat;
+                tr.innerHTML =
+                    '<td class="event-date">' + date + '</td>' +
+                    '<td>' + text + '</td>' +
+                    '<td class="event-category"><span class="table-cat-badge cat-' + cat + '">' + catLabel + '</span></td>';
+                tbody.appendChild(tr);
+                rows.push(tr);
+            });
+        })();
+
+        // Decade labels are absolutely positioned, so anchor each one to the gap
+        // above the first visible event of its decade instead of a fixed pixel offset.
+        function positionYearMarkers() {
+            var markers = Array.prototype.slice.call(document.querySelectorAll('.year-marker'));
+
+            markers.forEach(function (marker, i) {
+                var boundary = markers[i + 1] || null;
+                var first = null;
+                var node = marker.nextElementSibling;
+
+                while (node && node !== boundary) {
+                    if (node.classList.contains('timeline-item') && node.offsetParent !== null) {
+                        first = node;
+                        break;
+                    }
+                    node = node.nextElementSibling;
+                }
+
+                if (!first) {
+                    marker.style.display = 'none';
+                    return;
+                }
+
+                marker.style.display = '';
+                marker.style.top = Math.max(0, first.offsetTop - marker.offsetHeight - 12) + 'px';
+            });
+        }
+
+        positionYearMarkers();
+        window.addEventListener('load', positionYearMarkers);
+        window.addEventListener('resize', positionYearMarkers);
+
+        // View toggle
+        var viewToggle = document.getElementById('viewToggle');
+        var timelineContainer = document.getElementById('timeline');
+        var tableWrapper = document.getElementById('timelineTable');
+        var filterButtons = document.querySelectorAll('.filter-btn');
+
+        viewToggle.addEventListener('click', function() {
+            var isTable = viewToggle.getAttribute('aria-pressed') === 'true';
+
+            if (isTable) {
+                // Switch back to timeline view
+                viewToggle.setAttribute('aria-pressed', 'false');
+                viewToggle.textContent = 'View as Table';
+                timelineContainer.classList.remove('hidden');
+                tableWrapper.classList.remove('active');
+            } else {
+                // Switch to table view
+                viewToggle.setAttribute('aria-pressed', 'true');
+                viewToggle.textContent = 'View as Timeline';
+                timelineContainer.classList.add('hidden');
+                tableWrapper.classList.add('active');
+            }
+        });
+
+        // Scroll reveal animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Category filtering
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.dataset.filter;
+
+                // Filter timeline items
+                document.querySelectorAll('.timeline-item').forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.classList.add('visible'), 10);
+                    } else {
+                        item.classList.remove('visible');
+                        setTimeout(() => item.style.display = 'none', 300);
+                    }
+                });
+
+                // Filter table rows
+                document.querySelectorAll('#timelineTableBody tr').forEach(row => {
+                    if (filter === 'all' || row.dataset.category === filter) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Items are hidden on a delay, so re-anchor the decade labels afterwards
+                setTimeout(positionYearMarkers, 350);
+            });
+        });
+    </script>
+
+    <settling-footer></settling-footer>
+</body>
+</html>
